@@ -6,6 +6,7 @@ import type { Item } from "@/components/QuestionView";
 import {
   MODES, type ModeId, trackQuestions, dedupe, shuffle, missions, quizItems, gapItems, forgeItems,
   sentenceItems, grammarItems, readingGroups, pairSet, modeAvailability,
+  useBankVersion,
 } from "@/lib/bank";
 import { useProgress, useHydrated, dueCanonicals } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
@@ -38,12 +39,13 @@ function Play() {
   const grade = +gs, term = +ts;
   const hydrated = useHydrated();
   const p = useProgress();
+  const bankV = useBankVersion();
   const info = MODES.find((m) => m.id === mode);
   const title = info?.fa ?? "مرور اشتباهات";
   const [seed] = useState(() => Math.random());
   const [started, setStarted] = useState<null | { len?: number; timer?: boolean }>(mode === "quest_trail" || mode === "review" || mode === "gap_builder" || mode === "word_forge" || mode === "sentence_builder" || mode === "grammar_detective" || mode === "reading_explorer" || mode === "match_arena" || mode === "memory_pairs" ? {} : null);
 
-  const track = useMemo(() => trackQuestions(grade, term), [grade, term]);
+  const track = useMemo(() => trackQuestions(grade, term), [grade, term, bankV]);
   const back = <BackLink grade={grade} term={term} />;
   const header = (
     <header className="mb-4 flex items-center justify-between gap-2">

@@ -2,7 +2,7 @@ import { topicLabels } from "@/lib/display";
 import { readingGroups } from "@/lib/bank";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useProgress, update, todayCount, useHydrated, dueCanonicals } from "@/lib/progress";
-import { missions, modeAvailability, MODES, trackQuestions } from "@/lib/bank";
+import { missions, modeAvailability, MODES, trackQuestions, useBankVersion } from "@/lib/bank";
 import { fa, gradeLabel, termLabel, SKILL_FA } from "@/lib/fa";
 
 export const Route = createFileRoute("/track/$grade/$term")({
@@ -25,6 +25,7 @@ function Track() {
   const { grade: gs, term: ts } = Route.useParams();
   const grade = +gs, term = +ts;
   const p = useProgress();
+  useBankVersion();
   const hydrated = useHydrated();
   const ms = missions(grade, term);
   const avail = modeAvailability(grade, term);
