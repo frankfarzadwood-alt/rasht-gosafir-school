@@ -25,6 +25,7 @@ function Track() {
   const { grade: gs, term: ts } = Route.useParams();
   const grade = +gs, term = +ts;
   const p = useProgress();
+  useBankVersion();
   const hydrated = useHydrated();
   const ms = missions(grade, term);
   const avail = modeAvailability(grade, term);

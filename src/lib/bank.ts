@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from "react";
 import raw from "@/data/bank.json";
 
 export type Option = { id: string; text: string };
@@ -32,20 +33,42 @@ export type Context = {
 
 export const ALL_QUESTIONS = (raw as { questions: Question[] }).questions;
 export const CONTEXTS = (raw as unknown as { contexts: Context[] }).contexts;
-export const contextById = (id: string | null) => CONTEXTS.find((c) => c.id === id) ?? null;
+
+// ---------- Device-local overlay (items approved in the local review workspace) ----------
+let overlayQ: Question[] = [];
+let overlayC: Context[] = [];
+let bankVersion = 0;
+const bankSubs = new Set<() => void>();
+/** Only items approved on this device enter play here; they replace a starter item with the same stable ID. */
+export function setLocalOverlay(qs: Question[], cs: Context[]) {
+  overlayQ = qs; overlayC = cs; bankVersion++;
+  bankSubs.forEach((l) => l());
+}
+export function useBankVersion() {
+  return useSyncExternalStore((l) => { bankSubs.add(l); return () => bankSubs.delete(l); }, () => bankVersion, () => 0);
+}
+export function playableSource(): Question[] {
+  if (!overlayQ.length) return ALL_QUESTIONS;
+  const m = new Map(ALL_QUESTIONS.map((q) => [q.id, q]));
+  for (const q of overlayQ) m.set(q.id, q);
+  return [...m.values()];
+}
+export type CtxLookup = (id: string | null) => Context | null;
+export const contextById: CtxLookup = (id) => overlayC.find((c) => c.id === id) ?? CONTEXTS.find((c) => c.id === id) ?? null;
+export const REVIEWED_STATUSES = ["reviewed_by_assistant", "reviewed_by_teacher", "reviewed_locally"];
 
 const CHOICE_FORMATS = ["mcq", "odd_one_out", "true_false"];
 const TYPED_FORMATS = ["fill_blank", "word_form", "spelling", "short_answer", "cloze"];
 
 /** Student eligibility rule from the brief. Returns reasons when not eligible. */
-export function ineligibility(q: Question): string[] {
+export function ineligibility(q: Question, ctx: CtxLookup = contextById): string[] {
   const r: string[] = [];
   if (q.review_status !== "ready") r.push("review_status_not_ready");
   if (q.granularity !== "atomic") r.push("not_atomic");
   if (["source_review", "free_writing"].includes(q.format)) r.push("not_auto_gradable_format");
   if (!q.prompt_en || !q.prompt_en.trim()) r.push("empty_prompt");
   const a = q.answer;
-  if (!["reviewed_by_assistant", "reviewed_by_teacher"].includes(a.verification_status)) r.push("answer_not_reviewed");
+  if (!REVIEWED_STATUSES.includes(a.verification_status)) r.push("answer_not_reviewed");
   if (!a.value) r.push("no_answer");
   if (CHOICE_FORMATS.includes(q.format)) {
     if (q.options.length < 2 || !q.options.some((o) => o.id === a.correct_option_id)) r.push("invalid_choices");
@@ -53,7 +76,7 @@ export function ineligibility(q: Question): string[] {
   if (q.format === "reorder_words" && !tokensMatch(q)) r.push("tokens_do_not_match_answer");
   if (q.format === "matching" && !(q.pairs && q.pairs.length >= 2)) r.push("invalid_pairs");
   if (q.context_id) {
-    const c = contextById(q.context_id);
+    const c = ctx(q.context_id);
     if (!c || c.review_status !== "ready" || !c.text) r.push("context_not_ready");
   }
   if (q.assets?.source_image_required && !q.assets.image) r.push("missing_image");
@@ -61,7 +84,7 @@ export function ineligibility(q: Question): string[] {
   if (q.skill === "listening" && !q.assets?.audio) r.push("missing_audio");
   return r;
 }
-export const isEligible = (q: Question) => ineligibility(q).length === 0;
+export const isEligible = (q: Question, ctx: CtxLookup = contextById) => ineligibility(q, ctx).length === 0;
 export const isChoice = (q: Question) => CHOICE_FORMATS.includes(q.format);
 export const isTyped = (q: Question) => TYPED_FORMATS.includes(q.format);
 
@@ -96,7 +119,7 @@ export const correctText = (q: Question) =>
 
 // ---------- Track queries ----------
 export const trackQuestions = (grade: number, term: number) =>
-  ALL_QUESTIONS.filter((q) => q.grade === grade && q.term === term && isEligible(q));
+  playableSource().filter((q) => q.grade === grade && q.term === term && isEligible(q));
 
 /** One representative per canonical ID so a session never repeats a learning item. */
 export function dedupe(qs: Question[]) {

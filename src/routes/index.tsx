@@ -18,6 +18,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const p = useProgress();
+  useBankVersion();
   const hydrated = useHydrated();
   const nav = useNavigate();
   const [name, setName] = useState("");
