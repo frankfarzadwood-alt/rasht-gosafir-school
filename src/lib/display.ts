@@ -33,9 +33,10 @@ const GENERIC = ["Review this source question.", "این سؤال نیاز به 
 export const isGenericInstruction = (s: string | null | undefined) => !s || GENERIC.includes(s.trim()) || s.includes("بازبینی");
 
 export function learnerInstruction(q: Question, mode?: string): { fa?: string; en?: string } {
-  if (mode && MODE_INSTRUCTION_FA[mode]) return { fa: MODE_INSTRUCTION_FA[mode] };
+  const m = mode ? MODE_INSTRUCTION_FA[mode] : undefined;
+  if (m) return { fa: m };
   if (!isGenericInstruction(q.instruction_fa)) return { fa: q.instruction_fa! };
-  if (q.context_id) return { fa: MODE_INSTRUCTION_FA.reading_explorer };
+  if (q.context_id) return { fa: "متن را بخوان و به انگلیسی پاسخ بده." };
   if (!isGenericInstruction(q.instruction_en)) return { en: q.instruction_en };
   return { fa: "به این سؤال پاسخ بده." };
 }
