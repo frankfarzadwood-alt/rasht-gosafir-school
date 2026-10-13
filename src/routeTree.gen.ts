@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as TrackGradeTermRouteImport } from './routes/track.$grade.$term'
+import { Route as PlayGradeTermModeRouteImport } from './routes/play.$grade.$term.$mode'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackGradeTermRoute = TrackGradeTermRouteImport.update({
+  id: '/track/$grade/$term',
+  path: '/track/$grade/$term',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlayGradeTermModeRoute = PlayGradeTermModeRouteImport.update({
+  id: '/play/$grade/$term/$mode',
+  path: '/play/$grade/$term/$mode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/profile': typeof ProfileRoute
+  '/track/$grade/$term': typeof TrackGradeTermRoute
+  '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/profile': typeof ProfileRoute
+  '/track/$grade/$term': typeof TrackGradeTermRoute
+  '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/profile': typeof ProfileRoute
+  '/track/$grade/$term': typeof TrackGradeTermRoute
+  '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/profile'
+    | '/track/$grade/$term'
+    | '/play/$grade/$term/$mode'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/profile'
+    | '/track/$grade/$term'
+    | '/play/$grade/$term/$mode'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/profile'
+    | '/track/$grade/$term'
+    | '/play/$grade/$term/$mode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  ProfileRoute: typeof ProfileRoute
+  TrackGradeTermRoute: typeof TrackGradeTermRoute
+  PlayGradeTermModeRoute: typeof PlayGradeTermModeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/track/$grade/$term': {
+      id: '/track/$grade/$term'
+      path: '/track/$grade/$term'
+      fullPath: '/track/$grade/$term'
+      preLoaderRoute: typeof TrackGradeTermRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/play/$grade/$term/$mode': {
+      id: '/play/$grade/$term/$mode'
+      path: '/play/$grade/$term/$mode'
+      fullPath: '/play/$grade/$term/$mode'
+      preLoaderRoute: typeof PlayGradeTermModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  ProfileRoute: ProfileRoute,
+  TrackGradeTermRoute: TrackGradeTermRoute,
+  PlayGradeTermModeRoute: PlayGradeTermModeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
