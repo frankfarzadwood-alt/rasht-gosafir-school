@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrackGradeTermRouteImport } from './routes/track.$grade.$term'
+import { Route as PlayGradeTermModeRouteImport } from './routes/play.$grade.$term.$mode'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const TrackGradeTermRoute = TrackGradeTermRouteImport.update({
   path: '/track/$grade/$term',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlayGradeTermModeRoute = PlayGradeTermModeRouteImport.update({
+  id: '/play/$grade/$term/$mode',
+  path: '/play/$grade/$term/$mode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
+  '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
+  '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
+  '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/track/$grade/$term'
+  fullPaths: '/' | '/track/$grade/$term' | '/play/$grade/$term/$mode'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/track/$grade/$term'
-  id: '__root__' | '/' | '/track/$grade/$term'
+  to: '/' | '/track/$grade/$term' | '/play/$grade/$term/$mode'
+  id: '__root__' | '/' | '/track/$grade/$term' | '/play/$grade/$term/$mode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TrackGradeTermRoute: typeof TrackGradeTermRoute
+  PlayGradeTermModeRoute: typeof PlayGradeTermModeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrackGradeTermRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/play/$grade/$term/$mode': {
+      id: '/play/$grade/$term/$mode'
+      path: '/play/$grade/$term/$mode'
+      fullPath: '/play/$grade/$term/$mode'
+      preLoaderRoute: typeof PlayGradeTermModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TrackGradeTermRoute: TrackGradeTermRoute,
+  PlayGradeTermModeRoute: PlayGradeTermModeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

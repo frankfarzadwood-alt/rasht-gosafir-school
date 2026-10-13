@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { QuestionView, hintFor, En, type Item } from "./QuestionView";
-import { correctText, type Context } from "@/lib/bank";
+import { correctText, contextById, type Context } from "@/lib/bank";
 import { recordAttempt, update } from "@/lib/progress";
 import { fa, SKILL_FA } from "@/lib/fa";
 
@@ -112,7 +112,7 @@ export function GameRunner({
         <span className="text-sm font-bold">{fa(idx + 1)}/{fa(queue.length)}</span>
         {timer && <span className="rounded-full bg-gold/30 px-2 text-sm" aria-label="زمان">⏱ {fa(elapsed)}</span>}
       </div>
-      {context && (
+      {(context ?? contextById(q.context_id)) && (() => { const context = (ctx)!; return (
         <article className="card-soft sticky top-2 z-10 max-h-56 overflow-auto p-4" aria-label="متن درک مطلب">
           <p dir="ltr" lang="en" className="en text-left leading-relaxed">{context.text}</p>
           {context.content_origin === "faithful_paraphrase_of_source" && <p className="mt-2 text-xs text-muted-foreground">بازنویسی وفادار به متن امتحان؛ نقل‌قول عین متن اصلی نیست.</p>}

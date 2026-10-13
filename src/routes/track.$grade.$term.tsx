@@ -38,7 +38,7 @@ function Track() {
       <header className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-extrabold">{gradeLabel(grade)}</h1>
-          <p className="font-bold text-teal">{termLabel(grade && term)}</p>
+          <p className="font-bold text-teal">{termLabel(term)}</p>
         </div>
         <Link to="/" className="btn border border-border text-sm">تغییر پایه</Link>
       </header>
