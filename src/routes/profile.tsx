@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useProgress, useHydrated, update, badges, totalXp, exportProgress, resetProgress } from "@/lib/progress";
 import { fa, SKILL_FA } from "@/lib/fa";
 
