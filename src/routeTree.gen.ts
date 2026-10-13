@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrackGradeTermRouteImport } from './routes/track.$grade.$term'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackGradeTermRoute = TrackGradeTermRouteImport.update({
+  id: '/track/$grade/$term',
+  path: '/track/$grade/$term',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/track/$grade/$term': typeof TrackGradeTermRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/track/$grade/$term': typeof TrackGradeTermRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/track/$grade/$term': typeof TrackGradeTermRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/track/$grade/$term'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/track/$grade/$term'
+  id: '__root__' | '/' | '/track/$grade/$term'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TrackGradeTermRoute: typeof TrackGradeTermRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/track/$grade/$term': {
+      id: '/track/$grade/$term'
+      path: '/track/$grade/$term'
+      fullPath: '/track/$grade/$term'
+      preLoaderRoute: typeof TrackGradeTermRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TrackGradeTermRoute: TrackGradeTermRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
