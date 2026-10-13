@@ -80,7 +80,7 @@ export function applyAttempt(p: Progress, a: Omit<Attempt, "id" | "at"> & { id?:
     if (!m.unassistedDates.includes(day)) {
       m.unassistedDates = [...m.unassistedDates, day];
       m.box = Math.min(m.box + 1, p.settings.intervalsDays.length);
-      m.due = new Date(now.getTime() + p.settings.intervalsDays[m.box - 1] * 86400000).toISOString();
+      m.due = new Date(now.getTime() + (p.settings.intervalsDays[m.box - 1] ?? 30) * 86400000).toISOString();
     }
     m.lastCorrect = true;
   } else {

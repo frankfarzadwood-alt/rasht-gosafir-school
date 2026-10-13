@@ -31,14 +31,14 @@ describe("mastery", () => {
     p = applyAttempt(p, { ...base, id: "a", correct: true, retry: false }, "g", d1).next;
     p = applyAttempt(p, { ...base, id: "b", correct: true, retry: false }, "g", d1).next; // same day ignored
     p = applyAttempt(p, { ...base, id: "c", correct: true, retry: false }, "g", d2).next;
-    expect(p.mastery.c1.mastered).toBe(false);
+    expect(p.mastery["c1"]!.mastered).toBe(false);
     p = applyAttempt(p, { ...base, id: "d", correct: true, retry: false }, "g", d3).next;
-    expect(p.mastery.c1.mastered).toBe(true);
+    expect(p.mastery["c1"]!.mastered).toBe(true);
   });
   it("a wrong answer is due again after 10 minutes", () => {
     const now = new Date("2026-01-01T09:00:00Z");
     const p = applyAttempt(DEFAULT, { ...base, id: "a", correct: false, retry: false }, "g", now).next;
-    expect(new Date(p.mastery.c1.due).getTime() - now.getTime()).toBe(10 * 60000);
+    expect(new Date(p.mastery["c1"]!.due).getTime() - now.getTime()).toBe(10 * 60000);
   });
 });
 

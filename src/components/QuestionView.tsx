@@ -110,15 +110,15 @@ function Builder({ q, tiles, joiner, locked, onSubmit, clue }: { q: Question; ti
   const [init] = useState(() => tiles.map((t, i) => ({ t, i })));
   const [placed, setPlaced] = useState<number[]>([]);
   const left = init.filter((x) => !placed.includes(x.i));
-  const text = placed.map((i) => init[i].t).join(joiner);
+  const text = placed.map((i) => init[i]!.t).join(joiner);
   return (
     <>
       {q.prompt_en && (clue ? <Prompt text={q.prompt_en} /> : <p dir="ltr" lang="en" className="en text-left text-sm text-muted-foreground">{q.prompt_en}</p>)}
       <div dir="ltr" aria-live="polite" aria-label="پاسخ ساخته‌شده" className="flex min-h-16 flex-wrap items-center gap-2 rounded-2xl border-2 border-dashed border-teal bg-accent/40 p-3">
         {placed.length === 0 && <span className="text-sm text-muted-foreground" dir="rtl">روی کارت‌ها بزن تا اینجا قرار بگیرند</span>}
         {placed.map((i, k) => (
-          <button key={k} disabled={locked} onClick={() => setPlaced(placed.filter((p) => p !== i))} aria-label={`برداشتن ${init[i].t}`}
-            className="chip en border-primary bg-secondary" lang="en">{init[i].t}</button>
+          <button key={k} disabled={locked} onClick={() => setPlaced(placed.filter((p) => p !== i))} aria-label={`برداشتن ${init[i]!.t}`}
+            className="chip en border-primary bg-secondary" lang="en">{init[i]!.t}</button>
         ))}
       </div>
       <div dir="ltr" className="flex flex-wrap gap-2">

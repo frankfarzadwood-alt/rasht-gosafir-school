@@ -3,7 +3,7 @@ import { ineligibility, type Question } from "./bank";
 export type DryRun = {
   total: number; duplicates: number; ready: number; needsReview: number; excluded: number;
   newIds: number; updates: number; byTrack: Record<string, number>;
-  errors: { row: number; id?: string; message: string }[];
+  errors: { row: number; id?: string | undefined; message: string }[];
 };
 const REQUIRED = ["id", "canonical_id", "grade", "term", "source_id", "granularity", "skill", "format", "answer", "assets", "review_status", "source"];
 

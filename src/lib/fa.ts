@@ -1,5 +1,5 @@
 const D = "۰۱۲۳۴۵۶۷۸۹";
-export const fa = (n: number | string) => String(n).replace(/\d/g, (d) => D[+d]);
+export const fa = (n: number | string) => String(n).replace(/\d/g, (d) => D[+d]!);
 export const GRADES = [7, 8, 9, 10, 11, 12] as const;
 export const TERMS = [1, 2] as const;
 export const gradeLabel = (g: number) =>

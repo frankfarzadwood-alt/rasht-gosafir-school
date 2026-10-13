@@ -70,7 +70,7 @@ function Track() {
           <span aria-hidden className="absolute bottom-4 right-[1.05rem] top-4 w-1 rounded bg-border" />
           {ms.map((m, i) => {
             const done = p.missionsDone.includes(m.id);
-            const unlocked = i === 0 || done || p.missionsDone.includes(ms[i - 1].id);
+            const unlocked = i === 0 || done || p.missionsDone.includes(ms[i - 1]!.id);
             return (
               <li key={m.id} className={`relative ${i % 2 ? "sm:mr-16" : ""}`}>
                 <span aria-hidden className={`absolute -right-6 top-3 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background text-xs font-bold ${done ? "bg-teal text-teal-foreground" : unlocked ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>{done ? "✓" : fa(i + 1)}</span>

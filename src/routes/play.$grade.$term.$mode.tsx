@@ -10,9 +10,9 @@ import {
 import { useProgress, useHydrated, dueCanonicals } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
 
-type Search = { mission?: string };
+type Search = { mission?: string | undefined };
 export const Route = createFileRoute("/play/$grade/$term/$mode")({
-  validateSearch: (s: Record<string, unknown>): Search => ({ mission: typeof s.mission === "string" ? s.mission : undefined }),
+  validateSearch: (s: Record<string, unknown>): Search => ({ mission: typeof s["mission"] === "string" ? s["mission"] : undefined }),
   beforeLoad: ({ params }) => {
     if (![7, 8, 9, 10, 11, 12].includes(+params.grade) || ![1, 2].includes(+params.term)) throw notFound();
   },
@@ -73,7 +73,7 @@ function Play() {
   const ms = missions(grade, term);
 
   if (mode === "quest_trail") {
-    const m = ms.find((x) => x.id === mission) ?? ms[0];
+    const m = (ms.find((x) => x.id === mission) ?? ms[0])!;
     const qs = m.questionIds.map((id) => track.find((q) => q.id === id)!).filter(Boolean);
     const idx = ms.indexOf(m);
     const nx = ms[idx + 1];

@@ -103,6 +103,7 @@ export function GameRunner({
   }
 
   const q = item.q;
+  const ctx = context ?? contextById(q.context_id);
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3" aria-label="پیشرفت جلسه">

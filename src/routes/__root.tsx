@@ -78,7 +78,7 @@ function RootComponent() {
   const p = useProgress();
   useEffect(() => {
     document.documentElement.classList.toggle("dark", p.settings.dark);
-    document.documentElement.dataset.band = p.grade && isSenior(p.grade) ? "senior" : "junior";
+    document.documentElement.dataset["band"] = p.grade && isSenior(p.grade) ? "senior" : "junior";
   }, [p.settings.dark, p.grade]);
   return (
     <QueryClientProvider client={queryClient}>
