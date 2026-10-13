@@ -1,3 +1,5 @@
+import { topicLabels } from "@/lib/display";
+import { readingGroups, trackQuestions } from "@/lib/bank";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useProgress, update, todayCount, useHydrated, dueCanonicals } from "@/lib/progress";
 import { missions, modeAvailability, MODES, trackQuestions } from "@/lib/bank";
@@ -76,7 +78,7 @@ function Track() {
                 <span aria-hidden className={`absolute -right-6 top-3 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background text-xs font-bold ${done ? "bg-teal text-teal-foreground" : unlocked ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>{done ? "✓" : fa(i + 1)}</span>
                 {unlocked ? (
                   <Link to="/play/$grade/$term/$mode" params={{ ...ps, mode: "quest_trail" }} search={{ mission: m.id }} className="card-soft mr-4 flex min-h-14 items-center justify-between p-3 hover:border-primary">
-                    <span><b>مأموریت {fa(i + 1)}</b> · {SKILL_FA[m.skill]}{m.topics.length > 0 && <span dir="ltr" className="en mr-2 text-xs text-muted-foreground">{m.topics.join(", ").replace(/_/g, " ")}</span>}</span>
+                    <span><b>مأموریت {fa(i + 1)}</b> · {SKILL_FA[m.skill]}{topicLabels(m.topics).length > 0 && <span className="mr-2 text-xs text-muted-foreground">{topicLabels(m.topics).join("، ")}</span>}</span>
                     <span className="text-xs text-muted-foreground">{fa(m.questionIds.length)} سؤال</span>
                   </Link>
                 ) : (
@@ -98,7 +100,7 @@ function Track() {
               <Link key={m.id} to="/play/$grade/$term/$mode" params={{ ...ps, mode: m.id }} search={{}} className="card-soft p-3 hover:border-primary">
                 <div className="text-2xl" aria-hidden>{m.icon}</div>
                 <div className="font-bold">{m.fa}</div>
-                <div className="text-xs text-muted-foreground">{m.desc} · {fa(a.count)}</div>
+                <div className="text-xs text-muted-foreground">{m.desc} · {countLabel(m.id, a.count, grade, term)}</div>
               </Link>
             ) : (
               <div key={m.id} className="rounded-2xl border border-dashed border-border p-3 text-muted-foreground" aria-disabled>
@@ -112,4 +114,13 @@ function Track() {
       </section>
     </div>
   );
+}
+
+function countLabel(mode: string, n: number, grade?: number, term?: number) {
+  if (mode === "reading_explorer" && grade) {
+    const qn = readingGroups(trackQuestions(grade, term!)).reduce((s, g) => s + g.questions.length, 0);
+    return `${fa(n)} متن · ${fa(qn)} سؤال`;
+  }
+  if (mode === "match_arena" || mode === "memory_pairs") return `${fa(n)} جفت`;
+  return `${fa(n)} سؤال`;
 }

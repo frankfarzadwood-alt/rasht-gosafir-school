@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { summarize, topicLabels } from "./display";
-import { applyAttempt } from "./progress";
 
 describe("wrong → correct retry → result", () => {
   it("keeps the original mistake and does not count retry as first-attempt success", () => {
@@ -25,4 +24,3 @@ describe("wrong → correct retry → result", () => {
     expect(topicLabels(["nationality_places", "family_jobs", "grammar_form", "unclassified"])).toEqual(["ملیت و مکان‌ها", "خانواده و شغل‌ها"]);
   });
 });
-void applyAttempt;

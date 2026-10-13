@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { learnerInstruction } from "@/lib/display";
+import { useId } from "react";
 import { type Question, gradeChoice, isAccepted, isChoice, shuffle, letterPool, correctText } from "@/lib/bank";
 
 export type Kind = "auto" | "chips" | "letters" | "tokens";
@@ -37,13 +39,14 @@ export function hintFor(q: Question, kind: Kind) {
   return "جمله را کامل بخوان و معنی کلی آن را در نظر بگیر.";
 }
 
-type Props = { item: Item; locked: boolean; onSubmit: (response: string, correct: boolean) => void };
+type Props = { item: Item; mode?: string; locked: boolean; onSubmit: (response: string, correct: boolean) => void };
 
-export function QuestionView({ item, locked, onSubmit }: Props) {
+export function QuestionView({ item, mode, locked, onSubmit }: Props) {
   const { q, kind } = item;
+  const ins = learnerInstruction(q, mode);
   return (
     <div className="space-y-4">
-      <p className="text-sm font-medium text-muted-foreground">{q.instruction_fa && !q.instruction_fa.includes("بازبینی") ? q.instruction_fa : <En>{q.instruction_en}</En>}</p>
+      <p className="text-sm font-medium text-muted-foreground">{ins.fa ?? <En>{ins.en}</En>}</p>
       {kind === "chips" ? <ChipGap key={q.id} item={item} locked={locked} onSubmit={onSubmit} />
         : kind === "letters" ? <Builder key={q.id} q={q} tiles={letterPool(q.answer.value ?? "")} joiner="" locked={locked} onSubmit={onSubmit} clue />
         : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(q.reorder_tokens ?? [])} joiner=" " locked={locked} onSubmit={onSubmit} />
@@ -78,10 +81,12 @@ function Choices({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubm
 
 function Typed({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit: Props["onSubmit"] }) {
   const [v, setV] = useState("");
+  const id = useId();
   return (
     <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); if (v.trim()) onSubmit(v, isAccepted(q, v)); }}>
       {q.prompt_en && <Prompt text={q.prompt_en} />}
-      <input dir="ltr" lang="en" aria-label="پاسخ انگلیسی" value={v} maxLength={120} disabled={locked} autoComplete="off" spellCheck={false}
+      <label htmlFor={id} className="block text-sm font-bold">پاسخ انگلیسی</label>
+      <input id={id} autoFocus dir="ltr" lang="en" value={v} maxLength={120} disabled={locked} autoComplete="off" spellCheck={false}
         onChange={(e) => setV(e.target.value)}
         className="en h-12 w-full rounded-xl border-2 border-input bg-card px-4 text-left text-lg focus:border-primary focus:outline-none" />
       {!locked && <button className="btn w-full bg-primary text-primary-foreground" disabled={!v.trim()}>بررسی پاسخ</button>}
