@@ -61,3 +61,18 @@ describe("question bank", () => {
     expect(isAccepted(q, "grandmom")).toBe(false);
   });
 });
+
+import { validateEnvelope } from "./importer";
+describe("import dry-run", () => {
+  it("importing the same bank twice does not double counts", () => {
+    const rows = ALL_QUESTIONS.slice(0, 5);
+    const r = validateEnvelope({ questions: [...rows, ...rows] }, new Set());
+    expect(r.newIds).toBe(5);
+    expect(r.duplicates).toBe(5);
+  });
+  it("rejects malformed rows but keeps valid ones", () => {
+    const r = validateEnvelope({ questions: [{ id: "bad" }, ALL_QUESTIONS[0]] }, new Set());
+    expect(r.errors.map((e) => e.id)).toEqual(["bad"]);
+    expect(r.ready).toBe(1);
+  });
+});

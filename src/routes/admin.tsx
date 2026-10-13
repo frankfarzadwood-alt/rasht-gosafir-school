@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { ALL_QUESTIONS, CONTEXTS, ineligibility, type Question } from "@/lib/bank";
 import { validateEnvelope, type DryRun } from "@/lib/importer";
 import { QuestionView } from "@/components/QuestionView";
@@ -121,7 +121,7 @@ function Detail({ q }: { q: Question }) {
   ];
   return (
     <div className="mt-3 space-y-3 border-t border-border pt-3">
-      <dl className="grid gap-1 text-xs sm:grid-cols-[10rem_1fr]">{rows.map(([k, v]) => <><dt key={k + "k"} className="font-bold">{k}</dt><dd key={k + "v"} className="break-words">{v}</dd></>)}</dl>
+      <dl className="grid gap-1 text-xs sm:grid-cols-[10rem_1fr]">{rows.map(([k, v]) => <Fragment key={k}><dt className="font-bold">{k}</dt><dd className="break-words">{v}</dd></Fragment>)}</dl>
       <div className="rounded-2xl bg-muted p-3"><p className="mb-2 text-xs font-bold">پیش‌نمایش بازی</p><QuestionView item={{ q, kind: "auto" }} locked={false} onSubmit={() => {}} /></div>
     </div>
   );
