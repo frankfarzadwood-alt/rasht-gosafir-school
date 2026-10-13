@@ -102,7 +102,7 @@ function Play() {
         <p className="text-xs text-muted-foreground">سرعت فقط امتیاز جانبی است و روی دقت علمی اثری ندارد.</p>
       </section>
     );
-    else body = <GameRunner items={dedupe(shuffle(quizItems(track), seed)).slice(0, 8).map(toItem)} grade={grade} term={term} mode="quiz_sprint" timer={started.timer} nextHref={back} />;
+    else body = <GameRunner items={dedupe(shuffle(quizItems(track), seed)).slice(0, 8).map(toItem)} grade={grade} term={term} mode="quiz_sprint" timer={!!started.timer} nextHref={back} />;
   } else if (mode === "gap_builder") {
     body = <GameRunner items={shuffle(gapItems(track), seed).slice(0, 7).map((g) => ({ q: g.q, kind: "chips", pool: g.pool }))} grade={grade} term={term} mode="gap_builder" nextHref={back} />;
   } else if (mode === "word_forge") {
@@ -112,7 +112,7 @@ function Play() {
   } else if (mode === "grammar_detective") {
     body = <GameRunner items={shuffle(grammarItems(track), seed).slice(0, 7).map(toItem)} grade={grade} term={term} mode="grammar_detective" showGrammarTag nextHref={back} />;
   } else if (mode === "reading_explorer") {
-    const g = readingGroups(track)[0];
+    const g = readingGroups(track)[0]!;
     body = <GameRunner items={g.questions.map(toItem)} grade={grade} term={term} mode="reading_explorer" context={g.context} nextHref={back} />;
   } else if (mode === "match_arena" || mode === "memory_pairs") {
     const set = pairSet(track, mode === "memory_pairs" ? 4 : 5);

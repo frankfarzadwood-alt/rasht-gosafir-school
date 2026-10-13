@@ -19,7 +19,7 @@ function Profile() {
   if (!useHydrated()) return null;
   const skills: Record<string, { mastered: number; total: number; correct: number; attempts: number }> = {};
   Object.values(p.mastery).forEach((m) => { const s = (skills[m.skill] ??= { mastered: 0, total: 0, correct: 0, attempts: 0 }); s.total++; if (m.mastered) s.mastered++; });
-  p.attempts.forEach((a) => { const sk = p.mastery[a.canonical]?.skill; if (!sk) return; skills[sk].attempts++; if (a.correct && !a.retry && !a.hinted) skills[sk].correct++; });
+  p.attempts.forEach((a) => { const sk = p.mastery[a.canonical]?.skill; if (!sk) return; const row = skills[sk]; if (!row) return; row.attempts++; if (a.correct && !a.retry && !a.hinted) row.correct++; });
   const upcoming = Object.entries(p.mastery).filter(([, m]) => !m.mastered).sort((a, b) => a[1].due.localeCompare(b[1].due)).slice(0, 6);
   const set = (k: "dark" | "sound", v: boolean) => update((s) => ({ ...s, settings: { ...s.settings, [k]: v } }));
 
