@@ -5,7 +5,7 @@ import { MatchArena, MemoryPairs } from "@/components/PairGames";
 import type { Item } from "@/components/QuestionView";
 import {
   MODES, type ModeId, trackQuestions, dedupe, shuffle, missions, quizItems, gapItems, forgeItems,
-  sentenceItems, grammarItems, readingGroups, pairSet, modeAvailability, isChoice,
+  sentenceItems, grammarItems, readingGroups, pairSet, modeAvailability,
 } from "@/lib/bank";
 import { useProgress, useHydrated, dueCanonicals } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
@@ -132,9 +132,7 @@ function Play() {
     else {
       const chosen = shuffle(pool, seed).slice(0, started.len);
       const ordered = [...chosen.filter((q) => !q.context_id), ...chosen.filter((q) => q.context_id)];
-      body = <GameRunner items={ordered.map(toItem)} grade={grade} term={term} mode="boss_exam" exam nextHref={back}
-        context={ordered.some((q) => q.context_id) && ordered.every((q) => q.context_id) ? readingGroups(track)[0]?.context : null} />;
-      void isChoice;
+      body = <GameRunner items={ordered.map(toItem)} grade={grade} term={term} mode="boss_exam" exam nextHref={back} />;
     }
   }
   return <div>{header}{body}</div>;
