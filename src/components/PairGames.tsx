@@ -5,7 +5,7 @@ import { fa } from "@/lib/fa";
 import { Stat } from "./GameRunner";
 
 function log(c: PairCard, correct: boolean, grade: number, term: number, mode: string, ms: number) {
-  recordAttempt({ qid: c.key.split("#")[0], canonical: c.qid, grade, term, mode, correct, hinted: false, retry: false, ms, response: c.answer }, "vocabulary");
+  recordAttempt({ qid: c.key.split("#")[0]!, canonical: c.qid, grade, term, mode, correct, hinted: false, retry: false, ms, response: c.answer }, "vocabulary");
 }
 
 export function MatchArena({ set, grade, term, footer }: { set: PairCard[]; grade: number; term: number; footer: React.ReactNode }) {
@@ -67,7 +67,7 @@ export function MemoryPairs({ set, grade, term, footer }: { set: PairCard[]; gra
     const nextOpen = [...open, id];
     setOpen(nextOpen);
     if (nextOpen.length === 2) {
-      const [a, b] = nextOpen.map((x) => cards.find((c) => c.id === x)!);
+      const [a, b] = nextOpen.map((x) => cards.find((c) => c.id === x)!) as [typeof cards[number], typeof cards[number]];
       if (a.key === b.key) {
         const pc = set.find((s) => s.key === a.key)!;
         log(pc, !missedKeys.includes(a.key), grade, term, "memory_pairs", Date.now() - t0.current);

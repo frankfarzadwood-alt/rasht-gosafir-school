@@ -33,7 +33,7 @@ export function GameRunner({
   }, [timer, phase, idx]);
 
   const done = idx >= queue.length;
-  const item = queue[idx];
+  const item = queue[idx]!;
 
   function submit(response: string, correct: boolean) {
     const ms = Date.now() - started.current;
