@@ -84,14 +84,14 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
         <nav className="mx-auto flex max-w-3xl items-center gap-2 px-3 py-2" aria-label="ناوبری اصلی">
-          <Link to="/" className="flex min-h-11 items-center gap-2 font-extrabold text-primary">
+          <Link to="/" className="flex min-h-11 items-center gap-1.5 whitespace-nowrap text-sm font-extrabold text-primary sm:text-base">
             <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" className="fill-primary" /><path d="M9 20 L16 8 L23 20 Z" className="fill-gold" /><circle cx="16" cy="22" r="3" className="fill-teal" /></svg>
             ماجراجویی انگلیسی
           </Link>
           <span className="flex-1" />
-          {p.nickname && <span className="rounded-full bg-gold/25 px-3 py-1 text-sm font-bold" aria-label="امتیاز">⭐ {fa(totalXp(p))}</span>}
-          <Link to="/profile" className="btn px-3 text-sm" activeProps={{ className: "bg-secondary" }}>👤 پروفایل</Link>
-          <Link to="/admin" className="btn px-3 text-sm" activeProps={{ className: "bg-secondary" }}>🛠 مدیریت</Link>
+          {p.nickname && <span className="whitespace-nowrap rounded-full bg-gold/25 px-2 py-1 text-xs font-bold" aria-label="امتیاز">⭐ {fa(totalXp(p))}</span>}
+          <Link to="/profile" className="btn px-2 text-xs sm:text-sm" activeProps={{ className: "bg-secondary" }}>👤 پروفایل</Link>
+          <Link to="/admin" className="btn px-2 text-xs sm:text-sm" activeProps={{ className: "bg-secondary" }}>🛠 مدیریت</Link>
         </nav>
       </header>
       <main className="mx-auto max-w-3xl px-3 py-5"><Outlet /></main>

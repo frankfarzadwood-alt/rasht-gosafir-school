@@ -43,7 +43,7 @@ export function QuestionView({ item, locked, onSubmit }: Props) {
   const { q, kind } = item;
   return (
     <div className="space-y-4">
-      <p className="text-sm font-medium text-muted-foreground">{q.instruction_fa || <En>{q.instruction_en}</En>}</p>
+      <p className="text-sm font-medium text-muted-foreground">{q.instruction_fa && !q.instruction_fa.includes("بازبینی") ? q.instruction_fa : <En>{q.instruction_en}</En>}</p>
       {kind === "chips" ? <ChipGap key={q.id} item={item} locked={locked} onSubmit={onSubmit} />
         : kind === "letters" ? <Builder key={q.id} q={q} tiles={letterPool(q.answer.value ?? "")} joiner="" locked={locked} onSubmit={onSubmit} clue />
         : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(q.reorder_tokens ?? [])} joiner=" " locked={locked} onSubmit={onSubmit} />

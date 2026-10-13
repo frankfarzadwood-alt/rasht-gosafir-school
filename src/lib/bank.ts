@@ -195,7 +195,7 @@ export function missions(grade: number, term: number): Mission[] {
     const counts: Record<string, number> = {};
     chunk.forEach((c) => (counts[c.skill] = (counts[c.skill] ?? 0) + 1));
     const skill = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]![0];
-    const topics = [...new Set(chunk.flatMap((c) => c.topic_tags))].slice(0, 2);
+    const topics = [...new Set(chunk.flatMap((c) => c.topic_tags).filter((t) => t !== "unclassified"))].slice(0, 2);
     out.push({ id: `g${grade}t${term}m${out.length + 1}`, index: out.length, skill, topics, questionIds: chunk.map((c) => c.id) });
     chunk = [];
   }
