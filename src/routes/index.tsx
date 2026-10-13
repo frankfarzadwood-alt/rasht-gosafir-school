@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useProgress, update, useHydrated } from "@/lib/progress";
-import { trackQuestions, dedupe, missions } from "@/lib/bank";
+import { trackQuestions, dedupe, missions, useBankVersion } from "@/lib/bank";
 import { fa, GRADES, TERMS, gradeLabel, termLabel, SKILL_FA } from "@/lib/fa";
 
 export const Route = createFileRoute("/")({

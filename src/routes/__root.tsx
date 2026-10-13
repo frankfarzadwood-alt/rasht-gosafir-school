@@ -3,6 +3,7 @@ import {
   Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts, type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { loadLocalOverlay } from "@/lib/localBank";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -80,6 +81,7 @@ function RootComponent() {
     document.documentElement.classList.toggle("dark", p.settings.dark);
     document.documentElement.dataset["band"] = p.grade && isSenior(p.grade) ? "senior" : "junior";
   }, [p.settings.dark, p.grade]);
+  useEffect(() => { void loadLocalOverlay(); }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
@@ -91,7 +93,6 @@ function RootComponent() {
           <span className="flex-1" />
           {p.nickname && <span className="whitespace-nowrap rounded-full bg-gold/25 px-2 py-1 text-xs font-bold" aria-label="امتیاز">⭐ {fa(totalXp(p))}</span>}
           <Link to="/profile" className="btn px-2 text-xs sm:text-sm" activeProps={{ className: "bg-secondary" }}>👤 پروفایل</Link>
-          <Link to="/admin" className="btn px-2 text-xs sm:text-sm" activeProps={{ className: "bg-secondary" }}>🛠 مدیریت</Link>
         </nav>
       </header>
       <main className="mx-auto max-w-3xl px-3 py-5"><Outlet /></main>

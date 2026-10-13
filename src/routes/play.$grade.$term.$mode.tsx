@@ -6,6 +6,7 @@ import type { Item } from "@/components/QuestionView";
 import {
   MODES, type ModeId, trackQuestions, dedupe, shuffle, missions, quizItems, gapItems, forgeItems,
   sentenceItems, grammarItems, readingGroups, pairSet, modeAvailability,
+  useBankVersion,
 } from "@/lib/bank";
 import { useProgress, useHydrated, dueCanonicals } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";

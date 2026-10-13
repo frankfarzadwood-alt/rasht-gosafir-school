@@ -59,6 +59,7 @@ function Profile() {
         <div className="flex flex-wrap gap-2">
           <button className="btn border border-border" onClick={exportProgress}>📤 خروجی گرفتن از پیشرفت</button>
           <button className="btn bg-destructive text-destructive-foreground" onClick={() => { if (confirm("همهٔ پیشرفت پاک شود؟")) resetProgress(); }}>🗑 پاک کردن پیشرفت</button>
+          <Link to="/admin" className="btn border border-dashed border-border text-xs text-muted-foreground">🛠 ابزار بازبینی محتوا (فقط روی این دستگاه)</Link>
         </div>
       </section>
     </div>
