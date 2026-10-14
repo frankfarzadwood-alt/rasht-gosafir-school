@@ -207,22 +207,35 @@ export function readingGroups(track: Question[]) {
 
 // ---------- Missions for Quest Trail ----------
 export type Mission = { id: string; index: number; skill: string; topics: string[]; questionIds: string[] };
-export function missions(grade: number, term: number): Mission[] {
-  const qs = dedupe(trackQuestions(grade, term)).filter((q) => !q.context_id);
-  const ordered = [...qs].sort((a, b) => a.id.localeCompare(b.id));
+function chunkMissions(qs: Question[], grade: number, term: number, start: number, mergeTail: boolean): Mission[] {
   const out: Mission[] = [];
   const size = 6;
-  for (let i = 0; i < ordered.length; i += size) {
-    let chunk = ordered.slice(i, i + size);
-    if (chunk.length < 5 && out.length) { out[out.length - 1]!.questionIds.push(...chunk.map((c) => c.id)); break; }
+  for (let i = 0; i < qs.length; i += size) {
+    const chunk = qs.slice(i, i + size);
+    if (mergeTail && chunk.length < 5 && out.length) { out[out.length - 1]!.questionIds.push(...chunk.map((c) => c.id)); break; }
     const counts: Record<string, number> = {};
     chunk.forEach((c) => (counts[c.skill] = (counts[c.skill] ?? 0) + 1));
     const skill = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]![0];
     const topics = [...new Set(chunk.flatMap((c) => c.topic_tags).filter((t) => t !== "unclassified"))].slice(0, 2);
-    out.push({ id: `g${grade}t${term}m${out.length + 1}`, index: out.length, skill, topics, questionIds: chunk.map((c) => c.id) });
-    chunk = [];
+    const n = start + out.length;
+    out.push({ id: `g${grade}t${term}m${n + 1}`, index: n, skill, topics, questionIds: chunk.map((c) => c.id) });
   }
   return out;
+}
+/**
+ * Baseline missions are built from the bundled pack only, so their IDs and contents never shift.
+ * Questions added later by a reviewed pack are appended as new missions in import order.
+ */
+export function missions(grade: number, term: number): Mission[] {
+  const playable = dedupe(trackQuestions(grade, term)).filter((q) => !q.context_id);
+  const baseIds = new Set(ALL_QUESTIONS.map((q) => q.id));
+  const base = playable.filter((q) => baseIds.has(q.id)).sort((a, b) => a.id.localeCompare(b.id));
+  const order = new Map(overlayQ.map((q, i) => [q.id, i]));
+  const baseCanon = new Set(base.map((q) => q.canonical_id));
+  const extra = playable.filter((q) => !baseIds.has(q.id) && !baseCanon.has(q.canonical_id))
+    .sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0));
+  const out = chunkMissions(base, grade, term, 0, true);
+  return [...out, ...chunkMissions(extra, grade, term, out.length, false)];
 }
 
 // ---------- Mode catalogue ----------
@@ -262,3 +275,12 @@ export function modeAvailability(grade: number, term: number): Record<ModeId, { 
     writing_studio: { count: 0, reason: "هنوز تمرین نوشتاری بازبینی‌شده با معیار ارزیابی وارد نشده است." },
   };
 }
+
+// ---------- Catalogue summary ----------
+export const BASELINE_VERSION: string = (raw as { content_version?: string }).content_version ?? "0";
+export function playableCounts(): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const g of [7, 8, 9, 10, 11, 12]) for (const t of [1, 2]) out[`${g}-${t}`] = dedupe(trackQuestions(g, t)).length;
+  return out;
+}
+export const overlaySize = () => overlayQ.length;

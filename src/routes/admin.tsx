@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, useMemo, useState } from "react";
-import { ALL_QUESTIONS, CONTEXTS, ineligibility, type Question } from "@/lib/bank";
+import { ALL_QUESTIONS, CONTEXTS, ineligibility, BASELINE_VERSION, playableCounts, overlaySize, useBankVersion, type Question } from "@/lib/bank";
 import { validateEnvelope, type DryRun } from "@/lib/importer";
+import { dryRunPack, importPack, clearLocalPacks } from "@/lib/localBank";
+import type { PackPlan } from "@/lib/pack";
 import { QuestionView } from "@/components/QuestionView";
 import { fa, GRADES, TERMS, gradeLabel, termLabel, SKILL_FA } from "@/lib/fa";
 
@@ -127,11 +129,56 @@ function Detail({ q }: { q: Question }) {
   );
 }
 
+function PackImport() {
+  useBankVersion();
+  const [env, setEnv] = useState<unknown>(null);
+  const [plan, setPlan] = useState<PackPlan | null>(null);
+  const [msg, setMsg] = useState("");
+  const counts = playableCounts();
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  return (
+    <div className="card-soft space-y-3 p-4 text-sm">
+      <h2 className="font-bold">افزودن بستهٔ سؤال‌های آماده (فقط همین مرورگر)</h2>
+      <p>نسخهٔ بستهٔ منتشرشده: <span className="en" dir="ltr">{BASELINE_VERSION}</span> · سؤال‌های قابل بازی: {fa(total)} (افزوده‌شده در این مرورگر: {fa(overlaySize())})</p>
+      <ul className="grid grid-cols-3 gap-1 text-xs sm:grid-cols-4">{Object.entries(counts).map(([k, v]) => { const [g, t] = k.split("-").map(Number); return <li key={k}>{gradeLabel(g!)} · {termLabel(t!)}: {fa(v)}</li>; })}</ul>
+      <p className="text-xs text-muted-foreground">فقط سؤال‌های «آماده» با پاسخ بازبینی‌شده و متن/فایل لازم وارد بازی می‌شوند. این کار برای بقیهٔ کاربران چیزی را تغییر نمی‌دهد و پیشرفت و امتیاز را دست نمی‌زند.</p>
+      <input type="file" accept="application/json" aria-label="فایل بستهٔ سؤال آماده" className="block min-h-11"
+        onChange={async (e) => {
+          const file = e.target.files?.[0]; if (!file) return;
+          setMsg(""); setPlan(null);
+          try { const j = JSON.parse(await file.text()); setEnv(j); setPlan(await dryRunPack(j)); }
+          catch (x) { setMsg("فایل JSON معتبر نیست: " + (x as Error).message); }
+        }} />
+      {plan && (
+        <div className="space-y-2">
+          <div className="grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
+            {[["کل ردیف‌ها", plan.total], ["جدید", plan.newIds.length], ["به‌روزرسانی", plan.updated.length], ["بدون تغییر", plan.unchanged], ["تکراری", plan.duplicates], ["نیاز به بازبینی", plan.notReady], ["کنارگذاشته", plan.excluded], ["تعارض", plan.conflicts.length], ["خطا", plan.errors.length]].map(([l, v]) => (
+              <div key={l as string} className="rounded-xl bg-secondary p-2"><div className="text-lg font-bold">{fa(v as number)}</div><div className="text-xs">{l}</div></div>
+            ))}
+          </div>
+          <button className="btn bg-primary text-primary-foreground" disabled={!plan.accept.length}
+            onClick={async () => {
+              try { const r = await importPack(env); setPlan(r); setMsg(`${fa(r.newIds.length + r.updated.length)} سؤال به بازی‌های این مرورگر اضافه شد.`); }
+              catch (x) { setMsg("ذخیره نشد (شاید فضای مرورگر پر است). چیزی از بانک فعلی یا پیشرفت حذف نشد. " + (x as Error).message); }
+            }}>افزودن {fa(plan.accept.length)} سؤال به بازی‌ها</button>
+          {[...plan.conflicts.map((c) => `${c.id} — conflict: ${c.reason}`), ...plan.errors.map((e) => `${e.id} — ${e.message}`)].length > 0 && (
+            <ul className="max-h-60 overflow-auto text-xs" dir="ltr">{[...plan.conflicts.map((c) => `${c.id} — conflict: ${c.reason}`), ...plan.errors.map((e) => `${e.id} — ${e.message}`)].slice(0, 300).map((s, i) => <li key={i} className="en">{s}</li>)}</ul>
+          )}
+        </div>
+      )}
+      {msg && <p role="status">{msg}</p>}
+      {overlaySize() > 0 && <button className="btn border border-border text-xs" onClick={async () => { await clearLocalPacks(); setMsg("بسته‌های این مرورگر حذف شد؛ پیشرفت دست نخورد."); }}>حذف بسته‌های افزوده در این مرورگر</button>}
+    </div>
+  );
+}
+
 function Import() {
   const [res, setRes] = useState<DryRun | null>(null);
   const [err, setErr] = useState("");
   return (
     <div className="space-y-3">
+      <PackImport />
+      <h2 className="font-bold">اعتبارسنجی آزمایشی بانک کامل</h2>
       <p className="text-sm">یک فایل JSON (بانک کامل، بانک شروع یا تکه‌ای از یک پایه/نوبت) انتخاب کن. اعتبارسنجی آزمایشی روی همین دستگاه انجام می‌شود و چیزی منتشر نمی‌شود.</p>
       <input type="file" accept="application/json" aria-label="فایل بانک سؤال" className="block min-h-11"
         onChange={async (e) => {
