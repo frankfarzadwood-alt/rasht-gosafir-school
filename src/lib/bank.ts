@@ -275,3 +275,12 @@ export function modeAvailability(grade: number, term: number): Record<ModeId, { 
     writing_studio: { count: 0, reason: "هنوز تمرین نوشتاری بازبینی‌شده با معیار ارزیابی وارد نشده است." },
   };
 }
+
+// ---------- Catalogue summary ----------
+export const BASELINE_VERSION: string = (raw as { content_version?: string }).content_version ?? "0";
+export function playableCounts(): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const g of [7, 8, 9, 10, 11, 12]) for (const t of [1, 2]) out[`${g}-${t}`] = dedupe(trackQuestions(g, t)).length;
+  return out;
+}
+export const overlaySize = () => overlayQ.length;
