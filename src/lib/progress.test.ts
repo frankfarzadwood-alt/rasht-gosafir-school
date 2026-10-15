@@ -43,7 +43,7 @@ describe("mastery", () => {
 });
 
 describe("question bank", () => {
-  it("contains all 308 starter records", () => expect(ALL_QUESTIONS.length).toBe(308));
+  it("contains all 1,801 reviewed release records", () => expect(ALL_QUESTIONS.length).toBe(1801));
   it("every one of the 12 tracks has eligible questions", () => {
     for (const [g, t] of GRADES_CHECK) expect(trackQuestions(g, t).length).toBeGreaterThan(0);
   });
