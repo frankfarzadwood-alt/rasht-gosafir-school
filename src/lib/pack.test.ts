@@ -2,7 +2,7 @@ import "fake-indexeddb/auto";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import real from "@/data/bank.json";
 
-type Q = { id: string; review_status: string; context_id: string | null; format: string; eligible_games: string[]; grade: number; term: number };
+type Q = { id: string; prompt_en: string | null; review_status: string; context_id: string | null; format: string; eligible_games: string[]; grade: number; term: number };
 const realQs = (real as unknown as { questions: Q[] }).questions;
 // A genuine approved starter record held out of the test baseline (never shipped as a test item).
 const held = realQs.find((q) => !q.context_id && q.format === "mcq" && q.eligible_games.includes("quiz_sprint"))!;
