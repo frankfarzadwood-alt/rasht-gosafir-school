@@ -31,7 +31,9 @@ export type Context = {
   source_id?: string; source_page?: number; source_pdf_url?: string;
 };
 
-export const ALL_QUESTIONS = (raw as { questions: Question[] }).questions;
+export const ALL_QUESTIONS = (raw as unknown as { questions: Question[] }).questions;
+/** Duplicate record IDs → the canonical ID that is played instead (from the reviewed release). */
+export const ID_ALIASES: Record<string, string> = (raw as unknown as { id_aliases?: Record<string, string> }).id_aliases ?? {};
 export const CONTEXTS = (raw as unknown as { contexts: Context[] }).contexts;
 
 // ---------- Device-local overlay (items approved in the local review workspace) ----------
@@ -277,7 +279,7 @@ export function modeAvailability(grade: number, term: number): Record<ModeId, { 
 }
 
 // ---------- Catalogue summary ----------
-export const BASELINE_VERSION: string = (raw as { content_version?: string }).content_version ?? "0";
+export const BASELINE_VERSION: string = (raw as unknown as { content_version?: string }).content_version ?? "0";
 export function playableCounts(): Record<string, number> {
   const out: Record<string, number> = {};
   for (const g of [7, 8, 9, 10, 11, 12]) for (const t of [1, 2]) out[`${g}-${t}`] = dedupe(trackQuestions(g, t)).length;

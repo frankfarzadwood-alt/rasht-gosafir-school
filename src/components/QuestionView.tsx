@@ -48,7 +48,7 @@ export function QuestionView({ item, mode, locked, onSubmit }: Props) {
     <div className="space-y-4">
       <p className="text-sm font-medium text-muted-foreground">{ins.fa ?? <En>{ins.en}</En>}</p>
       {kind === "chips" ? <ChipGap key={q.id} item={item} locked={locked} onSubmit={onSubmit} />
-        : kind === "letters" ? <Builder key={q.id} q={q} tiles={letterPool(q.answer.value ?? "")} joiner="" locked={locked} onSubmit={onSubmit} clue />
+        : kind === "letters" ? <Builder key={q.id} q={q} tiles={(q as { letter_pool?: string[] }).letter_pool?.length ? (q as { letter_pool?: string[] }).letter_pool! : letterPool(q.answer.value ?? "")} joiner="" locked={locked} onSubmit={onSubmit} clue />
         : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(q.reorder_tokens ?? [])} joiner=" " locked={locked} onSubmit={onSubmit} />
         : q.format === "matching" ? <PairsInline key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : isChoice(q) ? <Choices key={q.id} q={q} locked={locked} onSubmit={onSubmit} />

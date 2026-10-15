@@ -1,22 +1,18 @@
 import "fake-indexeddb/auto";
 import { describe, it, expect, vi, beforeAll } from "vitest";
-import real from "@/data/bank.json";
 
 type Q = { id: string; prompt_en: string | null; review_status: string; context_id: string | null; format: string; eligible_games: string[]; grade: number; term: number };
-const realQs = (real as unknown as { questions: Q[] }).questions;
-// A genuine approved starter record held out of the test baseline (never shipped as a test item).
-const held = realQs.find((q) => !q.context_id && q.format === "mcq" && q.eligible_games.includes("quiz_sprint"))!;
-
+// A genuine approved record held out of an isolated test baseline (never shipped as a test item).
+const H = vi.hoisted(() => ({ held: null as unknown as Q }));
 vi.mock("@/data/bank.json", async (orig) => {
-  const m = (await orig()) as { default: { questions: Q[] } & Record<string, unknown> };
-  const d = m.default;
-  return { default: { ...d, questions: d.questions.filter((q) => q.id !== held.id) } };
+  const d = ((await orig()) as { default: { questions: Q[] } & Record<string, unknown> }).default;
+  H.held = d.questions.find((q) => !q.context_id && q.format === "mcq" && q.eligible_games.includes("quiz_sprint"))!;
+  return { default: { ...d, questions: d.questions.filter((q) => q.id !== H.held.id) } };
 });
 
 const bank = await import("./bank");
+const held = H.held as unknown as import("./bank").Question;
 const local = await import("./localBank");
-const { applyAttempt } = await import("./progress").catch(() => ({ applyAttempt: undefined }));
-void applyAttempt;
 
 const count = () => Object.values(bank.playableCounts()).reduce((a, b) => a + b, 0);
 
@@ -28,13 +24,13 @@ describe("ready-pack integration (isolated baseline with one record held out)", 
     missionsBefore = bank.missions(held.grade, held.term).map((m) => m.id + ":" + m.questionIds.join(","));
   });
 
-  it("baseline has 307 in the isolated setup", () => expect(count()).toBe(307));
+  it("baseline has 1800 in the isolated setup", () => expect(count()).toBe(1800));
 
   it("importing the held-out approved record adds it once to its track and games", async () => {
     const plan = await local.importPack({ content_version: "t1", questions: [held, held] });
     expect(plan.newIds).toEqual([held.id]);
     expect(plan.duplicates).toBe(1);
-    expect(count()).toBe(308);
+    expect(count()).toBe(1801);
     const after = bank.modeAvailability(held.grade, held.term);
     expect(after.quiz_sprint.count).toBe(before.quiz_sprint.count + 1);
     expect(after.boss_exam.count).toBe(before.boss_exam.count + 1);
@@ -51,14 +47,14 @@ describe("ready-pack integration (isolated baseline with one record held out)", 
     const plan = await local.importPack({ content_version: "t1", questions: [held] });
     expect(plan.unchanged).toBe(1);
     expect(plan.accept).toHaveLength(0);
-    expect(count()).toBe(308);
+    expect(count()).toBe(1801);
   });
 
   it("survives a reload from IndexedDB", async () => {
     bank.setLocalOverlay([], []);
-    expect(count()).toBe(307);
+    expect(count()).toBe(1800);
     await local.loadLocalOverlay();
-    expect(count()).toBe(308);
+    expect(count()).toBe(1801);
   });
 
   it("option grading stays correct for the imported item", () => {
@@ -86,12 +82,20 @@ describe("ready-pack integration (isolated baseline with one record held out)", 
     expect(plan.notReady).toBe(1);
     expect(plan.excluded).toBe(1);
     expect(plan.errors.map((e) => e.id)).toEqual(["x_unrev"]);
-    expect(count()).toBe(308);
+    expect(count()).toBe(1801);
   });
 
   it("passage questions keep their approved context", () => {
     const withCtx = bank.ALL_QUESTIONS.filter((q) => q.context_id);
-    expect(withCtx.length).toBe(3);
-    for (const q of withCtx) expect(bank.isEligible(q)).toBe(true);
+    expect(withCtx.length).toBeGreaterThan(3);
+    for (const q of withCtx) { expect(bank.isEligible(q)).toBe(true); expect(bank.contextById(q.context_id)!.text).toBeTruthy(); }
+  });
+
+  it("alias IDs are never added as second copies", async () => {
+    const [alias, target] = Object.entries(bank.ID_ALIASES)[0]!;
+    const t = bank.ALL_QUESTIONS.find((q) => q.id === target)!;
+    const plan = await local.importPack({ content_version: "t9", questions: [{ ...t, id: alias }] });
+    expect(plan.accept).toHaveLength(0);
+    expect(count()).toBe(1801);
   });
 });
