@@ -32,6 +32,8 @@ export type Context = {
 };
 
 export const ALL_QUESTIONS = (raw as { questions: Question[] }).questions;
+/** Duplicate record IDs → the canonical ID that is played instead (from the reviewed release). */
+export const ID_ALIASES: Record<string, string> = (raw as { id_aliases?: Record<string, string> }).id_aliases ?? {};
 export const CONTEXTS = (raw as unknown as { contexts: Context[] }).contexts;
 
 // ---------- Device-local overlay (items approved in the local review workspace) ----------

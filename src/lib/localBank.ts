@@ -2,7 +2,7 @@
  * Browser-local store for reviewed ready packs (IndexedDB). Affects only this browser.
  * Approved records are loaded into the shared playable catalogue via setLocalOverlay.
  */
-import { ALL_QUESTIONS, CONTEXTS, setLocalOverlay } from "./bank";
+import { ALL_QUESTIONS, CONTEXTS, ID_ALIASES, setLocalOverlay } from "./bank";
 import { planPack, type PackPlan, type StoredC, type StoredQ } from "./pack";
 
 const DB = "english-quest-packs";
@@ -35,7 +35,10 @@ export async function readLocal() {
 export async function loadLocalOverlay(): Promise<void> {
   try {
     const { qs, cs } = await readLocal();
-    setLocalOverlay(qs.map((r) => r.q), cs.map((r) => r.c));
+    // The bundled reviewed release wins over older local copies of the same ID or an alias of a bundled ID.
+    const bundled = new Set(ALL_QUESTIONS.map((q) => q.id));
+    const bundledC = new Set(CONTEXTS.map((c) => c.id));
+    setLocalOverlay(qs.filter((r) => !bundled.has(r.id) && !ID_ALIASES[r.id]).map((r) => r.q), cs.filter((r) => !bundledC.has(r.id)).map((r) => r.c));
   } catch { /* storage unavailable: bundled pack stays the catalogue */ }
 }
 

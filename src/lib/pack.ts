@@ -1,5 +1,5 @@
 /** Pure validation + upsert planning for reviewed ready packs. Storage lives in localBank.ts. */
-import { ineligibility, type Context, type Question } from "./bank";
+import { ineligibility, ID_ALIASES, type Context, type Question } from "./bank";
 
 export type StoredQ = { id: string; q: Question; version: string; seq: number };
 export type StoredC = { id: string; c: Context; version: string };
@@ -54,6 +54,7 @@ export function planPack(
     if (missing.length) { p.errors.push({ id: q?.id ?? "(no id)", message: `missing: ${missing.join(", ")}` }); continue; }
     if (![7, 8, 9, 10, 11, 12].includes(q.grade) || ![1, 2].includes(q.term)) { p.errors.push({ id: q.id, message: "invalid grade/term" }); continue; }
     if (seen.has(q.id)) { p.duplicates++; continue; }
+    if (ID_ALIASES[q.id]) { p.duplicates++; p.conflicts.push({ id: q.id, reason: `alias of ${ID_ALIASES[q.id]}; not added twice` }); continue; }
     seen.add(q.id);
     if (q.review_status === "excluded") { p.excluded++; continue; }
     if (q.review_status !== "ready") { p.notReady++; continue; }
