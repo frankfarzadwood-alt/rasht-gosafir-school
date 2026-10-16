@@ -1,0 +1,10 @@
+{
+  "schema_version": "2.0.0",
+  "kind": "alignment_pack",
+  "release_id": "english-quest-foundation-2026-10-17-r1",
+  "alignments": [],
+  "notes": [
+    "No Oxford–Evolve correspondence has been verified. Unit examples in the architecture were illustrative.",
+    "Connections require identified editions, shared targets, source-page evidence and a reviewed status."
+  ]
+}

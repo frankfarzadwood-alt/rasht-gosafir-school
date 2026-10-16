@@ -1,0 +1,80 @@
+{
+  "schema_version": "2.0.0",
+  "games": [
+    {
+      "id": "quest_trail",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "quiz_sprint",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "gap_builder",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "word_forge",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "sentence_builder",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "match_arena",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "memory_pairs",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "grammar_detective",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "reading_explorer",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "boss_exam",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    },
+    {
+      "id": "flashcards",
+      "implementation_status": "verify_existing_app",
+      "eligibility_source": "question.eligible_games",
+      "empty_pool_behavior": "explain_unavailable"
+    }
+  ],
+  "gated_modes": [
+    "listening_lab",
+    "writing_studio"
+  ],
+  "notes": [
+    "These are content identifiers, not a claim that every mode is exposed by the current UI. Verify flashcards in particular.",
+    "Apply each existing game’s format-specific answer, word-bank, token, letter-pool and context rules after general eligibility filtering.",
+    "Listening requires verified original audio. Open writing requires a separate suitable evaluation workflow."
+  ]
+}
