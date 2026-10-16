@@ -71,7 +71,11 @@ function Track() {
         <h2 className="mb-3 text-lg font-extrabold">نقشهٔ ماجراجویی</h2>
         <ol className="relative space-y-3 pr-6">
           <span aria-hidden className="absolute bottom-4 right-[1.05rem] top-4 w-1 rounded bg-border" />
-          {ms.map((m, i) => {
+          {ms.map((m, i) => ({ m, i })).filter(({ m }) => {
+            const cur = Math.max(0, ms.indexOf(nextMission!));
+            const at = ms.indexOf(m);
+            return at === cur || at === cur + 1;
+          }).map(({ m, i }) => {
             const done = p.missionsDone.includes(m.id);
             const unlocked = i === 0 || done || p.missionsDone.includes(ms[i - 1]!.id);
             return (
