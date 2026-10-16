@@ -19,15 +19,16 @@ export interface Answer {
   [key: string]: unknown;
 }
 export interface Assets { source_image_required: boolean; source_audio_required: boolean; image?: unknown; audio?: unknown; required_asset_ids?: string[] }
-export interface LegacyQuestion {
-  id: string; canonical_id: string; grade: number; term: number; source_id: string;
+interface QuestionBase {
+  id: string; canonical_id: string; source_id: string;
   skill: string; format: string; granularity: string; prompt_en: string | null;
   options: { id: string; text: string }[]; answer: Answer; context_id: string | null;
   assets: Assets; review_status: string; eligible_games: string[];
   source: { pages: number[]; pdf_url?: string | null; [key: string]: unknown };
   [key: string]: unknown;
 }
-export interface Question extends Omit<LegacyQuestion, "grade" | "term"> {
+export interface LegacyQuestion extends QuestionBase { grade: number; term: number }
+export interface Question extends QuestionBase {
   grade?: number; term?: number; revision: number; placements: Placement[];
 }
 export interface Context { id: string; kind: string; text: string | null; review_status: string; [key: string]: unknown }
