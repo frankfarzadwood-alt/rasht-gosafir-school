@@ -4,6 +4,10 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useProgress, update, todayCount, useHydrated, dueCanonicals } from "@/lib/progress";
 import { missions, modeAvailability, MODES, trackQuestions, useBankVersion } from "@/lib/bank";
 import { fa, gradeLabel, termLabel, SKILL_FA } from "@/lib/fa";
+import { useEffect } from "react";
+import { bookmark, remember, nodeById } from "@/lib/learning";
+import { schoolTrackNode } from "@/lib/content/school";
+import { SaveCourse } from "@/components/LearningHub";
 
 export const Route = createFileRoute("/track/$grade/$term")({
   beforeLoad: ({ params }) => {
@@ -16,6 +20,8 @@ export const Route = createFileRoute("/track/$grade/$term")({
       { name: "description", content: "مسیر مأموریت‌ها، مرور اشتباهات و بازی‌های این نوبت امتحان." },
       { property: "og:title", content: `${gradeLabel(+params.grade)} · ${termLabel(+params.term)}` },
       { property: "og:description", content: "مسیر تمرین امتحان انگلیسی." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Track,
@@ -35,6 +41,12 @@ function Track() {
   const today = hydrated ? todayCount(p) : 0;
   const goal = p.settings.dailyGoal;
   const ps = { grade: gs, term: ts };
+  const nodeId = schoolTrackNode(grade, term);
+  const node = nodeId ? nodeById(nodeId) : null;
+  useEffect(() => {
+    update(s => s.grade === grade && s.term === term ? s : ({ ...s, grade, term }));
+    if (nodeId) remember(bookmark(nodeId, "quest_trail", nextMission?.id));
+  }, [grade, term, nodeId, nextMission?.id]);
 
   return (
     <div className="space-y-6" data-band={grade >= 10 ? "senior" : "junior"}>
@@ -43,8 +55,9 @@ function Track() {
           <h1 className="text-2xl font-extrabold">{gradeLabel(grade)}</h1>
           <p className="font-bold text-teal">{termLabel(term)}</p>
         </div>
-        <Link to="/" className="btn border border-border text-sm">تغییر پایه</Link>
+        <Link to="/learn/$nodeId" params={{ nodeId: "school" }} search={{ view: "units" }} className="btn border border-border text-sm">تغییر پایه</Link>
       </header>
+      {node && <SaveCourse node={node} />}
 
       <div className="grid gap-3 sm:grid-cols-3">
         <Link to="/play/$grade/$term/$mode" params={{ ...ps, mode: "quest_trail" }} search={{ mission: nextMission?.id }} className="btn h-16 bg-primary text-lg text-primary-foreground">🗺️ ادامهٔ مسیر</Link>
@@ -72,12 +85,13 @@ function Track() {
         <ol className="relative space-y-3 pr-6">
           <span aria-hidden className="absolute bottom-4 right-[1.05rem] top-4 w-1 rounded bg-border" />
           {ms.map((m, i) => ({ m, i })).filter(({ m }) => {
-            const cur = Math.max(0, ms.indexOf(nextMission!));
+            const cur = nextMission ? Math.max(0, ms.indexOf(nextMission)) : 0;
             const at = ms.indexOf(m);
             return at === cur || at === cur + 1;
           }).map(({ m, i }) => {
             const done = p.missionsDone.includes(m.id);
-            const unlocked = i === 0 || done || p.missionsDone.includes(ms[i - 1]!.id);
+            const previous = ms[i - 1];
+            const unlocked = i === 0 || done || Boolean(previous && p.missionsDone.includes(previous.id));
             return (
               <li key={m.id} className={`relative ${i % 2 ? "sm:mr-16" : ""}`}>
                 <span aria-hidden className={`absolute -right-6 top-3 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background text-xs font-bold ${done ? "bg-teal text-teal-foreground" : unlocked ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>{done ? "✓" : fa(i + 1)}</span>
@@ -122,8 +136,8 @@ function Track() {
 }
 
 function countLabel(mode: string, n: number, grade?: number, term?: number) {
-  if (mode === "reading_explorer" && grade) {
-    const qn = readingGroups(trackQuestions(grade, term!)).reduce((s, g) => s + g.questions.length, 0);
+  if (mode === "reading_explorer" && grade && term) {
+    const qn = readingGroups(trackQuestions(grade, term)).reduce((s, g) => s + g.questions.length, 0);
     return `${fa(n)} متن · ${fa(qn)} سؤال`;
   }
   if (mode === "match_arena" || mode === "memory_pairs") return `${fa(n)} جفت`;

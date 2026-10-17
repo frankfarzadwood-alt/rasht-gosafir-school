@@ -9,6 +9,8 @@ export const Route = createFileRoute("/profile")({
       { name: "description", content: "تسلط بر مهارت‌ها، نشان‌ها، زمان مرورها و تنظیمات." },
       { property: "og:title", content: "پروفایل — ماجراجویی انگلیسی" },
       { property: "og:description", content: "پیشرفت واقعی بر اساس پاسخ‌ها." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Profile,

@@ -69,6 +69,7 @@ export function GameChoices({ node }: { node: CatalogueNode }) {
 }
 export function CataloguePage({ node, view }: { node: CatalogueNode; view: string }) {
   useBankVersion();
+  const p = useProgress();
   const trail = ancestorsOf(node.id), children = childrenOf(node.id);
   const course = ["book", "term", "unit", "subunit"].includes(node.kind);
   const mapping = trail.some(n => ["oxford", "evolve"].includes(n.id)) && course;
@@ -78,12 +79,10 @@ export function CataloguePage({ node, view }: { node: CatalogueNode; view: strin
     {node.kind === "term" && <ActivityLink current={bookmark(node.id)} className="bg-primary text-primary-foreground">نقشهٔ ماجراجویی<ChevronLeft /></ActivityLink>}
     {course && <nav className="flex gap-1 border-b border-border" aria-label="نمای دوره">{[["units", "درس‌ها"], ["practice", "تمرین"], ["progress", "پیشرفت"]].map(([id, title]) => <Button key={id} variant="ghost" asChild className={`btn rounded-b-none ${view === id ? "border-b-2 border-primary text-primary" : "text-muted-foreground"}`}><Link to="/learn/$nodeId" params={{ nodeId: node.id }} search={{ view: id }}>{title}</Link></Button>)}</nav>}
     {view === "progress" && course ? <ScopeProgress node={node} /> : view === "practice" && course ? <GameChoices node={node} /> : <>
-      {course && !scopeStats(nodeScope(node.id), useProgressData()).total && <Preparation />}
+      {course && !scopeStats(nodeScope(node.id), p).total && <Preparation />}
       {children.length > 0 && <div className="grid gap-3 sm:grid-cols-2">{children.map(n => <NodeCard key={n.id} node={n} />)}</div>}
       {node.kind === "subunit" && <GameChoices node={node} />}
     </>}
     {mapping && <section className="border-t border-border pt-4"><h2 className="font-bold">ارتباط آکسفورد و ایوالو</h2><p className="mt-1 text-sm text-muted-foreground">ارتباط‌های بازبینی‌شده در حال آماده‌سازی است.</p></section>}
   </div>;
 }
-// Keep progress subscription unconditional in the shared page.
-function useProgressData() { return useProgress(); }
