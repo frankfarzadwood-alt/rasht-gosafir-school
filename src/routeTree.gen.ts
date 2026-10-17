@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as GamesRouteImport } from './routes/games'
+import { Route as LearnRouteImport } from './routes/learn'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as LearnNodeIdRouteImport } from './routes/learn.$nodeId'
 import { Route as TrackGradeTermRouteImport } from './routes/track.$grade.$term'
 import { Route as PlayGradeTermModeRouteImport } from './routes/play.$grade.$term.$mode'
 
@@ -25,10 +30,35 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnNodeIdRoute = LearnNodeIdRouteImport.update({
+  id: '/$nodeId',
+  path: '/$nodeId',
+  getParentRoute: () => LearnRoute,
 } as any)
 const TrackGradeTermRoute = TrackGradeTermRouteImport.update({
   id: '/track/$grade/$term',
@@ -44,14 +74,23 @@ const PlayGradeTermModeRoute = PlayGradeTermModeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/games': typeof GamesRoute
+  '/learn': typeof LearnRouteWithChildren
   '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/learn/$nodeId': typeof LearnNodeIdRoute
+  '/learn/': typeof LearnIndexRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
   '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/games': typeof GamesRoute
   '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/learn/$nodeId': typeof LearnNodeIdRoute
+  '/learn': typeof LearnIndexRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
   '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
@@ -59,7 +98,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/games': typeof GamesRoute
+  '/learn': typeof LearnRouteWithChildren
   '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/learn/$nodeId': typeof LearnNodeIdRoute
+  '/learn/': typeof LearnIndexRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
   '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
@@ -68,21 +112,35 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/games'
+    | '/learn'
     | '/profile'
+    | '/progress'
+    | '/learn/$nodeId'
+    | '/learn/'
     | '/track/$grade/$term'
     | '/play/$grade/$term/$mode'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
+    | '/games'
     | '/profile'
+    | '/progress'
+    | '/learn/$nodeId'
+    | '/learn'
     | '/track/$grade/$term'
     | '/play/$grade/$term/$mode'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/games'
+    | '/learn'
     | '/profile'
+    | '/progress'
+    | '/learn/$nodeId'
+    | '/learn/'
     | '/track/$grade/$term'
     | '/play/$grade/$term/$mode'
   fileRoutesById: FileRoutesById
@@ -90,7 +148,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  GamesRoute: typeof GamesRoute
+  LearnRoute: typeof LearnRouteWithChildren
   ProfileRoute: typeof ProfileRoute
+  ProgressRoute: typeof ProgressRoute
   TrackGradeTermRoute: typeof TrackGradeTermRoute
   PlayGradeTermModeRoute: typeof PlayGradeTermModeRoute
 }
@@ -111,12 +172,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/': {
+      id: '/learn/'
+      path: '/'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/$nodeId': {
+      id: '/learn/$nodeId'
+      path: '/$nodeId'
+      fullPath: '/learn/$nodeId'
+      preLoaderRoute: typeof LearnNodeIdRouteImport
+      parentRoute: typeof LearnRoute
     }
     '/track/$grade/$term': {
       id: '/track/$grade/$term'
@@ -135,10 +231,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface LearnRouteChildren {
+  LearnNodeIdRoute: typeof LearnNodeIdRoute
+  LearnIndexRoute: typeof LearnIndexRoute
+}
+
+const LearnRouteChildren: LearnRouteChildren = {
+  LearnNodeIdRoute: LearnNodeIdRoute,
+  LearnIndexRoute: LearnIndexRoute,
+}
+
+const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  GamesRoute: GamesRoute,
+  LearnRoute: LearnRouteWithChildren,
   ProfileRoute: ProfileRoute,
+  ProgressRoute: ProgressRoute,
   TrackGradeTermRoute: TrackGradeTermRoute,
   PlayGradeTermModeRoute: PlayGradeTermModeRoute,
 }
