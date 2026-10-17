@@ -15,3 +15,6 @@
 - Guest progress, XP and mastery rules are a pure reducer in src/lib/progress.ts (applyAttempt) stored in localStorage; tests in src/lib/progress.test.ts pin those rules.
 - Tracks are filtered by numeric grade/term fields only, never by IDs or filenames, because source labels are unreliable.
 - Admin screen is a local read-only/dry-run preview until a backend with role checks is connected.
+- Catalogue contracts, validation and repository selectors live in src/lib/content; adapt the school release without mutating legacy records so catalogue navigation and existing gameplay retain the same identities.
+- Learning navigation state lives separately from learner progress in src/lib/learning.ts; local course removal only edits navigation state and must never erase attempts or rewards.
+- Catalogue pages share src/components/LearningHub.tsx; school availability uses the live bank selectors so browser-local reviewed additions appear in navigation too.

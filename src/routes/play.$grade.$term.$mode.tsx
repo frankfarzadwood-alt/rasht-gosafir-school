@@ -1,5 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { bookmark, remember } from "@/lib/learning";
+import { schoolTrackNode } from "@/lib/content/school";
 import { GameRunner, BackLink } from "@/components/GameRunner";
 import { MatchArena, MemoryPairs } from "@/components/PairGames";
 import type { Item } from "@/components/QuestionView";
@@ -8,7 +10,7 @@ import {
   sentenceItems, grammarItems, readingGroups, pairSet, modeAvailability,
   useBankVersion,
 } from "@/lib/bank";
-import { useProgress, useHydrated, dueCanonicals } from "@/lib/progress";
+import { useProgress, useHydrated, dueCanonicals, update } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
 
 type Search = { mission?: string | undefined };
@@ -25,6 +27,8 @@ export const Route = createFileRoute("/play/$grade/$term/$mode")({
         { name: "description", content: `بازی ${m} با سؤال‌های تأییدشدهٔ امتحان انگلیسی.` },
         { property: "og:title", content: `${m} — ماجراجویی انگلیسی` },
         { property: "og:description", content: "تمرین امتحان انگلیسی با بازی." },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
     };
   },
@@ -41,6 +45,11 @@ function Play() {
   const p = useProgress();
   const bankV = useBankVersion();
   const info = MODES.find((m) => m.id === mode);
+  useEffect(() => {
+    const id = schoolTrackNode(grade, term);
+    if (id) remember(bookmark(id, mode, mission));
+    update(s => s.grade === grade && s.term === term ? s : ({ ...s, grade, term }));
+  }, [grade, term, mode, mission]);
   const title = info?.fa ?? "مرور اشتباهات";
   const [seed] = useState(() => Math.random());
   const [started, setStarted] = useState<null | { len?: number; timer?: boolean }>(mode === "quest_trail" || mode === "review" || mode === "gap_builder" || mode === "word_forge" || mode === "sentence_builder" || mode === "grammar_detective" || mode === "reading_explorer" || mode === "match_arena" || mode === "memory_pairs" ? {} : null);

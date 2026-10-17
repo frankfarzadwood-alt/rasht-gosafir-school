@@ -3,6 +3,8 @@ import {
   Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts, type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Home, BookOpen, Gamepad2, ChartNoAxesCombined, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { loadLocalOverlay } from "@/lib/localBank";
 
 import appCss from "../styles.css?url";
@@ -92,10 +94,14 @@ function RootComponent() {
           </Link>
           <span className="flex-1" />
           {p.nickname && <span className="whitespace-nowrap rounded-full bg-gold/25 px-2 py-1 text-xs font-bold" aria-label="امتیاز">⭐ {fa(totalXp(p))}</span>}
-          <Link to="/profile" className="btn px-2 text-xs sm:text-sm" activeProps={{ className: "bg-secondary" }}>👤 پروفایل</Link>
         </nav>
       </header>
-      <main className="mx-auto max-w-3xl px-3 py-5"><Outlet /></main>
+      <main className="mx-auto max-w-3xl px-3 py-5 pb-28"><Outlet /></main>
+      <nav aria-label="ناوبری اصلی" className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
+        <div className="mx-auto grid max-w-3xl grid-cols-5 px-1 py-2">
+          {([{ to: "/", label: "خانه", icon: Home }, { to: "/learn", label: "یادگیری", icon: BookOpen }, { to: "/games", label: "بازی‌ها", icon: Gamepad2 }, { to: "/progress", label: "پیشرفت", icon: ChartNoAxesCombined }, { to: "/profile", label: "پروفایل", icon: User }] as const).map(item => <Button asChild key={item.to} variant="ghost" className="h-14 min-w-0 rounded-xl px-1"><Link to={item.to} activeOptions={{ exact: item.to === "/" }} activeProps={{ className: "bg-secondary text-primary" }} inactiveProps={{ className: "text-muted-foreground" }} className="flex flex-col gap-1 text-xs font-bold"><item.icon aria-hidden className="h-5 w-5" />{item.label}</Link></Button>)}
+        </div>
+      </nav>
     </QueryClientProvider>
   );
 }
