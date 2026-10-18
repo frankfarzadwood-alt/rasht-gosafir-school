@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { BookOpen, ChevronLeft, Plus, Check, Minus, Play, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProgress, todayCount, update } from "@/lib/progress";
@@ -7,7 +8,7 @@ import { fa } from "@/lib/fa";
 import { ancestorsOf, bookmark, childrenOf, nodeById, nodeScope, nodeTitle, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
 import type { CatalogueNode } from "@/lib/content/contracts";
 
-export function ActivityLink({ current, game, children, className = "", mission }: { current: Bookmark; game?: string | null; children: React.ReactNode; className?: string; mission?: string }) {
+export function ActivityLink({ current, game, children, className = "", mission }: { current: Bookmark; game?: string | null; children: ReactNode; className?: string; mission?: string | undefined }) {
   const n = nodeById(current.nodeId);
   const mode = game === undefined ? current.game : game;
   return <Button asChild className={`btn ${className}`} variant="outline">{n?.kind === "term" && n.grade && n.term ? mode ?
@@ -77,7 +78,7 @@ export function CataloguePage({ node, view }: { node: CatalogueNode; view: strin
     <nav aria-label="مسیر یادگیری" className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground"><Link to="/learn" className="btn px-2">یادگیری</Link>{trail.map(n => <span key={n.id} className="flex items-center"><ChevronLeft className="h-4 w-4" aria-hidden />{n.id === node.id ? <span aria-current="page">{nodeTitle(n)}</span> : <Link className="btn px-2" to="/learn/$nodeId" params={{ nodeId: n.id }} search={{ view: "units" }}>{nodeTitle(n)}</Link>}</span>)}</nav>
     <header className="flex flex-wrap items-start justify-between gap-3"><div><h1 className="text-2xl font-extrabold text-primary">{nodeTitle(node)}</h1>{course && <p dir="ltr" lang="en" className="mt-1 text-muted-foreground">{node.title_en}</p>}</div><SaveCourse node={node} /></header>
     {node.kind === "term" && <ActivityLink current={bookmark(node.id)} className="bg-primary text-primary-foreground">نقشهٔ ماجراجویی<ChevronLeft /></ActivityLink>}
-    {course && <nav className="flex gap-1 border-b border-border" aria-label="نمای دوره">{[["units", "درس‌ها"], ["practice", "تمرین"], ["progress", "پیشرفت"]].map(([id, title]) => <Button key={id} variant="ghost" asChild className={`btn rounded-b-none ${view === id ? "border-b-2 border-primary text-primary" : "text-muted-foreground"}`}><Link to="/learn/$nodeId" params={{ nodeId: node.id }} search={{ view: id }}>{title}</Link></Button>)}</nav>}
+    {course && <nav className="flex gap-1 border-b border-border" aria-label="نمای دوره">{([["units", "درس‌ها"], ["practice", "تمرین"], ["progress", "پیشرفت"]] as const).map(([id, title]) => <Button key={id} variant="ghost" asChild className={`btn rounded-b-none ${view === id ? "border-b-2 border-primary text-primary" : "text-muted-foreground"}`}><Link to="/learn/$nodeId" params={{ nodeId: node.id }} search={{ view: id }}>{title}</Link></Button>)}</nav>}
     {view === "progress" && course ? <ScopeProgress node={node} /> : view === "practice" && course ? <GameChoices node={node} /> : <>
       {course && !scopeStats(nodeScope(node.id), p).total && <Preparation />}
       {children.length > 0 && <div className="grid gap-3 sm:grid-cols-2">{children.map(n => <NodeCard key={n.id} node={n} />)}</div>}

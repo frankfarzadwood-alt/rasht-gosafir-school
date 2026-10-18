@@ -38,7 +38,7 @@ export type LearningState = { version: 1; saved: string[]; current: Bookmark | n
 export const EMPTY_LEARNING: LearningState = { version: 1, saved: [], current: null };
 export const LEARNING_KEY = "english-quest-learning-v1";
 export function bookmark(id: string, game: string | null = null, mission?: string): Bookmark {
-  return { nodeId: id, scope: nodeScope(id), game, release: BASELINE_VERSION, mission, ancestors: ancestorsOf(id).map(n => n.id) };
+  return { nodeId: id, scope: nodeScope(id), game, release: BASELINE_VERSION, ...(mission === undefined ? {} : { mission }), ancestors: ancestorsOf(id).map(n => n.id) };
 }
 export function toggleSaved(s: LearningState, id: string): LearningState {
   const n = nodeById(id);
@@ -89,3 +89,6 @@ export function useLearning() {
   return useSyncExternalStore(l => { listeners.add(l); return () => listeners.delete(l); }, () => { load(); return state; }, () => EMPTY_LEARNING);
 }
 export const remember = (b: Bookmark) => setLearning(s => ({ ...s, current: b }));
+/** Browsing a course must not erase a resumable game or mission. */
+export const selectCourse = (s: LearningState, b: Bookmark): LearningState => s.current?.game ? s : { ...s, current: b };
+export const rememberCourse = (b: Bookmark) => setLearning(s => selectCourse(s, b));

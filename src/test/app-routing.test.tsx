@@ -14,4 +14,18 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it.each([
+    ["/", "/"],
+    ["/learn", "/learn/"],
+    ["/games", "/games"],
+    ["/progress", "/progress"],
+    ["/profile", "/profile"],
+    ["/learn/school", "/learn/$nodeId"],
+    ["/track/7/1", "/track/$grade/$term"],
+    ["/play/7/1/quest_trail", "/play/$grade/$term/$mode"],
+  ])("preserves the navigation destination %s", (path, routeId) => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    expect(router.matchRoutes(path).at(-1)?.routeId).toBe(routeId);
+  });
 });
