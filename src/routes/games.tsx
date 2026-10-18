@@ -9,5 +9,5 @@ function Games() {
   const p = useProgress(), l = useLearning(), hydrated = useHydrated();
   const b = restoreBookmark(l.current) ?? legacyBookmark(p), node = b ? nodeById(b.nodeId) : null;
   if (!hydrated) return null;
-  return <div className="space-y-5"><header className="flex flex-wrap items-center justify-between gap-2"><div><h1 className="text-2xl font-extrabold text-primary">بازی‌ها</h1>{b && <p className="mt-1 text-sm text-teal">{courseTitle(b)}</p>}</div><Button asChild variant="outline" className="btn"><Link to="/learn">انتخاب مسیر</Link></Button></header>{node ? <GameChoices node={node} /> : <div className="grid gap-3">{childrenOf(null).map(n => <NodeCard key={n.id} node={n} />)}</div>}</div>;
+  return <div className="space-y-5"><header className="flex flex-wrap items-center justify-between gap-2"><div><h1 className="text-2xl font-extrabold text-primary">بازی‌ها</h1>{b && <p className="mt-1 text-sm text-teal">{courseTitle(b)}</p>}</div><Button asChild variant="outline" className="btn"><Link to="/learn">انتخاب مسیر</Link></Button></header>{node?.id === "school" || node?.kind === "grade" ? <div className="grid gap-3 sm:grid-cols-2">{childrenOf(node.id).map(n => <NodeCard key={n.id} node={n} />)}</div> : node ? <GameChoices node={node} /> : <div className="grid gap-3">{childrenOf(null).map(n => <NodeCard key={n.id} node={n} />)}</div>}</div>;
 }

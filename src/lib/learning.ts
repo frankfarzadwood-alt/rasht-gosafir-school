@@ -89,3 +89,6 @@ export function useLearning() {
   return useSyncExternalStore(l => { listeners.add(l); return () => listeners.delete(l); }, () => { load(); return state; }, () => EMPTY_LEARNING);
 }
 export const remember = (b: Bookmark) => setLearning(s => ({ ...s, current: b }));
+/** Browsing a course must not erase a resumable game or mission. */
+export const selectCourse = (s: LearningState, b: Bookmark): LearningState => s.current?.game ? s : { ...s, current: b };
+export const rememberCourse = (b: Bookmark) => setLearning(s => selectCourse(s, b));

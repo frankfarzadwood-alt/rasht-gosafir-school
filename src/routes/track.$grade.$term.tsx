@@ -5,7 +5,7 @@ import { useProgress, update, todayCount, useHydrated, dueCanonicals } from "@/l
 import { missions, modeAvailability, MODES, trackQuestions, useBankVersion } from "@/lib/bank";
 import { fa, gradeLabel, termLabel, SKILL_FA } from "@/lib/fa";
 import { useEffect } from "react";
-import { bookmark, remember, nodeById } from "@/lib/learning";
+import { bookmark, rememberCourse, nodeById } from "@/lib/learning";
 import { schoolTrackNode } from "@/lib/content/school";
 import { SaveCourse } from "@/components/LearningHub";
 
@@ -45,7 +45,7 @@ function Track() {
   const node = nodeId ? nodeById(nodeId) : null;
   useEffect(() => {
     update(s => s.grade === grade && s.term === term ? s : ({ ...s, grade, term }));
-    if (nodeId) remember(bookmark(nodeId, "quest_trail", nextMission?.id));
+    if (nodeId) rememberCourse(bookmark(nodeId, "quest_trail", nextMission?.id));
   }, [grade, term, nodeId, nextMission?.id]);
 
   return (
