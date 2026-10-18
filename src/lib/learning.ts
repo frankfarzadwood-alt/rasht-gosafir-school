@@ -38,7 +38,7 @@ export type LearningState = { version: 1; saved: string[]; current: Bookmark | n
 export const EMPTY_LEARNING: LearningState = { version: 1, saved: [], current: null };
 export const LEARNING_KEY = "english-quest-learning-v1";
 export function bookmark(id: string, game: string | null = null, mission?: string): Bookmark {
-  return { nodeId: id, scope: nodeScope(id), game, release: BASELINE_VERSION, mission, ancestors: ancestorsOf(id).map(n => n.id) };
+  return { nodeId: id, scope: nodeScope(id), game, release: BASELINE_VERSION, ...(mission === undefined ? {} : { mission }), ancestors: ancestorsOf(id).map(n => n.id) };
 }
 export function toggleSaved(s: LearningState, id: string): LearningState {
   const n = nodeById(id);
