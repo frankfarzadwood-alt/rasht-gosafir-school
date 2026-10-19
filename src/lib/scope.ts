@@ -117,7 +117,7 @@ let live: { key: string; pack: QuestionPack } | null = null;
 export function livePack(catalogue: Catalogue, version: number): QuestionPack {
   const key = String(version);
   if (live?.key === key) return live.pack;
-  const legacy = { ...(RAW_RELEASE as LegacyPack), schema_version: "1.0.0" as const, questions: playableSource() as unknown as LegacyPack["questions"], contexts: [...CONTEXTS, ...overlayContexts()] as unknown as LegacyPack["contexts"], id_aliases: ID_ALIASES };
+  const legacy: LegacyPack = { ...(RAW_RELEASE as LegacyPack), schema_version: "1.0.0" as const, questions: playableSource() as unknown as LegacyPack["questions"], contexts: [...CONTEXTS, ...overlayContexts()] as unknown as NonNullable<LegacyPack["contexts"]>, id_aliases: ID_ALIASES };
   live = { key, pack: adaptLegacySchoolPack(legacy, catalogue, { packId: "school-live" }) };
   return live.pack;
 }

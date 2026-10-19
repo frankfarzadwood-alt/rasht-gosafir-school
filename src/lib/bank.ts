@@ -180,7 +180,7 @@ export function pairCandidates(track: Question[]): PairCard[] {
   const out: PairCard[] = [];
   for (const q of track) {
     if (q.format === "matching" && q.pairs && (q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs"))) {
-      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right }));
+      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right, skill: q.skill }));
     } else if ((q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs")) && q.answer.value && q.prompt_en) {
       if (q.prompt_en.length > 90) continue;
       out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, answer: correctText(q), skill: q.skill });
