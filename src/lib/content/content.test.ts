@@ -92,9 +92,13 @@ describe("planned books stay empty", () => {
     expect(repo.select({ kind: "through_unit", node_ids: [], include_descendants: false, through_unit_id: "evolve-1.u003" })).toEqual([]);
   });
   it("assessment-plan slots are unplayable", () => {
-    const a = ASSESSMENT_PLAN.assessments[0]!;
+    const a = ASSESSMENT_PLAN.assessments.find((x) => x.status === "awaiting_source")!;
     expect(a.question_ids).toEqual([]);
     expect(() => repo.select({ kind: "assessment", node_ids: [], include_descendants: false, assessment_id: a.id })).toThrow(/unavailable/);
+    // Source-bound slots list their original items but stay unplayable until official scoring is reviewed.
+    const bound = ASSESSMENT_PLAN.assessments.find((x) => x.status === "needs_review")!;
+    expect(bound.question_ids.length).toBeGreaterThan(0);
+    expect(() => repo.select({ kind: "assessment", node_ids: [], include_descendants: false, assessment_id: bound.id })).toThrow(/unavailable/);
   });
   it("unknown scopes throw instead of returning everything", () => {
     expect(() => repo.select({ kind: "node", node_ids: ["nope"], include_descendants: true })).toThrow(/Unknown scope node/);

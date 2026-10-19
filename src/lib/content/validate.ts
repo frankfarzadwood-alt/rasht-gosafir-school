@@ -71,7 +71,7 @@ export function validateAssessmentPlan(a: AssessmentPlan, ix: CatalogueIndex): I
     ids.add(x.id);
     if (!ix.nodes.has(x.anchor_node_id)) out.push({ id: x.id, message: `unknown anchor ${x.anchor_node_id}` });
     for (const n of x.coverage_node_ids) if (!ix.nodes.has(n)) out.push({ id: x.id, message: `unknown coverage node ${n}` });
-    if (x.status !== "ready" && x.question_ids.length) out.push({ id: x.id, message: "planned assessment must not list questions" });
+    if (x.status === "awaiting_source" && x.question_ids.length) out.push({ id: x.id, message: "planned assessment must not list questions" });
   }
   return out;
 }

@@ -1,0 +1,170 @@
+[
+  {
+    "planning_slot_id": "evolve-1.exam01",
+    "source_unit": 1,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u01.a.paper",
+    "practice_assessment_id": "evolve-1.exam01.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam02",
+    "source_unit": 1,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u01.b.paper",
+    "practice_assessment_id": "evolve-1.exam02.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam03",
+    "source_unit": 2,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u02.a.paper",
+    "practice_assessment_id": "evolve-1.exam03.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam04",
+    "source_unit": 2,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u02.b.paper",
+    "practice_assessment_id": "evolve-1.exam04.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam05",
+    "source_unit": 3,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u03.a.paper",
+    "practice_assessment_id": "evolve-1.exam05.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam06",
+    "source_unit": 3,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u03.b.paper",
+    "practice_assessment_id": "evolve-1.exam06.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam07",
+    "source_unit": 4,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u04.a.paper",
+    "practice_assessment_id": "evolve-1.exam07.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam08",
+    "source_unit": 4,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u04.b.paper",
+    "practice_assessment_id": "evolve-1.exam08.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam09",
+    "source_unit": 5,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u05.a.paper",
+    "practice_assessment_id": "evolve-1.exam09.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam10",
+    "source_unit": 5,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u05.b.paper",
+    "practice_assessment_id": "evolve-1.exam10.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam11",
+    "source_unit": 6,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u06.a.paper",
+    "practice_assessment_id": "evolve-1.exam11.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam12",
+    "source_unit": 6,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u06.b.paper",
+    "practice_assessment_id": "evolve-1.exam12.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam13",
+    "source_unit": 7,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u07.a.paper",
+    "practice_assessment_id": "evolve-1.exam13.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam14",
+    "source_unit": 7,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u07.b.paper",
+    "practice_assessment_id": "evolve-1.exam14.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam15",
+    "source_unit": 8,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u08.a.paper",
+    "practice_assessment_id": "evolve-1.exam15.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam16",
+    "source_unit": 8,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u08.b.paper",
+    "practice_assessment_id": "evolve-1.exam16.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam17",
+    "source_unit": 9,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u09.a.paper",
+    "practice_assessment_id": "evolve-1.exam17.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam18",
+    "source_unit": 9,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u09.b.paper",
+    "practice_assessment_id": "evolve-1.exam18.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam19",
+    "source_unit": 10,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u10.a.paper",
+    "practice_assessment_id": "evolve-1.exam19.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam20",
+    "source_unit": 10,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u10.b.paper",
+    "practice_assessment_id": "evolve-1.exam20.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam21",
+    "source_unit": 11,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u11.a.paper",
+    "practice_assessment_id": "evolve-1.exam21.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam22",
+    "source_unit": 11,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u11.b.paper",
+    "practice_assessment_id": "evolve-1.exam22.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam23",
+    "source_unit": 12,
+    "source_variant": "A",
+    "source_id": "evolve1.quiz.u12.a.paper",
+    "practice_assessment_id": "evolve-1.exam23.practice"
+  },
+  {
+    "planning_slot_id": "evolve-1.exam24",
+    "source_unit": 12,
+    "source_variant": "B",
+    "source_id": "evolve1.quiz.u12.b.paper",
+    "practice_assessment_id": "evolve-1.exam24.practice"
+  }
+]

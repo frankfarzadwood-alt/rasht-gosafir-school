@@ -4,10 +4,6 @@ import selections from '@/data/pilot/practice_selections.pilot.json';
 import baseCatalogue from '@/data/foundation/catalogue.json';
 import pilotCatalogue from '@/data/pilot/catalogue.json';
 import alignmentRaw from '@/data/pilot/alignments.json';
-import audioA from '@/assets/pilot/evolve1.quiz.u01.a.audio.mp3.asset.json';
-import audioB from '@/assets/pilot/evolve1.quiz.u01.b.audio.mp3.asset.json';
-import quizImage from '@/assets/pilot/evolve1.quiz.u01.b.paper.c.image.png.asset.json';
-import workbookImage from '@/assets/pilot/evolve1.workbook.p010.png.asset.json';
 import type { Catalogue, QuestionPack, Scope, AlignmentPack } from './contracts';
 
 export const PILOT = raw as unknown as QuestionPack;
@@ -17,10 +13,12 @@ export const LIVE_CATALOGUE: Catalogue = { ...baseCatalogue, nodes: [...nodes.va
 export const PILOT_SELECTIONS = selections.selections as unknown as {
   id: string; title_en: string; anchor_node_id: string; selection_type: string; scope: Scope; expected_ready_count: number; counted_canonical_question_ids: string[];
 }[];
-const pointers: Record<string, { url: string }> = {
-  'evolve1.quiz.u01.a.audio': audioA, 'evolve1.quiz.u01.b.audio': audioB,
-  'evolve1.quiz.u01.b.paper.c.image': quizImage, 'evolve1.workbook.p010': workbookImage,
-};
+/** Immutable asset pointers keyed by the file name of each release asset path. */
+const files = import.meta.glob<{ url: string }>('../../assets/pilot/*.asset.json', { eager: true, import: 'default' });
+const byFile = new Map(Object.entries(files).map(([p, v]) => [p.split('/').pop()!.replace(/\.asset\.json$/, ''), v]));
+export const ASSET_POINTERS: Record<string, { url: string }> = Object.fromEntries(
+  PILOT.assets.flatMap(a => { const v = byFile.get(String(a.path ?? '').split('/').pop() ?? ''); return v ? [[a.id, v]] : []; }));
+const pointers = ASSET_POINTERS;
 export function mediaAsset(ref: unknown) {
   const id = typeof ref === 'string' ? ref : ref && typeof ref === 'object' && 'asset_id' in ref ? String(ref.asset_id) : '';
   const a = PILOT.assets.find(a => a.id === id);
