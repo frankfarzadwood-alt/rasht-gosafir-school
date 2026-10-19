@@ -10,3 +10,8 @@
 - [x] Oxford–Evolve mapping view (reviewed edges only; none exist yet).
 - [x] Progress: unique items, coverage vs mastery vs assessment; unknown when empty; My Learning summary.
 - [x] Tests, type check and production build.
+# Stage 04 pilot
+- [ ] Record available baseline validations; integrate only the 200 native-v2 reviewed questions and preserve school identities.
+- [ ] Merge six catalogue nodes; wire exact practice selections, two fixed practice quizzes and reviewed alignment links.
+- [ ] Serve supplied media; gate failures and delay transcripts until submission; enforce renderer capabilities.
+- [ ] Run regression tests and platform validation; verify fresh-browser book gameplay, media and persistence; report limitations, leave Cloud off and unpublished.

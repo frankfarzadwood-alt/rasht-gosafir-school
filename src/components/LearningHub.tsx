@@ -9,6 +9,7 @@ import { modesFor, PRACTICE_FA, ScopeError, type PracticeModeId } from "@/lib/sc
 import { fa } from "@/lib/fa";
 import { ancestorsOf, bookmark, catalogueIndex, childrenOf, nodeById, nodeScope, nodeTitle, practiceScope, scopeKey, scopeQuestions, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
 import type { AssessmentPlan, CatalogueNode } from "@/lib/content/contracts";
+import { PILOT, PILOT_SELECTIONS } from '@/lib/content/pilot';
 const PLAN = planRaw as unknown as AssessmentPlan;
 
 export function ActivityLink({ current, game, children, className = "", mission }: { current: Bookmark; game?: string | null; children: ReactNode; className?: string; mission?: string | undefined }) {
@@ -17,7 +18,7 @@ export function ActivityLink({ current, game, children, className = "", mission 
   return <Button asChild className={`btn ${className}`} variant="outline">{n?.kind === "term" && n.grade && n.term ? mode ?
     <Link to="/play/$grade/$term/$mode" params={{ grade: String(n.grade), term: String(n.term), mode }} search={{ mission: mission ?? current.mission }}>{children}</Link> :
     <Link to="/track/$grade/$term" params={{ grade: String(n.grade), term: String(n.term) }}>{children}</Link> :
-    current.practice && mode ? <Link to="/practice/$nodeId/$mode" params={{ nodeId: current.nodeId, mode }} search={{ scope: current.practice, units: current.custom?.join(","), mission: mission ?? current.mission }}>{children}</Link> :
+    current.practice && mode ? <Link to="/practice/$nodeId/$mode" params={{ nodeId: current.nodeId, mode }} search={{ scope: current.practice, units: current.custom?.join(","), mission: mission ?? current.mission, selection: current.selection }}>{children}</Link> :
     <Link to="/learn/$nodeId" params={{ nodeId: current.nodeId }} search={{ view: current.practice ? "practice" : "units" }}>{children}</Link>}
   </Button>;
 }
@@ -59,7 +60,11 @@ export function ScopeProgress({ node }: { node: CatalogueNode }) {
   return <section className="space-y-3"><h2 className="text-lg font-extrabold">پیشرفت این بخش</h2>{stats.coverage === null ? <Preparation /> : <>
     <dl className="grid grid-cols-3 gap-2 text-center"><div><dt className="text-sm text-muted-foreground">سؤال آماده</dt><dd className="text-xl font-extrabold">{fa(stats.total)}</dd></div><div><dt className="text-sm text-muted-foreground">تمرین‌شده</dt><dd className="text-xl font-extrabold">{fa(stats.attempted)}</dd></div><div><dt className="text-sm text-muted-foreground">مسلط</dt><dd className="text-xl font-extrabold text-teal">{fa(stats.mastered)}</dd></div></dl>
     <progress className="h-3 w-full accent-teal" max={stats.total} value={stats.attempted} aria-label="پوشش تمرین" /><p className="text-sm text-muted-foreground">پوشش تمرین: {fa(Math.round(stats.coverage * 100))}٪ · تسلط جدا از پوشش شمرده می‌شود.</p>
-  </>}<p className="text-sm text-muted-foreground">عملکرد آزمون ثابت: نامشخص — هنوز آزمون ثابت آماده‌ای برای این بخش منتشر نشده است.</p></section>;
+  </>}{PILOT.assessments.filter(a => a.anchor_node_id === node.id).map(a => {
+    const attempts = p.attempts.filter(x => x.scope === `assessment:${a.id}` && !x.retry).slice(-a.question_ids.length);
+    const complete = attempts.length === a.question_ids.length && attempts.every((x, i) => x.qid === a.question_ids[i]);
+    return <p key={a.id} className="text-sm text-muted-foreground"><span dir="ltr" lang="en">{a.title_en}</span> · {complete ? `دقت تمرینی: ${fa(Math.round(attempts.filter(x => x.correct).length / attempts.length * 100))}٪` : 'نتیجهٔ کامل هنوز ثبت نشده است'}</p>;
+  })}<p className="text-sm text-muted-foreground">عملکرد آزمون ثابت جدا از پوشش و تسلط سؤال‌هاست.</p></section>;
 }
 function modeLabel(id: string, a: { count: number }, readingQs: number) {
   return id === "reading_explorer" ? `${fa(a.count)} متن · ${fa(readingQs)} سؤال` : `${fa(a.count)} ${["match_arena", "memory_pairs"].includes(id) ? "جفت" : id === "quest_trail" ? "مأموریت" : "سؤال"}`;
@@ -86,21 +91,24 @@ export function ScopePractice({ node }: { node: CatalogueNode }) {
   const modes = modesFor(catalogueIndex, node.id);
   const [mode, setMode] = useState<PracticeModeId | null>(modes[0] ?? null);
   const [custom, setCustom] = useState<string[]>([]);
+  const [selection, setSelection] = useState('');
   if (!mode) return <><Preparation /><Button disabled className="btn"><Play />شروع تمرین</Button></>;
   let pool: Question[] = [], error: string | null = null;
-  try { pool = scopeQuestions(practiceScope(mode, node.id, custom)); }
+  const selections = PILOT_SELECTIONS.filter(s => s.anchor_node_id === node.id && s.selection_type !== 'reviewed_quiz_practice');
+  try { pool = scopeQuestions(selections.find(s => s.id === selection)?.scope ?? practiceScope(mode, node.id, custom)); }
   catch (e) { if (e instanceof ScopeError && mode === "custom") error = "حداقل یک درس را انتخاب کن."; else throw e; }
   const key = scopeKey(mode, node.id, custom);
   const units = node.kind === "book" ? childrenOf(node.id).filter(n => n.kind === "unit") : [];
-  const assessments = PLAN.assessments.filter(a => a.anchor_node_id === node.id);
+  const assessments = [...PLAN.assessments, ...PILOT.assessments].filter(a => a.anchor_node_id === node.id);
   return <div className="space-y-4">
-    <fieldset className="space-y-2"><legend className="font-bold">محدودهٔ تمرین</legend><div className="flex flex-wrap gap-2">{modes.map(m => <Button key={m} variant={m === mode ? "default" : "outline"} className="btn" aria-pressed={m === mode} onClick={() => setMode(m)}>{PRACTICE_FA[m]}</Button>)}</div></fieldset>
+    <fieldset className="space-y-2"><legend className="font-bold">محدودهٔ تمرین</legend><div className="flex flex-wrap gap-2">{modes.map(m => <Button key={m} variant={m === mode ? "default" : "outline"} className="btn" aria-pressed={m === mode} onClick={() => { setMode(m); setSelection(''); }}>{PRACTICE_FA[m]}</Button>)}</div></fieldset>
+    {selections.length > 0 && <label className="block space-y-1"><span className="text-sm font-bold">مجموعهٔ بازبینی‌شده</span><select value={selection} onChange={e => setSelection(e.target.value)} className="h-12 w-full border border-input bg-card px-3"><option value="">محدودهٔ انتخاب‌شده</option>{selections.map(s => <option key={s.id} value={s.id}>{s.title_en}</option>)}</select></label>}
     {mode === "custom" && <fieldset className="max-h-56 space-y-1 overflow-y-auto rounded-xl border border-border p-3"><legend className="px-1 text-sm font-bold">درس‌ها</legend>{units.map(u => <label key={u.id} className="flex min-h-11 items-center gap-2"><input type="checkbox" className="h-5 w-5" checked={custom.includes(u.id)} onChange={() => setCustom(c => c.includes(u.id) ? c.filter(x => x !== u.id) : [...c, u.id])} />{nodeTitle(u)}</label>)}</fieldset>}
     <p role="status" className="text-sm font-bold">{error ?? (pool.length ? `${fa(pool.length)} سؤال آمادهٔ یکتا در این محدوده` : "محتوا در حال آماده‌سازی است — هنوز سؤال تأییدشده‌ای در این محدوده نیست.")}</p>
     {!error && <ModeGrid avail={poolAvailability(pool, poolMissions(key, pool).length)} readingQs={readingGroups(pool).reduce((n, g) => n + g.questions.length, 0)}
-      link={(game, body) => <Link to="/practice/$nodeId/$mode" params={{ nodeId: node.id, mode: game }} search={{ scope: mode, units: custom.length ? custom.join(",") : undefined }} className="card-soft block h-full min-w-0 p-4 hover:border-primary">{body}</Link>} />}
+      link={(game, body) => <Link to="/practice/$nodeId/$mode" params={{ nodeId: node.id, mode: game }} search={{ scope: mode, units: custom.length ? custom.join(",") : undefined, selection: selection || undefined }} className="card-soft block h-full min-w-0 p-4 hover:border-primary">{body}</Link>} />}
     {assessments.length > 0 && <section className="space-y-2 border-t border-border pt-4"><h2 className="font-bold">آزمون‌های ثابت کتاب</h2><p className="text-xs text-muted-foreground">این آزمون‌ها فهرست و ترتیب ثابت دارند و هرگز با سؤال دیگری پر یا کوتاه نمی‌شوند.</p>
-      <ul className="grid gap-2 sm:grid-cols-2">{assessments.map(a => <li key={a.id} aria-disabled="true" className="rounded-xl border border-dashed border-border p-3 text-muted-foreground"><span dir="ltr" lang="en" className="block font-bold">{a.title_en}</span><span className="text-xs">{a.status === "ready" ? "آماده" : "در انتظار منبع بازبینی‌شده — هنوز در دسترس نیست"}</span></li>)}</ul></section>}
+      <ul className="grid gap-2 sm:grid-cols-2">{assessments.map(a => <li key={a.id} aria-disabled={a.status !== 'ready'} className="rounded-xl border border-dashed border-border p-3 text-muted-foreground"><span dir="ltr" lang="en" className="block font-bold">{a.title_en}</span>{a.status === 'ready' ? <Button asChild variant="outline" className="mt-2"><Link to="/practice/$nodeId/$mode" params={{ nodeId: node.id, mode: 'boss_exam' }} search={{ scope: mode, selection: a.id }}>آزمون تمرینی · {fa(a.question_ids.length)} سؤال</Link></Button> : <span className="text-xs">در انتظار منبع بازبینی‌شده — هنوز در دسترس نیست</span>}</li>)}</ul></section>}
   </div>;
 }
 export function CataloguePage({ node, view }: { node: CatalogueNode; view: string }) {
@@ -119,6 +127,6 @@ export function CataloguePage({ node, view }: { node: CatalogueNode; view: strin
       {children.length > 0 && <div className="grid gap-3 sm:grid-cols-2">{children.map(n => <NodeCard key={n.id} node={n} />)}</div>}
       {node.kind === "subunit" && <GameChoices node={node} />}
     </>}
-    {mapping && <section className="border-t border-border pt-4"><h2 className="font-bold">ارتباط آکسفورد و ایوالو</h2><p className="mt-1 text-sm text-muted-foreground">ارتباط‌های بازبینی‌شده در حال آماده‌سازی است.</p><Link to="/learn/alignments" search={{ book: trail.find(n => n.kind === "book")?.id, unit: node.kind === "unit" ? node.id : undefined }} className="btn mt-2 inline-flex border border-border text-sm">نقشهٔ ارتباط درس‌ها</Link></section>}
+    {mapping && <section className="border-t border-border pt-4"><h2 className="font-bold">ارتباط آکسفورد و ایوالو</h2><p className="mt-1 text-sm text-muted-foreground">پیشنهادهای مطالعهٔ بازبینی‌شده توسط دستیار</p><Link to="/learn/alignments" search={{ book: trail.find(n => n.kind === "book")?.id, unit: node.kind === "unit" ? node.id : undefined }} className="btn mt-2 inline-flex border border-border text-sm">نقشهٔ ارتباط درس‌ها</Link></section>}
   </div>;
 }

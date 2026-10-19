@@ -91,9 +91,9 @@ describe("live school content through the shared service", () => {
     expect(modeAvailability(7, 1).quiz_sprint.count).toBe(81);
     expect(modeAvailability(8, 2).grammar_detective.count).toBe(26);
   });
-  it("new books are empty until reviewed questions arrive", () => {
-    expect(scopeQuestions(practiceScope("whole_book", "evolve-1"))).toEqual([]);
-    expect(scopeQuestions(practiceScope("through_unit", "evolve-1.u003"))).toEqual([]);
+  it("books outside the supplied pilot remain empty", () => {
+    expect(scopeQuestions(practiceScope("whole_book", "evolve-2"))).toEqual([]);
+    expect(scopeQuestions(practiceScope("through_unit", "evolve-2.u003"))).toEqual([]);
   });
   it("real choice grading uses stable option IDs and a wrong-first/correct-retry summary keeps first-try accuracy", () => {
     const q = quizItems(scopeQuestions(nodeScope("school")))[0]!;
@@ -110,7 +110,7 @@ describe("live school content through the shared service", () => {
 });
 
 describe("Oxford–Evolve mapping", () => {
-  it("no verified edges exist yet", () => expect(recommendedAlignments(ALIGNMENTS, catalogueIndex)).toEqual([]));
+  it("loads only the 35 reviewed pilot edges", () => expect(recommendedAlignments(ALIGNMENTS, catalogueIndex)).toHaveLength(35));
   it("only reviewed edges with editions, shared targets and page evidence are recommended, in both directions", () => {
     const e = (over: Record<string, unknown>) => ({ id: "e", from_node_id: "fx.u1", to_node_id: "fx.other.u1", relationship: "partial_overlap" as const, review_status: "reviewed", shared_targets: ["past simple"], evidence: [{ pages: [12] }], ...over });
     const fxIx = indexCatalogue({ ...FIXTURE_CATALOGUE, nodes: FIXTURE_CATALOGUE.nodes.map((n) => ({ ...n, edition_id: "ed" })) });

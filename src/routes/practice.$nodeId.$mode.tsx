@@ -6,13 +6,18 @@ import { useHydrated } from "@/lib/progress";
 import { bookmark, nodeById, nodeTitle, practiceScope, remember, scopeKey, scopeQuestions } from "@/lib/learning";
 import { PRACTICE_FA, type PracticeModeId } from "@/lib/scope";
 import { pageMeta } from "@/lib/pageMeta";
+import { PILOT, PILOT_SELECTIONS, LIVE_CATALOGUE } from '@/lib/content/pilot';
+import { assessmentSession, livePack } from '@/lib/scope';
+import { contextById } from '@/lib/bank';
+import { FixedAssessment } from '@/components/FixedAssessment';
 
-type Search = { scope: string; units?: string | undefined; mission?: string | undefined };
+type Search = { scope: string; units?: string | undefined; mission?: string | undefined; selection?: string | undefined };
 export const Route = createFileRoute("/practice/$nodeId/$mode")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     scope: typeof s["scope"] === "string" ? s["scope"] : "",
     units: typeof s["units"] === "string" ? s["units"] : undefined,
     mission: typeof s["mission"] === "string" ? s["mission"] : undefined,
+    selection: typeof s['selection'] === 'string' ? s['selection'] : undefined,
   }),
   beforeLoad: ({ params }) => { if (!nodeById(params.nodeId)) throw notFound(); },
   head: ({ params }) => {
@@ -25,40 +30,44 @@ export const Route = createFileRoute("/practice/$nodeId/$mode")({
 
 function Practice() {
   const { nodeId, mode } = Route.useParams();
-  const { scope: practice, units, mission } = Route.useSearch();
+  const { scope: practice, units, mission, selection } = Route.useSearch();
   const hydrated = useHydrated();
   const bankV = useBankVersion();
-  const node = nodeById(nodeId)!;
+  const node = nodeById(nodeId);
   const custom = units ? units.split(",").filter(Boolean) : [];
   const built = useMemo(() => {
     try {
-      const scope = practiceScope(practice as PracticeModeId, nodeId, custom);
-      return { ok: true as const, pool: scopeQuestions(scope) };
+      const selected = selection ? PILOT_SELECTIONS.find(s => s.id === selection && s.anchor_node_id === nodeId) : null;
+      if (selection && !selected) throw new Error('Unknown selection for this section');
+      const fixed = selected ? PILOT.assessments.find(a => a.id === selected.id) : null;
+      const scope = selected?.scope ?? practiceScope(practice as PracticeModeId, nodeId, custom);
+      return { ok: true as const, pool: scopeQuestions(scope), scope, fixed: fixed ? assessmentSession(livePack(LIVE_CATALOGUE, bankV), fixed, contextById) : null };
     } catch (e) { return { ok: false as const, error: (e as Error).message }; }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [practice, nodeId, units, bankV]);
+  }, [practice, nodeId, units, bankV, selection]);
   useEffect(() => {
-    if (built.ok) remember(bookmark(nodeId, mode, mission, { mode: practice as PracticeModeId, custom }));
+    if (built.ok) remember({ ...bookmark(nodeId, mode, mission, { mode: practice as PracticeModeId, custom }), scope: built.scope, ...(selection ? { selection } : {}) });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [built.ok, nodeId, mode, mission, practice, units]);
+  }, [built.ok, nodeId, mode, mission, practice, units, selection]);
   const info = MODES.find((m) => m.id === mode);
   const back = <Link to="/learn/$nodeId" params={{ nodeId }} search={{ view: "practice" }} className="btn bg-primary text-primary-foreground">بازگشت به تمرین‌ها</Link>;
   const header = (
     <header className="mb-4 flex items-center justify-between gap-2">
       <div>
         <h1 className="text-xl font-extrabold">{info?.icon ?? "🔁"} {info?.fa ?? "مرور اشتباهات"}</h1>
-        <p className="text-sm font-bold text-teal">{nodeTitle(node)} · {PRACTICE_FA[practice as PracticeModeId] ?? "؟"}</p>
+        <p className="text-sm font-bold text-teal">{node ? nodeTitle(node) : 'تمرین'} · {PRACTICE_FA[practice as PracticeModeId] ?? "؟"}</p>
       </div>
       <Link to="/learn/$nodeId" params={{ nodeId }} search={{ view: "practice" }} className="btn border border-border text-sm">خروج</Link>
     </header>
   );
   if (!hydrated) return header;
   if (!built.ok) return <div>{header}<section role="alert" className="card-soft space-y-3 p-5"><p>این محدودهٔ تمرین معتبر نیست.</p><p dir="ltr" lang="en" className="text-xs text-muted-foreground">{built.error}</p>{back}</section></div>;
-  const key = scopeKey(practice, nodeId, custom);
+  if (built.fixed) return <div>{header}<FixedAssessment key={selection} session={built.fixed} back={back} /></div>;
+  const key = selection ?? scopeKey(practice, nodeId, custom);
   const ms = poolMissions(key, built.pool);
   return <div>{header}
     <GameSession key={`${key}|${mode}|${mission ?? ""}`} mode={mode} pool={built.pool} avail={poolAvailability(built.pool, ms.length)} missions={ms} missionId={mission}
       grade={null} term={null} scope={key} back={back}
-      missionLink={(id) => <Link to="/practice/$nodeId/$mode" params={{ nodeId, mode: "quest_trail" }} search={{ scope: practice, units, mission: id }} className="btn bg-primary text-primary-foreground">مأموریت بعدی ←</Link>} />
+      missionLink={(id) => <Link to="/practice/$nodeId/$mode" params={{ nodeId, mode: "quest_trail" }} search={{ scope: practice, units, mission: id, selection }} className="btn bg-primary text-primary-foreground">مأموریت بعدی ←</Link>} />
   </div>;
 }

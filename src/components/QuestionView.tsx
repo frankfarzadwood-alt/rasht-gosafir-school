@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { learnerInstruction } from "@/lib/display";
 import { useId } from "react";
-import { type Question, gradeChoice, isAccepted, isChoice, shuffle, letterPool, correctText } from "@/lib/bank";
+import { type Question, gradeChoice, isAccepted, isChoice, shuffle, letterPool, correctText, isBookQuestion } from "@/lib/bank";
+import { Button } from './ui/button';
 
 export type Kind = "auto" | "chips" | "letters" | "tokens";
 export type Item = { q: Question; kind: Kind; pool?: string[] };
@@ -48,13 +49,19 @@ export function QuestionView({ item, mode, locked, onSubmit }: Props) {
     <div className="space-y-4">
       <p className="text-sm font-medium text-muted-foreground">{ins.fa ?? <En>{ins.en}</En>}</p>
       {kind === "chips" ? <ChipGap key={q.id} item={item} locked={locked} onSubmit={onSubmit} />
-        : kind === "letters" ? <Builder key={q.id} q={q} tiles={(q as { letter_pool?: string[] }).letter_pool?.length ? (q as { letter_pool?: string[] }).letter_pool! : letterPool(q.answer.value ?? "")} joiner="" locked={locked} onSubmit={onSubmit} clue />
+        : kind === "letters" ? <Builder key={q.id} q={q} tiles={q.letter_pool?.length ? q.letter_pool : letterPool(q.answer.value ?? "")} joiner="" locked={locked} onSubmit={onSubmit} clue />
         : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(q.reorder_tokens ?? [])} joiner=" " locked={locked} onSubmit={onSubmit} />
-        : q.format === "matching" ? <PairsInline key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
+        : q.format === "matching" && q.pairs?.length ? <PairsInline key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
+        : q.format === "matching" && isBookQuestion(q) ? <BoundedAnswer key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : isChoice(q) ? <Choices key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : <Typed key={q.id} q={q} locked={locked} onSubmit={onSubmit} />}
     </div>
   );
+}
+
+function BoundedAnswer({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit: Props['onSubmit'] }) {
+  const [bank] = useState(() => shuffle(q.word_bank ?? []));
+  return <><Prompt text={q.prompt_en ?? ''} /><div dir="ltr" className="grid gap-2 sm:grid-cols-2">{bank.map(w => <Button key={w} disabled={locked} variant="outline" className="en h-auto min-h-12 whitespace-normal text-left" onClick={() => onSubmit(w, isAccepted(q, w))}>{w}</Button>)}</div></>;
 }
 
 function Choices({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit: Props["onSubmit"] }) {
@@ -101,7 +108,7 @@ function ChipGap({ item, locked, onSubmit }: Props) {
     <>
       <Prompt text={q.prompt_en ?? ""} fill={fill} />
       <div className="flex flex-wrap gap-2" dir="ltr" aria-label="بانک کلمات">
-        {item.pool!.map((w) => (
+        {(item.pool ?? []).map((w) => (
           <button key={w} disabled={locked} aria-pressed={fill === w} onClick={() => setFill(w)}
             className={`chip en ${fill === w ? "border-primary bg-secondary" : ""}`} lang="en">{w}</button>
         ))}

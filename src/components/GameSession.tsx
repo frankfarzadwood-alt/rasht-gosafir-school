@@ -35,8 +35,9 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
   );
   const m = mode as ModeId | "review";
   if (m === "quest_trail") {
-    const mi = (missions.find((x) => x.id === missionId) ?? missions[0])!;
-    const qs = mi.questionIds.map((id) => pool.find((q) => q.id === id)!).filter(Boolean);
+    const mi = missions.find((x) => x.id === missionId) ?? missions[0];
+    if (!mi) return <>{back}</>;
+    const qs = mi.questionIds.flatMap((id) => { const q = pool.find((q) => q.id === id); return q ? [q] : []; });
     const idx = missions.indexOf(mi), nx = missions[idx + 1];
     return <>
       <p className="mb-3 text-sm text-muted-foreground">مأموریت {fa(idx + 1)} از {fa(missions.length)}</p>
@@ -69,11 +70,12 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
   if (m === "sentence_builder") return <GameRunner items={shuffle(sentenceItems(pool), seed).slice(0, 6).map((q) => ({ q, kind: "tokens" }))} {...meta} mode="sentence_builder" nextHref={back} />;
   if (m === "grammar_detective") return <GameRunner items={shuffle(grammarItems(pool), seed).slice(0, 7).map(toItem)} {...meta} mode="grammar_detective" showGrammarTag nextHref={back} />;
   if (m === "reading_explorer") {
-    const g = readingGroups(pool, ctx)[0]!;
+    const g = readingGroups(pool, ctx)[0];
+    if (!g) return <>{back}</>;
     return <GameRunner items={g.questions.map(toItem)} {...meta} mode="reading_explorer" context={g.context} nextHref={back} />;
   }
   if (m === "match_arena" || m === "memory_pairs") {
-    const set = pairSet(pool, m === "memory_pairs" ? 4 : 5);
+    const set = pairSet(pool.filter(q => q.eligible_games.includes(m)), m === "memory_pairs" ? 4 : 5, seed);
     return m === "match_arena" ? <MatchArena set={set} {...meta} footer={back} /> : <MemoryPairs set={set} {...meta} footer={back} />;
   }
   if (m === "boss_exam") {
