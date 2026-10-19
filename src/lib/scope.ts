@@ -98,7 +98,7 @@ export function assessmentSession(pack: QuestionPack, a: Assessment, ctx: CtxLoo
 }
 
 /** Recommendations only from reviewed edges with identified editions, shared targets and page evidence. Bidirectional. */
-export function recommendedAlignments(pack: AlignmentPack, ix: CatalogueIndex, filter: { book?: string; unit?: string } = {}) {
+export function recommendedAlignments(pack: AlignmentPack, ix: CatalogueIndex, filter: { book?: string | undefined; unit?: string | undefined } = {}) {
   const inside = (id: string, root?: string) => { if (!root) return true; let n = ix.nodes.get(id); while (n) { if (n.id === root) return true; n = n.parent_id ? ix.nodes.get(n.parent_id) : undefined; } return false; };
   return pack.alignments.filter((e: Alignment) => {
     const from = ix.nodes.get(e.from_node_id), to = ix.nodes.get(e.to_node_id);
