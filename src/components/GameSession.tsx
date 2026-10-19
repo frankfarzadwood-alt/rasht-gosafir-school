@@ -8,6 +8,7 @@ import {
 } from "@/lib/bank";
 import { useProgress, dueCanonicals } from "@/lib/progress";
 import { fa } from "@/lib/fa";
+import { Button } from './ui/button';
 
 const toItem = (q: Question): Item => ({ q, kind: "auto" });
 const AUTO_START = ["quest_trail", "review", "gap_builder", "word_forge", "sentence_builder", "grammar_detective", "reading_explorer", "match_arena", "memory_pairs"];
@@ -23,6 +24,7 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
 }) {
   const p = useProgress();
   const [seed] = useState(() => Math.random());
+  const [passage, setPassage] = useState(0);
   const pairs = useMemo(() => pairSet(pool.filter(q => q.eligible_games.includes(mode)), mode === "memory_pairs" ? 4 : 5, seed), [pool, mode, seed]);
   const [started, setStarted] = useState<null | { len?: number; timer?: boolean }>(AUTO_START.includes(mode) ? {} : null);
   const meta = { grade, term, ...(scope ? { scope } : {}) };
@@ -71,9 +73,10 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
   if (m === "sentence_builder") return <GameRunner items={shuffle(sentenceItems(pool), seed).slice(0, 6).map((q) => ({ q, kind: "tokens" }))} {...meta} mode="sentence_builder" nextHref={back} />;
   if (m === "grammar_detective") return <GameRunner items={shuffle(grammarItems(pool), seed).slice(0, 7).map(toItem)} {...meta} mode="grammar_detective" showGrammarTag nextHref={back} />;
   if (m === "reading_explorer") {
-    const g = readingGroups(pool, ctx)[0];
+    const groups = readingGroups(pool, ctx);
+    const g = groups[passage];
     if (!g) return <>{back}</>;
-    return <GameRunner items={g.questions.map(toItem)} {...meta} mode="reading_explorer" context={g.context} nextHref={back} />;
+    return <>{groups.length > 1 && <nav aria-label="انتخاب متن" className="mb-3 flex flex-wrap gap-2">{groups.map((group, i) => <Button key={group.context.id} variant={i === passage ? 'default' : 'outline'} aria-pressed={i === passage} onClick={() => setPassage(i)}>متن {fa(i + 1)} · {fa(group.questions.length)} سؤال</Button>)}</nav>}<GameRunner key={g.context.id} items={g.questions.map(toItem)} {...meta} mode="reading_explorer" context={g.context} nextHref={back} /></>;
   }
   if (m === "match_arena" || m === "memory_pairs") {
     return m === "match_arena" ? <MatchArena set={pairs} {...meta} footer={back} /> : <MemoryPairs set={pairs} {...meta} footer={back} />;
