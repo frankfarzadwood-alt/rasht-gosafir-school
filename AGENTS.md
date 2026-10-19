@@ -21,6 +21,7 @@
 - Catalogue pages share src/components/LearningHub.tsx; school availability uses the live bank selectors so browser-local reviewed additions appear in navigation too.
 - Practice scopes (subunit, unit, through_unit, whole_book, custom) and fixed assessments go through src/lib/scope.ts, and learning.scopeQuestions is the single approved-question service, so every game, count and review uses the same eligibility rules.
 - Every game session is built by src/components/GameSession.tsx from an approved pool; school routes and /practice book routes only supply the pool, so game-specific grading stays identical everywhere.
+- Session pair pools are memoized by approved pool, mode and seed so progress-triggered rerenders cannot reshuffle visible memory cards.
 - Book-scope attempts store grade/term as null plus a scope key; school grades are never fabricated for non-school content.
 - Scope test fixtures live in src/test/fixtures and are never imported by app code, so they cannot enter production packs.
 - Catalogue metadata merges by stable ID; native book placements are never passed through the school grade/term adapter, preventing fabricated school identities.
