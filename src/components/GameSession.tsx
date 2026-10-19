@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { GameRunner } from "@/components/GameRunner";
 import { MatchArena, MemoryPairs } from "@/components/PairGames";
 import type { Item } from "@/components/QuestionView";
@@ -23,6 +23,7 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
 }) {
   const p = useProgress();
   const [seed] = useState(() => Math.random());
+  const pairs = useMemo(() => pairSet(pool.filter(q => q.eligible_games.includes(mode)), mode === "memory_pairs" ? 4 : 5, seed), [pool, mode, seed]);
   const [started, setStarted] = useState<null | { len?: number; timer?: boolean }>(AUTO_START.includes(mode) ? {} : null);
   const meta = { grade, term, ...(scope ? { scope } : {}) };
   const a = (avail as Record<string, { count: number; reason?: string }>)[mode];
@@ -75,8 +76,7 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
     return <GameRunner items={g.questions.map(toItem)} {...meta} mode="reading_explorer" context={g.context} nextHref={back} />;
   }
   if (m === "match_arena" || m === "memory_pairs") {
-    const set = pairSet(pool.filter(q => q.eligible_games.includes(m)), m === "memory_pairs" ? 4 : 5, seed);
-    return m === "match_arena" ? <MatchArena set={set} {...meta} footer={back} /> : <MemoryPairs set={set} {...meta} footer={back} />;
+    return m === "match_arena" ? <MatchArena set={pairs} {...meta} footer={back} /> : <MemoryPairs set={pairs} {...meta} footer={back} />;
   }
   if (m === "boss_exam") {
     const all = dedupe(pool);
