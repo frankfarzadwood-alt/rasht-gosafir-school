@@ -6,7 +6,7 @@ import { useHydrated } from "@/lib/progress";
 import { bookmark, nodeById, nodeTitle, practiceScope, remember, scopeKey, scopeQuestions } from "@/lib/learning";
 import { PRACTICE_FA, type PracticeModeId } from "@/lib/scope";
 import { pageMeta } from "@/lib/pageMeta";
-import { PILOT, PILOT_SELECTIONS, LIVE_CATALOGUE } from '@/lib/content/pilot';
+import { PILOT, LIVE_SELECTIONS, LIVE_CATALOGUE } from '@/lib/content/pilot';
 import { assessmentSession, livePack } from '@/lib/scope';
 import { contextById } from '@/lib/bank';
 import { FixedAssessment } from '@/components/FixedAssessment';
@@ -38,7 +38,7 @@ function Practice() {
   const custom = units ? units.split(",").filter(Boolean) : [];
   const built = useMemo(() => {
     try {
-      const selected = selection ? PILOT_SELECTIONS.find(s => s.id === selection && s.anchor_node_id === nodeId) : null;
+      const selected = selection ? LIVE_SELECTIONS.find(s => s.id === selection && s.anchor_node_id === nodeId) : null;
       if (selection && !selected) throw new Error('Unknown selection for this section');
       const fixed = selected ? PILOT.assessments.find(a => a.id === selected.id) : null;
       if (fixed && skills) throw new Error('A fixed quiz cannot be shortened by skill filters');

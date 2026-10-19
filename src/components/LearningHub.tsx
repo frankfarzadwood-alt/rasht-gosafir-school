@@ -4,12 +4,12 @@ import planRaw from "@/data/foundation/assessment_plan.json";
 import { BookOpen, ChevronLeft, Plus, Check, Minus, Play, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProgress, todayCount, update } from "@/lib/progress";
-import { useBankVersion, MODES, modeAvailability, poolAvailability, poolMissions, readingGroups, trackQuestions, type ModeAvailability, type Question } from "@/lib/bank";
+import { useBankVersion, MODES, modeAvailability, poolAvailability, poolMissions, pairInventoryCount, readingGroups, trackQuestions, type ModeAvailability, type Question } from "@/lib/bank";
 import { modesFor, PRACTICE_FA, ScopeError, type PracticeModeId } from "@/lib/scope";
 import { fa, SKILL_FA } from "@/lib/fa";
 import { ancestorsOf, bookmark, catalogueIndex, childrenOf, nodeById, nodeScope, nodeTitle, practiceScope, scopeKey, scopeQuestions, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
 import type { AssessmentPlan, CatalogueNode } from "@/lib/content/contracts";
-import { PILOT, PILOT_SELECTIONS } from '@/lib/content/pilot';
+import { PILOT, LIVE_SELECTIONS } from '@/lib/content/pilot';
 const PLAN = planRaw as unknown as AssessmentPlan;
 
 export function ActivityLink({ current, game, children, className = "", mission }: { current: Bookmark; game?: string | null; children: ReactNode; className?: string; mission?: string | undefined }) {
@@ -66,13 +66,16 @@ export function ScopeProgress({ node }: { node: CatalogueNode }) {
     return <p key={a.id} className="text-sm text-muted-foreground"><span dir="ltr" lang="en">{a.title_en}</span> · {complete ? `دقت تمرینی: ${fa(Math.round(attempts.filter(x => x.correct).length / attempts.length * 100))}٪` : 'نتیجهٔ کامل هنوز ثبت نشده است'}</p>;
   })}<p className="text-sm text-muted-foreground">عملکرد آزمون ثابت جدا از پوشش و تسلط سؤال‌هاست.</p></section>;
 }
-function modeLabel(id: string, a: { count: number }, readingQs: number) {
+function modeLabel(id: string, a: { count: number }, readingQs: number, pairAnswers: number) {
+  if (id === "match_arena" || id === "memory_pairs") return `${fa(pairAnswers)} پاسخ در بانک · تا ${fa(id === "match_arena" ? 5 : 4)} جفت در هر دور`;
+  if (id === "flashcards") return `${fa(a.count)} کارت`;
   return id === "reading_explorer" ? `${fa(a.count)} متن · ${fa(readingQs)} سؤال` : `${fa(a.count)} ${["match_arena", "memory_pairs"].includes(id) ? "جفت" : id === "quest_trail" ? "مأموریت" : "سؤال"}`;
 }
-function ModeGrid({ avail, readingQs, link }: { avail: ModeAvailability; readingQs: number; link: (mode: string, body: ReactNode) => ReactNode }) {
+function ModeGrid({ avail, readingQs, pairAnswers, link }: { avail: ModeAvailability; readingQs: number; pairAnswers: number; link: (mode: string, body: ReactNode) => ReactNode }) {
   return <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{MODES.map(m => {
     const a = avail[m.id];
-    const body = <><span aria-hidden className="text-2xl">{m.icon}</span><h2 className="font-bold">{m.fa}</h2><p className="text-xs text-muted-foreground">{a.count ? modeLabel(m.id, a, readingQs) : a.reason ?? "محتوا در حال آماده‌سازی است"}</p></>;
+    if (m.id === "flashcards" && !a.count) return null;
+    const body = <><span aria-hidden className="text-2xl">{m.icon}</span><h2 className="font-bold">{m.fa}</h2><p className="text-xs text-muted-foreground">{a.count ? modeLabel(m.id, a, readingQs, pairAnswers) : a.reason ?? "محتوا در حال آماده‌سازی است"}</p></>;
     return a.count ? <div key={m.id}>{link(m.id, body)}</div> :
       <div key={m.id} aria-disabled="true" className="min-w-0 rounded-2xl border border-dashed border-border p-4 text-muted-foreground">{body}</div>;
   })}</div>;
@@ -81,7 +84,7 @@ export function GameChoices({ node }: { node: CatalogueNode }) {
   useBankVersion();
   if (node.kind === "term" && node.grade && node.term) {
     const t = trackQuestions(node.grade, node.term);
-    return <ModeGrid avail={modeAvailability(node.grade, node.term)} readingQs={readingGroups(t).reduce((n, g) => n + g.questions.length, 0)}
+    return <ModeGrid pairAnswers={pairInventoryCount(t)} avail={modeAvailability(node.grade, node.term)} readingQs={readingGroups(t).reduce((n, g) => n + g.questions.length, 0)}
       link={(mode, body) => <Link to="/play/$grade/$term/$mode" params={{ grade: String(node.grade), term: String(node.term), mode }} search={{}} className="card-soft block h-full min-w-0 p-4 hover:border-primary">{body}</Link>} />;
   }
   return <ScopePractice node={node} />;
@@ -95,7 +98,7 @@ export function ScopePractice({ node }: { node: CatalogueNode }) {
   const [skill, setSkill] = useState('');
   if (!mode) return <><Preparation /><Button disabled className="btn"><Play />شروع تمرین</Button></>;
   let pool: Question[] = [], error: string | null = null;
-  const selections = PILOT_SELECTIONS.filter(s => s.anchor_node_id === node.id && s.selection_type !== 'reviewed_quiz_practice');
+  const selections = LIVE_SELECTIONS.filter(s => s.anchor_node_id === node.id && s.selection_type !== 'reviewed_quiz_practice');
   try { const chosen = selections.find(s => s.id === selection)?.scope ?? practiceScope(mode, node.id, custom); pool = scopeQuestions({ ...chosen, ...(skill ? { skills: [skill] } : {}) }); }
   catch (e) { if (e instanceof ScopeError && mode === "custom") error = "حداقل یک درس را انتخاب کن."; else throw e; }
   const key = scopeKey(mode, node.id, custom);
@@ -108,7 +111,7 @@ export function ScopePractice({ node }: { node: CatalogueNode }) {
     {mode === "custom" && <fieldset className="max-h-56 space-y-1 overflow-y-auto rounded-xl border border-border p-3"><legend className="px-1 text-sm font-bold">درس‌ها</legend>{units.map(u => <label key={u.id} className="flex min-h-11 items-center gap-2"><input type="checkbox" className="h-5 w-5" checked={custom.includes(u.id)} onChange={() => setCustom(c => c.includes(u.id) ? c.filter(x => x !== u.id) : [...c, u.id])} />{nodeTitle(u)}</label>)}</fieldset>}
     <label className="block space-y-1"><span className="text-sm font-bold">مهارت</span><select value={skill} onChange={e => setSkill(e.target.value)} className="h-12 w-full border border-input bg-card px-3"><option value="">همهٔ مهارت‌ها</option>{['vocabulary', 'grammar', 'reading', 'listening', 'spelling', 'conversation'].map(s => <option key={s} value={s}>{SKILL_FA[s] ?? (s === 'spelling' ? 'املا' : 'مکالمه')}</option>)}</select></label>
     <p role="status" className="text-sm font-bold">{error ?? (pool.length ? `${fa(pool.length)} سؤال آمادهٔ یکتا در این محدوده` : "محتوا در حال آماده‌سازی است — هنوز سؤال تأییدشده‌ای در این محدوده نیست.")}</p>
-    {!error && <ModeGrid avail={poolAvailability(pool, poolMissions(key, pool).length)} readingQs={readingGroups(pool).reduce((n, g) => n + g.questions.length, 0)}
+    {!error && <ModeGrid pairAnswers={pairInventoryCount(pool)} avail={poolAvailability(pool, poolMissions(key, pool).length)} readingQs={readingGroups(pool).reduce((n, g) => n + g.questions.length, 0)}
       link={(game, body) => <Link to="/practice/$nodeId/$mode" params={{ nodeId: node.id, mode: game }} search={{ scope: mode, units: custom.length ? custom.join(",") : undefined, selection: selection || undefined, skills: skill || undefined }} className="card-soft block h-full min-w-0 p-4 hover:border-primary">{body}</Link>} />}
     {assessments.length > 0 && <section className="space-y-2 border-t border-border pt-4"><h2 className="font-bold">آزمون‌های ثابت کتاب</h2><p className="text-xs text-muted-foreground">این آزمون‌ها فهرست و ترتیب ثابت دارند و هرگز با سؤال دیگری پر یا کوتاه نمی‌شوند.</p>
       <ul className="grid gap-2 sm:grid-cols-2">{assessments.map(a => <li key={a.id} aria-disabled={a.status !== 'ready'} className="rounded-xl border border-dashed border-border p-3 text-muted-foreground"><span dir="ltr" lang="en" className="block font-bold">{a.title_en}</span>{a.status === 'ready' ? <><p className="text-xs">نسخهٔ تمرینی بازبینی‌شده؛ طرح اصلی آزمون همچنان در انتظار منبع است.</p><Button asChild variant="outline" className="mt-2"><Link to="/practice/$nodeId/$mode" params={{ nodeId: a.anchor_node_id, mode: 'boss_exam' }} search={{ scope: 'unit', selection: a.id }}>آزمون تمرینی · {fa(a.question_ids.length)} سؤال</Link></Button></> : <span className="text-xs">در انتظار منبع بازبینی‌شده — هنوز در دسترس نیست</span>}</li>)}</ul></section>}

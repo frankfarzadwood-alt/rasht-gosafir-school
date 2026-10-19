@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { PILOT, PILOT_SELECTIONS, LIVE_CATALOGUE, mediaAsset } from './content/pilot';
+import { PILOT, LIVE_SELECTIONS, LIVE_CATALOGUE, mediaAsset } from './content/pilot';
 import { mergeQuestionRevisions, stableStringify } from './content/core';
 import { assessmentSession, livePack, recommendedAlignments, ALIGNMENTS } from './scope';
 import { catalogueIndex, nodeScope, scopeQuestions, practiceScope, bookmark, restoreBookmark } from './learning';
 import { ALL_QUESTIONS, contextById, ineligibility, gradeChoice, isAccepted, gapItems, forgeItems, sentenceItems, grammarItems, quizItems, pairCandidates, readingGroups, poolAvailability, missions, PILOT_QUESTIONS as BOOK_QUESTIONS, isEligible } from './bank';
 import snapshot from '@/test/fixtures/pilot200.pack.json';
+import { OXFORD, OXFORD_COVERAGE } from './content/oxford';
 import { applyAttempt, DEFAULT } from './progress';
 import { summarize } from './display';
 import baselineCatalogue from '@/data/foundation/catalogue.json';
@@ -21,8 +22,8 @@ describe('bundled pilot boundaries', () => {
     expect(ALL_QUESTIONS).toHaveLength(1801);
     expect(PILOT200).toHaveLength(200);
     expect(PILOT.questions).toHaveLength(2163);
-    expect(pack.questions).toHaveLength(3964);
-    expect(new Set(pack.questions.map(q => q.canonical_id)).size).toBe(3964);
+    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length);
+    expect(new Set(pack.questions.map(q => q.canonical_id)).size).toBe(3964 + OXFORD.questions.length);
     expect(PILOT.questions.every(q => q.review_status === 'ready' && q.answer.verification_status === 'reviewed_by_assistant')).toBe(true);
     expect(PILOT.questions.every(q => q.grade === undefined && q.term === undefined && q.placements.filter(p => p.relation === 'primary').length === 1)).toBe(true);
     expect(PILOT_QUESTIONS.filter(q => !isEligible(q)).map(q => ({ id: q.id, why: ineligibility(q) }))).toEqual([]);
@@ -40,13 +41,13 @@ describe('bundled pilot boundaries', () => {
     expect(LIVE_CATALOGUE.nodes.filter(n => n.kind === 'book')).toHaveLength(17);
   });
   it('resolves every supplied exact practice-selection membership and count', () => {
-    for (const s of PILOT_SELECTIONS) {
+    for (const s of LIVE_SELECTIONS) {
       const qs = scopeQuestions(s.scope);
       expect(qs.length, s.id).toBe(s.expected_ready_count);
       expect(ids(qs), s.id).toEqual([...s.counted_canonical_question_ids].sort());
     }
     expect(scopeQuestions(practiceScope('whole_book', 'evolve-1'))).toHaveLength(639 + 956);
-    expect(scopeQuestions(practiceScope('whole_book', 'ows-elementary'))).toHaveLength(568);
+    expect(scopeQuestions(practiceScope('whole_book', 'ows-elementary'))).toHaveLength(OXFORD_COVERAGE.ready_oxford_questions);
     expect(scopeQuestions(practiceScope('custom', 'evolve-1', ['evolve-1.u001.s2'])).length).toBeGreaterThanOrEqual(9);
     expect(scopeQuestions(practiceScope('whole_book', 'evolve-2'))).toEqual([]);
   });
@@ -101,7 +102,7 @@ describe('pilot gameplay and media contracts', () => {
     expect(ineligibility({ ...q, assets: { ...q.assets, audio: 'missing' } })).toContain('unresolved_audio');
     expect(ineligibility({ ...q, requires_capabilities: ['unsupported'] })).toContain('unsupported_capability:unsupported');
   });
-  it('per-game builders use only their declared eligible questions, flashcards has no visible mode', () => {
+  it('per-game builders use only their declared eligible questions, standalone listening remains unavailable', () => {
     expect(quizItems(PILOT_QUESTIONS)).toHaveLength(200);
     expect(gapItems(PILOT_QUESTIONS)).toHaveLength(78);
     expect(forgeItems(PILOT_QUESTIONS)).toHaveLength(35);

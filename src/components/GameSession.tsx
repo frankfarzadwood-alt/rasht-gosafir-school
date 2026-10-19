@@ -1,10 +1,11 @@
 import { useMemo, useState, type ReactNode } from "react";
+import { Flashcards } from './Flashcards';
 import { GameRunner } from "@/components/GameRunner";
 import { MatchArena, MemoryPairs } from "@/components/PairGames";
 import type { Item } from "@/components/QuestionView";
 import {
   type Mission, type ModeAvailability, type ModeId, type Question, type CtxLookup, contextById,
-  dedupe, shuffle, quizItems, gapItems, forgeItems, sentenceItems, grammarItems, readingGroups, pairSet,
+  dedupe, shuffle, flashcardItems, quizItems, gapItems, forgeItems, sentenceItems, grammarItems, readingGroups, pairSet,
 } from "@/lib/bank";
 import { useProgress, dueCanonicals } from "@/lib/progress";
 import { fa } from "@/lib/fa";
@@ -47,6 +48,7 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
       <GameRunner key={mi.id} items={qs.map(toItem)} {...meta} mode="quest_trail" missionId={mi.id} nextHref={nx ? missionLink(nx.id) : back} />
     </>;
   }
+  if (m === "flashcards") return <Flashcards cards={flashcardItems(pool)} seed={seed} back={back} />;
   if (m === "review") {
     const ids = new Set(pool.map((q) => q.canonical_id));
     const due = new Set(dueCanonicals(p, ids));

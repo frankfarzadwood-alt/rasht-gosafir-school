@@ -34,6 +34,7 @@ export const isGenericInstruction = (s: string | null | undefined) => !s || GENE
 
 export function learnerInstruction(q: Question, mode?: string): { fa?: string; en?: string } {
   if (q.assets.source_audio_required) return { fa: 'فایل صوتی را گوش بده و به انگلیسی پاسخ بده.' };
+  if (mode === 'grammar_detective' && q.format === 'reorder_words') return { fa: 'جملهٔ خطادار را بخوان و با کارت‌ها شکل درست آن را بساز.' };
   const m = mode ? MODE_INSTRUCTION_FA[mode] : undefined;
   if (m) return { fa: m };
   if (!isGenericInstruction(q.instruction_fa)) return { fa: q.instruction_fa! };

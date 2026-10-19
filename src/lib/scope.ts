@@ -5,7 +5,7 @@
  * school release plus browser-local reviewed additions.
  */
 import practiceRaw from "@/data/foundation/practice_modes.json";
-import { PILOT, PILOT_ALIGNMENTS, PILOT_SELECTIONS } from './content/pilot';
+import { BOOK_CONTENT, PILOT_ALIGNMENTS, LIVE_SELECTIONS } from './content/pilot';
 import { contextById, CONTEXTS, ID_ALIASES, isEligible, playableSource, RAW_RELEASE, overlayContexts, type Context as BankContext, type CtxLookup, type Question as BankQuestion } from "@/lib/bank";
 import type { Alignment, AlignmentPack, Assessment, Catalogue, LegacyPack, QuestionPack, Scope } from "@/lib/content/contracts";
 import { adaptLegacySchoolPack, canonicalId, selectQuestions, type CatalogueIndex } from "@/lib/content/core";
@@ -114,7 +114,7 @@ export const ALIGNMENTS = PILOT_ALIGNMENTS;
 export function reviewedPracticeScope(mode: PracticeModeId, nodeId: string) {
   if (mode === 'custom' || mode === 'whole_book') return undefined;
   const type = mode === 'unit' ? ['unit', 'whole_unit'] : [mode];
-  return PILOT_SELECTIONS.find(s => s.anchor_node_id === nodeId && type.includes(s.selection_type))?.scope;
+  return LIVE_SELECTIONS.find(s => s.anchor_node_id === nodeId && type.includes(s.selection_type))?.scope;
 }
 
 // ---------- Live wrappers (bundled release + browser-local reviewed additions) ----------
@@ -124,7 +124,7 @@ export function livePack(catalogue: Catalogue, version: number): QuestionPack {
   if (live?.key === key) return live.pack;
   const legacy: LegacyPack = { ...(RAW_RELEASE as LegacyPack), schema_version: "1.0.0" as const, questions: playableSource().filter(q => Number.isInteger(q.grade) && Number.isInteger(q.term)) as unknown as LegacyPack["questions"], contexts: [...CONTEXTS, ...overlayContexts()] as unknown as NonNullable<LegacyPack["contexts"]>, id_aliases: ID_ALIASES };
   const school = adaptLegacySchoolPack(legacy, catalogue, { packId: "school-live" });
-  live = { key, pack: { ...school, questions: [...school.questions, ...PILOT.questions], contexts: [...school.contexts, ...PILOT.contexts], sources: [...school.sources, ...PILOT.sources], assets: PILOT.assets, assessments: PILOT.assessments, vocabulary_entries: PILOT.vocabulary_entries } };
+  live = { key, pack: { ...school, questions: [...school.questions, ...BOOK_CONTENT.questions], contexts: [...school.contexts, ...BOOK_CONTENT.contexts], sources: [...school.sources, ...BOOK_CONTENT.sources], assets: BOOK_CONTENT.assets, assessments: BOOK_CONTENT.assessments, vocabulary_entries: BOOK_CONTENT.vocabulary_entries } };
   return live.pack;
 }
 export const liveCtx: CtxLookup = contextById;

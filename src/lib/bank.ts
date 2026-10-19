@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 import raw from "@/data/bank.json";
-import { PILOT, mediaAsset } from './content/pilot';
+import { PILOT, BOOK_CONTENT, BOOK_RELEASES, mediaAsset } from './content/pilot';
 
 export type Option = { id: string; text: string };
 export type Pair = { left: string; right: string };
@@ -16,7 +16,7 @@ export type Question = {
   prompt_en: string | null; original_extracted_prompt_en?: string | null; options: Option[];
   context_id: string | null;
   revision?: number; placements?: { node_id: string; relation: string }[];
-  letter_pool?: string[]; requires_capabilities?: string[];
+  vocabulary_entry_id?: string; letter_pool?: string[]; requires_capabilities?: string[];
   error_sentence_en?: string; corrected_sentence_en?: string; reviewer_label?: string;
   assets: { image: unknown; audio: unknown; source_image_required: boolean; source_audio_required: boolean; required_asset_ids?: string[] };
   review_status: string; review_issues: string[]; eligible_games: string[];
@@ -42,8 +42,8 @@ export const ID_ALIASES: Record<string, string> = (raw as unknown as { id_aliase
 export const RAW_RELEASE = raw as unknown as Record<string, unknown>;
 export const CONTEXTS = (raw as unknown as { contexts: Context[] }).contexts;
 export const PILOT_QUESTIONS = PILOT.questions as unknown as Question[];
-export const BUNDLED_QUESTIONS = [...ALL_QUESTIONS, ...PILOT_QUESTIONS];
-export const BUNDLED_CONTEXTS = [...CONTEXTS, ...PILOT.contexts as unknown as Context[]];
+export const BUNDLED_QUESTIONS = [...ALL_QUESTIONS, ...BOOK_CONTENT.questions as unknown as Question[]];
+export const BUNDLED_CONTEXTS = [...CONTEXTS, ...BOOK_CONTENT.contexts as unknown as Context[]];
 
 // ---------- Device-local overlay (items approved in the local review workspace) ----------
 let overlayQ: Question[] = [];
@@ -209,6 +209,8 @@ export function pairCandidates(track: Question[]): PairCard[] {
   }
   return out;
 }
+/** Total distinct answer labels available, separate from a short round's capacity. */
+export const pairInventoryCount = (pool: Question[]) => new Set(pairCandidates(pool).map(c => normalize(c.answer))).size;
 /** Builds a one-to-one set: unique answers and no clue accepts another card's answer. */
 export function pairSet(track: Question[], size: number, seed?: number): PairCard[] {
   const set: PairCard[] = [];
@@ -221,6 +223,17 @@ export function pairSet(track: Question[], size: number, seed?: number): PairCar
     if (set.length >= size) break;
   }
   return set.length >= 2 ? set : [];
+}
+
+export type FlashcardItem = { id: string; questionId: string; lemma: string; meaning: string; reviewer: string };
+const vocabulary = new Map(BOOK_CONTENT.vocabulary_entries.map(v => [String(v['id']), v]));
+export function flashcardItems(pool: Question[]): FlashcardItem[] {
+  return dedupe(pool).flatMap(q => {
+    if (!q.eligible_games.includes('flashcards') || !isEligible(q) || q.context_id || q.assets.source_image_required || q.assets.source_audio_required || q.assets.required_asset_ids?.length) return [];
+    const v = q.vocabulary_entry_id ? vocabulary.get(q.vocabulary_entry_id) : undefined;
+    return v?.['review_status'] === 'ready' && typeof v['lemma'] === 'string' && v['lemma'].trim() && typeof v['sense_en'] === 'string' && v['sense_en'].trim()
+      ? [{ id: q.canonical_id, questionId: q.id, lemma: v['lemma'], meaning: v['sense_en'], reviewer: q.reviewer_label ?? 'Reviewed by assistant; not teacher-verified' }] : [];
+  });
 }
 
 export const grammarItems = (track: Question[]) => track.filter((q) => q.eligible_games.includes("grammar_detective") && q.skill === "grammar" && (isBookQuestion(q) ? !!q.error_sentence_en && !!q.corrected_sentence_en && tokensMatch(q) : isChoice(q)));
@@ -267,14 +280,24 @@ export function missions(grade: number, term: number): Mission[] {
 
 /** Missions for a non-school scope: namespaced by scope key so they never collide with school mission IDs. */
 export function poolMissions(scopeKey: string, pool: Question[]): Mission[] {
-  const qs = dedupe(pool).filter((q) => !q.context_id && (!isBookQuestion(q) || q.eligible_games.includes('quest_trail'))).sort((a, b) => a.id.localeCompare(b.id));
-  return chunkMissions(qs, 0, 0, 0, true).map((m) => ({ ...m, id: `${scopeKey}:m${m.index + 1}` }));
+  const qs = dedupe(pool).filter((q) => !q.context_id && (!isBookQuestion(q) || q.eligible_games.includes('quest_trail')));
+  const assigned = new Set<string>();
+  const out: Mission[] = [];
+  for (const release of BOOK_RELEASES) {
+    const ids = new Set(release.questions.map(q => q.id));
+    const batch = qs.filter(q => ids.has(q.id) && !assigned.has(q.canonical_id)).sort((a, b) => a.id.localeCompare(b.id));
+    batch.forEach(q => assigned.add(q.canonical_id));
+    out.push(...chunkMissions(batch, 0, 0, out.length, true));
+  }
+  const extra = qs.filter(q => !assigned.has(q.canonical_id)).sort((a, b) => a.id.localeCompare(b.id));
+  out.push(...chunkMissions(extra, 0, 0, out.length, true));
+  return out.map((m) => ({ ...m, id: `${scopeKey}:m${m.index + 1}` }));
 }
 
 // ---------- Mode catalogue ----------
 export type ModeId =
   | "quest_trail" | "quiz_sprint" | "gap_builder" | "word_forge" | "sentence_builder" | "match_arena"
-  | "memory_pairs" | "grammar_detective" | "reading_explorer" | "listening_lab" | "boss_exam" | "writing_studio";
+  | "memory_pairs" | "flashcards" | "grammar_detective" | "reading_explorer" | "listening_lab" | "boss_exam" | "writing_studio";
 export const MODES: { id: ModeId; fa: string; desc: string; icon: string }[] = [
   { id: "quest_trail", fa: "مسیر ماجراجویی", desc: "مأموریت‌های کوتاه ترکیبی", icon: "🗺️" },
   { id: "quiz_sprint", fa: "دوی سرعت", desc: "۶ تا ۸ تست چندگزینه‌ای", icon: "⚡" },
@@ -283,6 +306,7 @@ export const MODES: { id: ModeId; fa: string; desc: string; icon: string }[] = [
   { id: "sentence_builder", fa: "جمله‌ساز", desc: "کلمه‌ها را مرتب کن", icon: "🧱" },
   { id: "match_arena", fa: "میدان جفت‌ها", desc: "سرنخ و جواب را وصل کن", icon: "🔗" },
   { id: "memory_pairs", fa: "کارت‌های حافظه", desc: "کارت‌ها را برگردان و جفت کن", icon: "🃏" },
+  { id: "flashcards", fa: "فلش‌کارت", desc: "یادآوری واژه و معنی با مرور دوباره", icon: "🎴" },
   { id: "grammar_detective", fa: "کارآگاه گرامر", desc: "جواب و دلیلش را پیدا کن", icon: "🔍" },
   { id: "reading_explorer", fa: "کاوشگر متن", desc: "متن را بخوان و جواب بده", icon: "📖" },
   { id: "listening_lab", fa: "آزمایشگاه شنیداری", desc: "فایل صوتی تأییدشده", icon: "🎧" },
@@ -305,6 +329,7 @@ export function poolAvailability(t: Question[], missionCount = poolMissions("x",
     sentence_builder: { count: sentenceItems(t).length },
     match_arena: { count: pc >= 3 ? pc : 0, reason: "جفت‌های تأییدشدهٔ کافی در این بخش نیست." },
     memory_pairs: { count: pc >= 3 ? pc : 0, reason: "جفت‌های تأییدشدهٔ کافی در این بخش نیست." },
+    flashcards: { count: flashcardItems(t).length, reason: "واژه و معنی بازبینی‌شده‌ای برای فلش‌کارت این بخش آماده نیست." },
     grammar_detective: { count: grammarItems(t).length },
     reading_explorer: { count: readingGroups(t).length, reason: "متن درک مطلب تأییدشده‌ای برای این بخش وارد نشده است." },
     listening_lab: { count: 0, reason: t.some(q => q.assets.source_audio_required) ? 'فایل صوتی در بازی‌های سازگار این بخش پخش می‌شود؛ بازی شنیداری جداگانه آماده نیست.' : "هنوز هیچ فایل صوتی تأییدشده‌ای وارد نشده است." },
