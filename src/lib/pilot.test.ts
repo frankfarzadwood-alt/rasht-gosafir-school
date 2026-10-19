@@ -43,6 +43,8 @@ describe('bundled pilot boundaries', () => {
     expect(scopeQuestions(practiceScope('whole_book', 'evolve-1'))).toHaveLength(139);
     expect(scopeQuestions(practiceScope('whole_book', 'ows-elementary'))).toHaveLength(61);
     expect(scopeQuestions(practiceScope('custom', 'evolve-1', ['evolve-1.u001', 'evolve-1.u001.s1']))).toHaveLength(139);
+    expect(scopeQuestions(practiceScope('custom', 'evolve-1', ['evolve-1.u001.s2']))).toHaveLength(9);
+    expect(scopeQuestions({ ...practiceScope('whole_book', 'evolve-1'), skills: ['listening'] })).toHaveLength(11);
     expect(scopeQuestions(practiceScope('whole_book', 'evolve-2'))).toEqual([]);
   });
   it('keeps all bundled school payloads and mission contents independent of pilot reapplication', () => {
@@ -95,6 +97,14 @@ describe('pilot gameplay and media contracts', () => {
     const q = PILOT_QUESTIONS.find(q => q.assets.source_audio_required); if (!q) throw new Error('audio absent');
     expect(ineligibility({ ...q, assets: { ...q.assets, audio: 'missing' } })).toContain('unresolved_audio');
     expect(ineligibility({ ...q, requires_capabilities: ['unsupported'] })).toContain('unsupported_capability:unsupported');
+  });
+  it('per-game builders use only their declared eligible questions, flashcards has no visible mode', () => {
+    expect(quizItems(PILOT_QUESTIONS)).toHaveLength(200);
+    expect(gapItems(PILOT_QUESTIONS)).toHaveLength(78);
+    expect(forgeItems(PILOT_QUESTIONS)).toHaveLength(35);
+    expect(sentenceItems(PILOT_QUESTIONS)).toHaveLength(16);
+    expect(readingGroups(PILOT_QUESTIONS).flatMap(g => g.questions)).toHaveLength(17);
+    expect(poolAvailability(PILOT_QUESTIONS).listening_lab.count).toBe(0);
   });
   it('fixed quizzes preserve complete 38/40 lists, source sections and no timer/marks', () => {
     expect(PILOT.assessments).toHaveLength(2);
