@@ -28,3 +28,9 @@
 - [x] Bundled 2,163 ready book questions (639/956/568) over the 200 pilot records; 3,964 loaded with 1,801 school.
 - [x] 58 media assets as immutable pointers; 24 source-bound plan slots; 24 ordered practice quizzes; 35 active alignment links.
 - [x] Upgrade regression (totals, pilot retention, idempotency, dependencies); tests, type check, build; smoke-tested new audio/image/text.
+
+# Oxford Elementary expansion patch
+- [x] Pass all eight baseline safeguards and apply only supplied payloads; compact oversized JSON without changing parsed content.
+- [ ] Run regression tests with two workers and inspect platform-managed type/build checks.
+- [ ] Verify phone flashcards, new image/grammar questions, pair inventory, school gameplay and no-penalty image failure.
+- [ ] Report verified totals and any blockers; keep Cloud disabled and unpublished; stop after integration.
