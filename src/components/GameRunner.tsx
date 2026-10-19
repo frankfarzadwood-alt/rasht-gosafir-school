@@ -23,6 +23,9 @@ export function GameRunner({
   const [hinted, setHinted] = useState(false);
   const [last, setLast] = useState<{ correct: boolean; response: string; xp: number } | null>(null);
   const [results, setResults] = useState<Result[]>([]);
+  // A completed retry round clears its visible results, but the original
+  // attempts must remain available for first-try accuracy and feedback.
+  const attemptHistory = useRef(new Map<string, readonly Attempt[]>());
   const [isRetryRound, setRetryRound] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const started = useRef(Date.now());
@@ -48,8 +51,9 @@ export function GameRunner({
       item.q.skill,
     );
     if (exam) recordAttempt({ qid: item.q.id, canonical: item.q.canonical_id, grade, term, ...(scope ? { scope } : {}), mode, correct, hinted: false, retry: isRetryRound, ms, response }, item.q.skill);
-    const prior = results.find((r) => r.item.q.id === item.q.id);
-    const attempts = Object.freeze([...(prior?.attempts ?? []), Object.freeze({ response, correct, hinted })]);
+    const prior = attemptHistory.current.get(item.q.canonical_id) ?? [];
+    const attempts = Object.freeze([...prior, Object.freeze({ response, correct, hinted })]);
+    attemptHistory.current.set(item.q.canonical_id, attempts);
     const s = summarize(item.q.id, attempts);
     const r: Result = { item, attempts, first: s.firstCorrect, finalCorrect: s.finalCorrect, correctedOnRetry: s.correctedOnRetry, firstResponse: s.firstResponse, response, ms };
     setResults((rs) => [...rs.filter((x) => x.item.q.id !== item.q.id), r]);

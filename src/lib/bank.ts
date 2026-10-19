@@ -197,6 +197,9 @@ export type PairCard = { key: string; qid: string; clue: string; answer: string;
 export function pairCandidates(track: Question[]): PairCard[] {
   const out: PairCard[] = [];
   for (const q of track) {
+    // Pair-only runners cannot display a passage or required media. Other games
+    // retain these questions and provide their context/audio/image controls.
+    if (q.context_id || q.assets.source_audio_required || q.assets.source_image_required || q.assets.required_asset_ids?.length) continue;
     if (q.format === "matching" && q.pairs && (q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs"))) {
       q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right, skill: q.skill }));
     } else if ((q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs")) && q.answer.value && q.prompt_en) {
