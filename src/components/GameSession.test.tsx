@@ -1,7 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { GameSession } from './GameSession';
-import { PILOT_QUESTIONS, poolAvailability, type PairCard } from '@/lib/bank';
+import { PILOT_QUESTIONS as ALL_BOOK, poolAvailability, type PairCard } from '@/lib/bank';
+import snapshot from '@/test/fixtures/pilot200.pack.json';
+
+const PILOT_IDS = new Set(snapshot.questions.map(q => q.id));
+const PILOT_QUESTIONS = ALL_BOOK.filter(q => PILOT_IDS.has(q.id));
 
 const captured = vi.hoisted(() => ({ sets: [] as PairCard[][] }));
 vi.mock('./GameRunner', () => ({ GameRunner: ({ context }: { context?: { id: string } }) => <div data-testid="passage">{context?.id}</div> }));

@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
-- School question data lives in src/data/bank.json, while native book releases live in src/data/pilot and compose through src/lib/content/pilot.ts without rewriting canonical payloads; all eligibility, game-item building and grading go through src/lib/bank.ts so every mode shares one rule set. Bundled records win over browser-local copies.
+- School question data lives in src/data/bank.json, while native book releases live in src/data/pilot (one merged pack from the release manifest; asset pointers auto-resolved by file name from src/assets/pilot) and compose through src/lib/content/pilot.ts without rewriting canonical payloads; all eligibility, game-item building and grading go through src/lib/bank.ts so every mode shares one rule set. Bundled records win over browser-local copies.
 - Browser-local reviewed packs: pure planning in src/lib/pack.ts, IndexedDB storage in src/lib/localBank.ts; baseline missions come from the bundled pack only and local additions are appended so mission IDs stay stable.
 - Guest progress, XP and mastery rules are a pure reducer in src/lib/progress.ts (applyAttempt) stored in localStorage; tests in src/lib/progress.test.ts pin those rules.
 - Tracks are filtered by numeric grade/term fields only, never by IDs or filenames, because source labels are unreliable.

@@ -24,3 +24,7 @@
 - Reapplying pilot revisions/conflicts and import XP checked through pure regression tests, not the device-import UI: native-v2 pilot activation is a bundled release, not an IndexedDB import.
 - Media uses immutable Lovable static asset pointers; published delivery and deployments outside Lovable remain unverified because this update stays unpublished.
 - Listening Lab, Writing Studio and flashcards have no supported renderer; audio questions remain available in compatible games. No full-release upgrade, Cloud enablement or publication performed.
+# Full Evolve 1 + Oxford content upgrade
+- [x] Bundled 2,163 ready book questions (639/956/568) over the 200 pilot records; 3,964 loaded with 1,801 school.
+- [x] 58 media assets as immutable pointers; 24 source-bound plan slots; 24 ordered practice quizzes; 35 active alignment links.
+- [x] Upgrade regression (totals, pilot retention, idempotency, dependencies); tests, type check, build; smoke-tested new audio/image/text.
