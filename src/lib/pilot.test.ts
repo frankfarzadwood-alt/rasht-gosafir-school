@@ -7,6 +7,7 @@ import { ALL_QUESTIONS, contextById, ineligibility, gradeChoice, isAccepted, gap
 import { applyAttempt, DEFAULT } from './progress';
 import { summarize } from './display';
 import baselineCatalogue from '@/data/foundation/catalogue.json';
+import plannedAssessments from '@/data/foundation/assessment_plan.json';
 
 const pack = livePack(LIVE_CATALOGUE, 0);
 const ids = (q: { id: string }[]) => q.map(q => q.id).sort();
@@ -107,6 +108,8 @@ describe('pilot gameplay and media contracts', () => {
     expect(poolAvailability(PILOT_QUESTIONS).listening_lab.count).toBe(0);
   });
   it('fixed quizzes preserve complete 38/40 lists, source sections and no timer/marks', () => {
+    expect(plannedAssessments.assessments).toHaveLength(244);
+    expect(plannedAssessments.assessments.every(a => a.status === 'awaiting_source')).toBe(true);
     expect(PILOT.assessments).toHaveLength(2);
     PILOT.assessments.forEach((a, i) => {
       const s = assessmentSession(pack, a, contextById);
