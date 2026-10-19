@@ -1,12 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import planRaw from "@/data/foundation/assessment_plan.json";
 import { BookOpen, ChevronLeft, Plus, Check, Minus, Play, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProgress, todayCount, update } from "@/lib/progress";
-import { useBankVersion, MODES, modeAvailability, readingGroups, trackQuestions } from "@/lib/bank";
+import { useBankVersion, MODES, modeAvailability, poolAvailability, poolMissions, readingGroups, trackQuestions, type ModeAvailability, type Question } from "@/lib/bank";
+import { modesFor, PRACTICE_FA, ScopeError, type PracticeModeId } from "@/lib/scope";
 import { fa } from "@/lib/fa";
-import { ancestorsOf, bookmark, childrenOf, nodeById, nodeScope, nodeTitle, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
-import type { CatalogueNode } from "@/lib/content/contracts";
+import { ancestorsOf, bookmark, catalogueIndex, childrenOf, nodeById, nodeScope, nodeTitle, practiceScope, scopeKey, scopeQuestions, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
+import type { AssessmentPlan, CatalogueNode } from "@/lib/content/contracts";
+const PLAN = planRaw as unknown as AssessmentPlan;
 
 export function ActivityLink({ current, game, children, className = "", mission }: { current: Bookmark; game?: string | null; children: ReactNode; className?: string; mission?: string | undefined }) {
   const n = nodeById(current.nodeId);
@@ -14,7 +17,8 @@ export function ActivityLink({ current, game, children, className = "", mission 
   return <Button asChild className={`btn ${className}`} variant="outline">{n?.kind === "term" && n.grade && n.term ? mode ?
     <Link to="/play/$grade/$term/$mode" params={{ grade: String(n.grade), term: String(n.term), mode }} search={{ mission: mission ?? current.mission }}>{children}</Link> :
     <Link to="/track/$grade/$term" params={{ grade: String(n.grade), term: String(n.term) }}>{children}</Link> :
-    <Link to="/learn/$nodeId" params={{ nodeId: current.nodeId }} search={{ view: "units" }}>{children}</Link>}
+    current.practice && mode ? <Link to="/practice/$nodeId/$mode" params={{ nodeId: current.nodeId, mode }} search={{ scope: current.practice, units: current.custom?.join(","), mission: mission ?? current.mission }}>{children}</Link> :
+    <Link to="/learn/$nodeId" params={{ nodeId: current.nodeId }} search={{ view: current.practice ? "practice" : "units" }}>{children}</Link>}
   </Button>;
 }
 export function SaveCourse({ node }: { node: CatalogueNode }) {
@@ -54,19 +58,50 @@ export function ScopeProgress({ node }: { node: CatalogueNode }) {
   const stats = scopeStats(nodeScope(node.id), p);
   return <section className="space-y-3"><h2 className="text-lg font-extrabold">پیشرفت این بخش</h2>{stats.coverage === null ? <Preparation /> : <>
     <dl className="grid grid-cols-3 gap-2 text-center"><div><dt className="text-sm text-muted-foreground">سؤال آماده</dt><dd className="text-xl font-extrabold">{fa(stats.total)}</dd></div><div><dt className="text-sm text-muted-foreground">تمرین‌شده</dt><dd className="text-xl font-extrabold">{fa(stats.attempted)}</dd></div><div><dt className="text-sm text-muted-foreground">مسلط</dt><dd className="text-xl font-extrabold text-teal">{fa(stats.mastered)}</dd></div></dl>
-    <progress className="h-3 w-full accent-teal" max={stats.total} value={stats.attempted} aria-label="پوشش تمرین" /><p className="text-sm text-muted-foreground">پوشش تمرین: {fa(Math.round(stats.coverage * 100))}٪</p>
-  </>}</section>;
+    <progress className="h-3 w-full accent-teal" max={stats.total} value={stats.attempted} aria-label="پوشش تمرین" /><p className="text-sm text-muted-foreground">پوشش تمرین: {fa(Math.round(stats.coverage * 100))}٪ · تسلط جدا از پوشش شمرده می‌شود.</p>
+  </>}<p className="text-sm text-muted-foreground">عملکرد آزمون ثابت: نامشخص — هنوز آزمون ثابت آماده‌ای برای این بخش منتشر نشده است.</p></section>;
+}
+function modeLabel(id: string, a: { count: number }, readingQs: number) {
+  return id === "reading_explorer" ? `${fa(a.count)} متن · ${fa(readingQs)} سؤال` : `${fa(a.count)} ${["match_arena", "memory_pairs"].includes(id) ? "جفت" : id === "quest_trail" ? "مأموریت" : "سؤال"}`;
+}
+function ModeGrid({ avail, readingQs, link }: { avail: ModeAvailability; readingQs: number; link: (mode: string, body: ReactNode) => ReactNode }) {
+  return <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{MODES.map(m => {
+    const a = avail[m.id];
+    const body = <><span aria-hidden className="text-2xl">{m.icon}</span><h2 className="font-bold">{m.fa}</h2><p className="text-xs text-muted-foreground">{a.count ? modeLabel(m.id, a, readingQs) : a.reason ?? "محتوا در حال آماده‌سازی است"}</p></>;
+    return a.count ? <div key={m.id}>{link(m.id, body)}</div> :
+      <div key={m.id} aria-disabled="true" className="min-w-0 rounded-2xl border border-dashed border-border p-4 text-muted-foreground">{body}</div>;
+  })}</div>;
 }
 export function GameChoices({ node }: { node: CatalogueNode }) {
   useBankVersion();
-  if (node.kind !== "term" || !node.grade || !node.term) return <><Preparation /><Button disabled className="btn" aria-describedby="unavailable-play"><Play />شروع تمرین</Button><p id="unavailable-play" className="text-sm text-muted-foreground">تمرین پس از انتشار محتوای تأییدشده فعال می‌شود.</p></>;
-  const available = modeAvailability(node.grade, node.term);
-  return <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{MODES.map(m => {
-    const a = available[m.id];
-    const label = m.id === "reading_explorer" ? `${fa(a.count)} متن · ${fa(readingGroups(trackQuestions(node.grade ?? 0, node.term ?? 0)).reduce((n, g) => n + g.questions.length, 0))} سؤال` : `${fa(a.count)} ${["match_arena", "memory_pairs"].includes(m.id) ? "جفت" : "سؤال"}`;
-    return a.count ? <Link key={m.id} to="/play/$grade/$term/$mode" params={{ grade: String(node.grade), term: String(node.term), mode: m.id }} search={{}} className="card-soft min-w-0 p-4 hover:border-primary"><span aria-hidden className="text-2xl">{m.icon}</span><h2 className="font-bold">{m.fa}</h2><p className="text-xs text-muted-foreground">{label}</p></Link> :
-      <div key={m.id} aria-disabled="true" className="min-w-0 rounded-2xl border border-dashed border-border p-4 text-muted-foreground"><span aria-hidden className="text-2xl">{m.icon}</span><h2 className="font-bold">{m.fa}</h2><p className="text-xs">{a.reason ?? "محتوا در حال آماده‌سازی است"}</p></div>;
-  })}</div>;
+  if (node.kind === "term" && node.grade && node.term) {
+    const t = trackQuestions(node.grade, node.term);
+    return <ModeGrid avail={modeAvailability(node.grade, node.term)} readingQs={readingGroups(t).reduce((n, g) => n + g.questions.length, 0)}
+      link={(mode, body) => <Link to="/play/$grade/$term/$mode" params={{ grade: String(node.grade), term: String(node.term), mode }} search={{}} className="card-soft block h-full min-w-0 p-4 hover:border-primary">{body}</Link>} />;
+  }
+  return <ScopePractice node={node} />;
+}
+/** Book / unit / subunit practice: choose a scope, see the real count, then pick a game. Empty scopes stay disabled. */
+export function ScopePractice({ node }: { node: CatalogueNode }) {
+  const modes = modesFor(catalogueIndex, node.id);
+  const [mode, setMode] = useState<PracticeModeId | null>(modes[0] ?? null);
+  const [custom, setCustom] = useState<string[]>([]);
+  if (!mode) return <><Preparation /><Button disabled className="btn"><Play />شروع تمرین</Button></>;
+  let pool: Question[] = [], error: string | null = null;
+  try { pool = scopeQuestions(practiceScope(mode, node.id, custom)); }
+  catch (e) { if (e instanceof ScopeError && mode === "custom") error = "حداقل یک درس را انتخاب کن."; else throw e; }
+  const key = scopeKey(mode, node.id, custom);
+  const units = node.kind === "book" ? childrenOf(node.id).filter(n => n.kind === "unit") : [];
+  const assessments = PLAN.assessments.filter(a => a.anchor_node_id === node.id);
+  return <div className="space-y-4">
+    <fieldset className="space-y-2"><legend className="font-bold">محدودهٔ تمرین</legend><div className="flex flex-wrap gap-2">{modes.map(m => <Button key={m} variant={m === mode ? "default" : "outline"} className="btn" aria-pressed={m === mode} onClick={() => setMode(m)}>{PRACTICE_FA[m]}</Button>)}</div></fieldset>
+    {mode === "custom" && <fieldset className="max-h-56 space-y-1 overflow-y-auto rounded-xl border border-border p-3"><legend className="px-1 text-sm font-bold">درس‌ها</legend>{units.map(u => <label key={u.id} className="flex min-h-11 items-center gap-2"><input type="checkbox" className="h-5 w-5" checked={custom.includes(u.id)} onChange={() => setCustom(c => c.includes(u.id) ? c.filter(x => x !== u.id) : [...c, u.id])} />{nodeTitle(u)}</label>)}</fieldset>}
+    <p role="status" className="text-sm font-bold">{error ?? (pool.length ? `${fa(pool.length)} سؤال آمادهٔ یکتا در این محدوده` : "محتوا در حال آماده‌سازی است — هنوز سؤال تأییدشده‌ای در این محدوده نیست.")}</p>
+    {!error && <ModeGrid avail={poolAvailability(pool, poolMissions(key, pool).length)} readingQs={readingGroups(pool).reduce((n, g) => n + g.questions.length, 0)}
+      link={(game, body) => <Link to="/practice/$nodeId/$mode" params={{ nodeId: node.id, mode: game }} search={{ scope: mode, units: custom.length ? custom.join(",") : undefined }} className="card-soft block h-full min-w-0 p-4 hover:border-primary">{body}</Link>} />}
+    {assessments.length > 0 && <section className="space-y-2 border-t border-border pt-4"><h2 className="font-bold">آزمون‌های ثابت کتاب</h2><p className="text-xs text-muted-foreground">این آزمون‌ها فهرست و ترتیب ثابت دارند و هرگز با سؤال دیگری پر یا کوتاه نمی‌شوند.</p>
+      <ul className="grid gap-2 sm:grid-cols-2">{assessments.map(a => <li key={a.id} aria-disabled="true" className="rounded-xl border border-dashed border-border p-3 text-muted-foreground"><span dir="ltr" lang="en" className="block font-bold">{a.title_en}</span><span className="text-xs">{a.status === "ready" ? "آماده" : "در انتظار منبع بازبینی‌شده — هنوز در دسترس نیست"}</span></li>)}</ul></section>}
+  </div>;
 }
 export function CataloguePage({ node, view }: { node: CatalogueNode; view: string }) {
   useBankVersion();
@@ -84,6 +119,6 @@ export function CataloguePage({ node, view }: { node: CatalogueNode; view: strin
       {children.length > 0 && <div className="grid gap-3 sm:grid-cols-2">{children.map(n => <NodeCard key={n.id} node={n} />)}</div>}
       {node.kind === "subunit" && <GameChoices node={node} />}
     </>}
-    {mapping && <section className="border-t border-border pt-4"><h2 className="font-bold">ارتباط آکسفورد و ایوالو</h2><p className="mt-1 text-sm text-muted-foreground">ارتباط‌های بازبینی‌شده در حال آماده‌سازی است.</p></section>}
+    {mapping && <section className="border-t border-border pt-4"><h2 className="font-bold">ارتباط آکسفورد و ایوالو</h2><p className="mt-1 text-sm text-muted-foreground">ارتباط‌های بازبینی‌شده در حال آماده‌سازی است.</p><Link to="/learn/alignments" search={{ book: trail.find(n => n.kind === "book")?.id, unit: node.kind === "unit" ? node.id : undefined }} className="btn mt-2 inline-flex border border-border text-sm">نقشهٔ ارتباط درس‌ها</Link></section>}
   </div>;
 }

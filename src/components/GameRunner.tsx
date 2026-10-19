@@ -9,9 +9,9 @@ import { summarize, learnerExplanation, type Attempt } from "@/lib/display";
 type Result = { item: Item; attempts: readonly Attempt[]; first: boolean; finalCorrect: boolean; correctedOnRetry: boolean; firstResponse: string; response: string; ms: number };
 
 export function GameRunner({
-  items, grade, term, mode, exam = false, timer = false, context, missionId, showGrammarTag, nextHref,
+  items, grade, term, scope, mode, exam = false, timer = false, context, missionId, showGrammarTag, nextHref,
 }: {
-  items: Item[]; grade: number; term: number; mode: string; exam?: boolean; timer?: boolean;
+  items: Item[]; grade: number | null; term: number | null; scope?: string; mode: string; exam?: boolean; timer?: boolean;
   context?: Context | null; missionId?: string; showGrammarTag?: boolean; nextHref?: React.ReactNode;
 }) {
   const [queue, setQueue] = useState(items);
@@ -40,10 +40,10 @@ export function GameRunner({
     const ms = Date.now() - started.current;
     const retry = tries > 0 || isRetryRound;
     const xp = exam ? 0 : recordAttempt(
-      { qid: item.q.id, canonical: item.q.canonical_id, grade, term, mode, correct, hinted, retry, ms, response },
+      { qid: item.q.id, canonical: item.q.canonical_id, grade, term, ...(scope ? { scope } : {}), mode, correct, hinted, retry, ms, response },
       item.q.skill,
     );
-    if (exam) recordAttempt({ qid: item.q.id, canonical: item.q.canonical_id, grade, term, mode, correct, hinted: false, retry: isRetryRound, ms, response }, item.q.skill);
+    if (exam) recordAttempt({ qid: item.q.id, canonical: item.q.canonical_id, grade, term, ...(scope ? { scope } : {}), mode, correct, hinted: false, retry: isRetryRound, ms, response }, item.q.skill);
     const prior = results.find((r) => r.item.q.id === item.q.id);
     const attempts = Object.freeze([...(prior?.attempts ?? []), Object.freeze({ response, correct, hinted })]);
     const s = summarize(item.q.id, attempts);

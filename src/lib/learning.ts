@@ -1,7 +1,8 @@
 import { useSyncExternalStore } from "react";
 import catalogue from "@/data/foundation/catalogue.json";
-import { BASELINE_VERSION, dedupe, ID_ALIASES, missions, trackQuestions } from "@/lib/bank";
-import { descendantIds, indexCatalogue, canonicalId } from "@/lib/content/core";
+import { BASELINE_VERSION, contextById, getBankVersion, ID_ALIASES, missions } from "@/lib/bank";
+import { indexCatalogue, canonicalId } from "@/lib/content/core";
+import { buildScope, livePack, resolvePool, type PracticeModeId } from "@/lib/scope";
 import type { Catalogue, CatalogueNode, Scope } from "@/lib/content/contracts";
 import type { Progress } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
@@ -17,28 +18,36 @@ export function ancestorsOf(id: string): CatalogueNode[] {
   return out;
 }
 export const nodeScope = (id: string): Scope => ({ kind: "node", node_ids: [id], include_descendants: true });
-/** The catalogue gives placement; the live bank remains the gameplay eligibility authority. */
-export function scopeQuestions(scope: Scope) {
-  const roots = scope.node_ids.filter(id => nodeById(id));
-  const ids = descendantIds(catalogueIndex, roots, scope.include_descendants);
-  return dedupe([...ids].flatMap(id => {
-    const n = nodeById(id);
-    return n?.kind === "term" && n.grade && n.term ? trackQuestions(n.grade, n.term) : [];
-  })).filter(q => !scope.question_ids || scope.question_ids.includes(q.id));
+/** Single approved-question service: scope → unique canonical items (live bundled + browser-local reviewed). Unknown scopes throw. */
+export function scopeQuestions(scope: Scope, gameId?: string) {
+  return resolvePool(livePack(catalogue as unknown as Catalogue, getBankVersion()), catalogueIndex, scope, contextById, gameId);
+}
+/** For display/restoration only: an invalid stored scope shows as unavailable instead of crashing. */
+export function safeScopeQuestions(scope: Scope) { try { return scopeQuestions(scope); } catch { return []; } }
+export const practiceScope = (mode: PracticeModeId, nodeId: string, custom: string[] = []) => buildScope(catalogueIndex, mode, nodeId, custom);
+export const scopeKey = (mode: string, nodeId: string, custom: string[] = []) => [mode, nodeId, ...[...custom].sort()].join(":");
+/** Unique canonical items across saved courses (Home → My Learning). Unknown when none are ready. */
+export function savedStats(ids: string[], p: Progress) {
+  const qs = ids.flatMap(id => nodeById(id) ? safeScopeQuestions(nodeScope(id)) : []);
+  return statsFor(new Set(qs.map(q => q.canonical_id)), p);
 }
 export function scopeStats(scope: Scope, p: Progress) {
-  const qs = scopeQuestions(scope);
-  const ids = new Set(qs.map(q => q.canonical_id));
+  return statsFor(new Set(safeScopeQuestions(scope).map(q => q.canonical_id)), p);
+}
+/** Aggregates underlying unique items (never averages unit percentages). coverage = null means unknown, not 0%. */
+function statsFor(ids: Set<string>, p: Progress) {
   const attempted = new Set(p.attempts.map(a => canonicalId(a.canonical, ID_ALIASES)).filter(id => ids.has(id))).size;
   const mastered = new Set(Object.entries(p.mastery).filter(([, m]) => m.mastered).map(([id]) => canonicalId(id, ID_ALIASES)).filter(id => ids.has(id))).size;
   return { total: ids.size, attempted, mastered, coverage: ids.size ? attempted / ids.size : null };
 }
-export type Bookmark = { nodeId: string; scope: Scope; game: string | null; release: string; mission?: string; ancestors: string[] };
+export type Bookmark = { nodeId: string; scope: Scope; game: string | null; release: string; mission?: string; practice?: PracticeModeId; custom?: string[]; ancestors: string[] };
 export type LearningState = { version: 1; saved: string[]; current: Bookmark | null };
 export const EMPTY_LEARNING: LearningState = { version: 1, saved: [], current: null };
 export const LEARNING_KEY = "english-quest-learning-v1";
-export function bookmark(id: string, game: string | null = null, mission?: string): Bookmark {
-  return { nodeId: id, scope: nodeScope(id), game, release: BASELINE_VERSION, ...(mission === undefined ? {} : { mission }), ancestors: ancestorsOf(id).map(n => n.id) };
+export function bookmark(id: string, game: string | null = null, mission?: string, practice?: { mode: PracticeModeId; custom?: string[] }): Bookmark {
+  const scope = practice ? practiceScope(practice.mode, id, practice.custom) : nodeScope(id);
+  return { nodeId: id, scope, game, release: BASELINE_VERSION, ...(mission === undefined ? {} : { mission }),
+    ...(practice ? { practice: practice.mode, ...(practice.custom?.length ? { custom: practice.custom } : {}) } : {}), ancestors: ancestorsOf(id).map(n => n.id) };
 }
 export function toggleSaved(s: LearningState, id: string): LearningState {
   const n = nodeById(id);
@@ -49,10 +58,10 @@ export function restoreBookmark(b: Bookmark | null): Bookmark | null {
   if (!b) return null;
   const n = nodeById(b.nodeId);
   if (n) {
-    const available = scopeQuestions(b.scope).length > 0;
+    const available = safeScopeQuestions(b.scope).length > 0;
     if (!b.game || available) return b;
   }
-  const parent = [...b.ancestors].reverse().map(nodeById).find(n => n && scopeQuestions(nodeScope(n.id)).length > 0);
+  const parent = [...b.ancestors].reverse().map(nodeById).find(n => n && safeScopeQuestions(nodeScope(n.id)).length > 0);
   return parent ? bookmark(parent.id) : n ? bookmark(n.id) : bookmark("school");
 }
 export function legacyBookmark(p: Progress): Bookmark | null {

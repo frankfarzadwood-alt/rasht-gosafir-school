@@ -17,6 +17,8 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as LearnNodeIdRouteImport } from './routes/learn.$nodeId'
+import { Route as LearnAlignmentsRouteImport } from './routes/learn.alignments'
+import { Route as PracticeNodeIdModeRouteImport } from './routes/practice.$nodeId.$mode'
 import { Route as TrackGradeTermRouteImport } from './routes/track.$grade.$term'
 import { Route as PlayGradeTermModeRouteImport } from './routes/play.$grade.$term.$mode'
 
@@ -60,6 +62,16 @@ const LearnNodeIdRoute = LearnNodeIdRouteImport.update({
   path: '/$nodeId',
   getParentRoute: () => LearnRoute,
 } as any)
+const LearnAlignmentsRoute = LearnAlignmentsRouteImport.update({
+  id: '/alignments',
+  path: '/alignments',
+  getParentRoute: () => LearnRoute,
+} as any)
+const PracticeNodeIdModeRoute = PracticeNodeIdModeRouteImport.update({
+  id: '/practice/$nodeId/$mode',
+  path: '/practice/$nodeId/$mode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrackGradeTermRoute = TrackGradeTermRouteImport.update({
   id: '/track/$grade/$term',
   path: '/track/$grade/$term',
@@ -79,7 +91,9 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/learn/$nodeId': typeof LearnNodeIdRoute
+  '/learn/alignments': typeof LearnAlignmentsRoute
   '/learn/': typeof LearnIndexRoute
+  '/practice/$nodeId/$mode': typeof PracticeNodeIdModeRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
   '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
@@ -90,7 +104,9 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/learn/$nodeId': typeof LearnNodeIdRoute
+  '/learn/alignments': typeof LearnAlignmentsRoute
   '/learn': typeof LearnIndexRoute
+  '/practice/$nodeId/$mode': typeof PracticeNodeIdModeRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
   '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
@@ -103,7 +119,9 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/learn/$nodeId': typeof LearnNodeIdRoute
+  '/learn/alignments': typeof LearnAlignmentsRoute
   '/learn/': typeof LearnIndexRoute
+  '/practice/$nodeId/$mode': typeof PracticeNodeIdModeRoute
   '/track/$grade/$term': typeof TrackGradeTermRoute
   '/play/$grade/$term/$mode': typeof PlayGradeTermModeRoute
 }
@@ -117,7 +135,9 @@ export interface FileRouteTypes {
     | '/profile'
     | '/progress'
     | '/learn/$nodeId'
+    | '/learn/alignments'
     | '/learn/'
+    | '/practice/$nodeId/$mode'
     | '/track/$grade/$term'
     | '/play/$grade/$term/$mode'
   fileRoutesByTo: FileRoutesByTo
@@ -128,7 +148,9 @@ export interface FileRouteTypes {
     | '/profile'
     | '/progress'
     | '/learn/$nodeId'
+    | '/learn/alignments'
     | '/learn'
+    | '/practice/$nodeId/$mode'
     | '/track/$grade/$term'
     | '/play/$grade/$term/$mode'
   id:
@@ -140,7 +162,9 @@ export interface FileRouteTypes {
     | '/profile'
     | '/progress'
     | '/learn/$nodeId'
+    | '/learn/alignments'
     | '/learn/'
+    | '/practice/$nodeId/$mode'
     | '/track/$grade/$term'
     | '/play/$grade/$term/$mode'
   fileRoutesById: FileRoutesById
@@ -152,6 +176,7 @@ export interface RootRouteChildren {
   LearnRoute: typeof LearnRouteWithChildren
   ProfileRoute: typeof ProfileRoute
   ProgressRoute: typeof ProgressRoute
+  PracticeNodeIdModeRoute: typeof PracticeNodeIdModeRoute
   TrackGradeTermRoute: typeof TrackGradeTermRoute
   PlayGradeTermModeRoute: typeof PlayGradeTermModeRoute
 }
@@ -214,6 +239,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnNodeIdRouteImport
       parentRoute: typeof LearnRoute
     }
+    '/learn/alignments': {
+      id: '/learn/alignments'
+      path: '/alignments'
+      fullPath: '/learn/alignments'
+      preLoaderRoute: typeof LearnAlignmentsRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/practice/$nodeId/$mode': {
+      id: '/practice/$nodeId/$mode'
+      path: '/practice/$nodeId/$mode'
+      fullPath: '/practice/$nodeId/$mode'
+      preLoaderRoute: typeof PracticeNodeIdModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/track/$grade/$term': {
       id: '/track/$grade/$term'
       path: '/track/$grade/$term'
@@ -233,11 +272,13 @@ declare module '@tanstack/react-router' {
 
 interface LearnRouteChildren {
   LearnNodeIdRoute: typeof LearnNodeIdRoute
+  LearnAlignmentsRoute: typeof LearnAlignmentsRoute
   LearnIndexRoute: typeof LearnIndexRoute
 }
 
 const LearnRouteChildren: LearnRouteChildren = {
   LearnNodeIdRoute: LearnNodeIdRoute,
+  LearnAlignmentsRoute: LearnAlignmentsRoute,
   LearnIndexRoute: LearnIndexRoute,
 }
 
@@ -250,6 +291,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnRoute: LearnRouteWithChildren,
   ProfileRoute: ProfileRoute,
   ProgressRoute: ProgressRoute,
+  PracticeNodeIdModeRoute: PracticeNodeIdModeRoute,
   TrackGradeTermRoute: TrackGradeTermRoute,
   PlayGradeTermModeRoute: PlayGradeTermModeRoute,
 }

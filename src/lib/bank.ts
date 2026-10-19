@@ -34,6 +34,7 @@ export type Context = {
 export const ALL_QUESTIONS = (raw as unknown as { questions: Question[] }).questions;
 /** Duplicate record IDs → the canonical ID that is played instead (from the reviewed release). */
 export const ID_ALIASES: Record<string, string> = (raw as unknown as { id_aliases?: Record<string, string> }).id_aliases ?? {};
+export const RAW_RELEASE = raw as unknown as Record<string, unknown>;
 export const CONTEXTS = (raw as unknown as { contexts: Context[] }).contexts;
 
 // ---------- Device-local overlay (items approved in the local review workspace) ----------
@@ -46,6 +47,8 @@ export function setLocalOverlay(qs: Question[], cs: Context[]) {
   overlayQ = qs; overlayC = cs; bankVersion++;
   bankSubs.forEach((l) => l());
 }
+export const overlayContexts = () => overlayC;
+export const getBankVersion = () => bankVersion;
 export function useBankVersion() {
   return useSyncExternalStore((l) => { bankSubs.add(l); return () => bankSubs.delete(l); }, () => bankVersion, () => 0);
 }
@@ -169,18 +172,18 @@ export function forgeItems(track: Question[]) {
 export const letterPool = (word: string) => shuffle(word.split(""));
 
 export function sentenceItems(track: Question[]) {
-  return track.filter((q) => q.format === "reorder_words" && tokensMatch(q));
+  return track.filter((q) => q.eligible_games.includes("sentence_builder") && q.format === "reorder_words" && tokensMatch(q));
 }
 
-export type PairCard = { key: string; qid: string; clue: string; answer: string };
+export type PairCard = { key: string; qid: string; clue: string; answer: string; skill: string };
 export function pairCandidates(track: Question[]): PairCard[] {
   const out: PairCard[] = [];
   for (const q of track) {
-    if (q.format === "matching" && q.pairs) {
-      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right }));
+    if (q.format === "matching" && q.pairs && (q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs"))) {
+      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right, skill: q.skill }));
     } else if ((q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs")) && q.answer.value && q.prompt_en) {
       if (q.prompt_en.length > 90) continue;
-      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, answer: correctText(q) });
+      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, answer: correctText(q), skill: q.skill });
     }
   }
   return out;
@@ -199,12 +202,13 @@ export function pairSet(track: Question[], size: number): PairCard[] {
   return set.length >= 2 ? set : [];
 }
 
-export const grammarItems = (track: Question[]) => track.filter((q) => q.skill === "grammar" && isChoice(q));
+export const grammarItems = (track: Question[]) => track.filter((q) => q.eligible_games.includes("grammar_detective") && q.skill === "grammar" && isChoice(q));
 export const quizItems = (track: Question[]) => track.filter((q) => isChoice(q) && q.eligible_games.includes("quiz_sprint"));
-export function readingGroups(track: Question[]) {
+/** Each passage keeps only its own questions; a passage whose context cannot be resolved is left out. */
+export function readingGroups(track: Question[], ctx: CtxLookup = contextById) {
   const m = new Map<string, Question[]>();
-  for (const q of track) if (q.context_id) m.set(q.context_id, [...(m.get(q.context_id) ?? []), q]);
-  return [...m.entries()].map(([id, qs]) => ({ context: contextById(id)!, questions: qs }));
+  for (const q of track) if (q.context_id && q.eligible_games.includes("reading_explorer")) m.set(q.context_id, [...(m.get(q.context_id) ?? []), q]);
+  return [...m.entries()].flatMap(([id, qs]) => { const context = ctx(id); return context ? [{ context, questions: qs }] : []; });
 }
 
 // ---------- Missions for Quest Trail ----------
@@ -240,6 +244,12 @@ export function missions(grade: number, term: number): Mission[] {
   return [...out, ...chunkMissions(extra, grade, term, out.length, false)];
 }
 
+/** Missions for a non-school scope: namespaced by scope key so they never collide with school mission IDs. */
+export function poolMissions(scopeKey: string, pool: Question[]): Mission[] {
+  const qs = dedupe(pool).filter((q) => !q.context_id).sort((a, b) => a.id.localeCompare(b.id));
+  return chunkMissions(qs, 0, 0, 0, true).map((m) => ({ ...m, id: `${scopeKey}:m${m.index + 1}` }));
+}
+
 // ---------- Mode catalogue ----------
 export type ModeId =
   | "quest_trail" | "quiz_sprint" | "gap_builder" | "word_forge" | "sentence_builder" | "match_arena"
@@ -259,11 +269,15 @@ export const MODES: { id: ModeId; fa: string; desc: string; icon: string }[] = [
   { id: "writing_studio", fa: "استودیوی نوشتن", desc: "نوشتن آزاد با معیار ارزیابی", icon: "✍️" },
 ];
 
-export function modeAvailability(grade: number, term: number): Record<ModeId, { count: number; reason?: string }> {
-  const t = trackQuestions(grade, term);
+export type ModeAvailability = Record<ModeId, { count: number; reason?: string }>;
+export function modeAvailability(grade: number, term: number): ModeAvailability {
+  return poolAvailability(trackQuestions(grade, term), missions(grade, term).length);
+}
+/** Same game rules for any approved pool (school track, unit, cumulative, book or custom scope). */
+export function poolAvailability(t: Question[], missionCount = poolMissions("x", t).length): ModeAvailability {
   const pc = pairSet(t, 6).length;
   return {
-    quest_trail: { count: missions(grade, term).length },
+    quest_trail: { count: missionCount },
     quiz_sprint: { count: quizItems(t).length },
     gap_builder: { count: gapItems(t).length },
     word_forge: { count: forgeItems(t).length },

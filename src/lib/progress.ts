@@ -1,8 +1,10 @@
 import { useSyncExternalStore } from "react";
 
 export type Attempt = {
-  id: string; at: string; qid: string; canonical: string; grade: number; term: number;
-  mode: string; correct: boolean; hinted: boolean; retry: boolean; ms: number; response: string;
+  id: string; at: string; qid: string; canonical: string;
+  /** School grade/term when played on a school track; null for book scopes (never fabricated). */
+  grade: number | null; term: number | null;
+  mode: string; scope?: string; correct: boolean; hinted: boolean; retry: boolean; ms: number; response: string;
 };
 export type MasteryRow = { box: number; due: string; unassistedDates: string[]; mastered: boolean; lastCorrect: boolean; skill: string; seen: number };
 export type Settings = { dark: boolean; sound: boolean; timer: boolean; dailyGoal: number; intervalsDays: number[]; wrongDelayMin: number };
