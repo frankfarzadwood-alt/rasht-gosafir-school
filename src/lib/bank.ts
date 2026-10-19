@@ -34,6 +34,7 @@ export type Context = {
 export const ALL_QUESTIONS = (raw as unknown as { questions: Question[] }).questions;
 /** Duplicate record IDs → the canonical ID that is played instead (from the reviewed release). */
 export const ID_ALIASES: Record<string, string> = (raw as unknown as { id_aliases?: Record<string, string> }).id_aliases ?? {};
+export const RAW_RELEASE = raw as unknown as Record<string, unknown>;
 export const CONTEXTS = (raw as unknown as { contexts: Context[] }).contexts;
 
 // ---------- Device-local overlay (items approved in the local review workspace) ----------
@@ -46,6 +47,8 @@ export function setLocalOverlay(qs: Question[], cs: Context[]) {
   overlayQ = qs; overlayC = cs; bankVersion++;
   bankSubs.forEach((l) => l());
 }
+export const overlayContexts = () => overlayC;
+export const getBankVersion = () => bankVersion;
 export function useBankVersion() {
   return useSyncExternalStore((l) => { bankSubs.add(l); return () => bankSubs.delete(l); }, () => bankVersion, () => 0);
 }

@@ -74,8 +74,6 @@ type Section = { id?: string; title_en?: string | null; question_ids?: string[] 
 /** A fixed assessment keeps its exact ordered list and sections. Any missing item makes the whole assessment incomplete. */
 export function assessmentSession(pack: QuestionPack, a: Assessment, ctx: CtxLookup): AssessmentSession {
   if (a.status !== "ready" || !a.question_ids.length) return { status: "unavailable", id: a.id, missing: [], reason: "awaiting_source" };
-  const contexts = new Map(pack.contexts.map((c) => [c.id, c]));
-  void contexts;
   const playable = new Map(selectQuestions(pack, { nodes: new Map(), children: new Map() }, { kind: "custom", node_ids: [], include_descendants: false, question_ids: a.question_ids }).map((q) => [q.id, q as unknown as BankQuestion]));
   const missing: string[] = [];
   const seen = new Set<string>();
