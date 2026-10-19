@@ -4,3 +4,9 @@
 - [x] Connect catalogue browsing, shared course views and local My Learning/bookmarks.
 - [x] Preserve school games and progress; verify Continue, refresh, back navigation and phone layouts.
 - [x] Run tests and inspect automatic production/type-check results; leave unpublished and Cloud disabled.
+# Stage 03
+- [x] Shared approved-question service for every game; subunit, unit, through-unit, whole-book and custom scopes.
+- [x] Fixed assessments keep exact order/sections; incomplete when any item is missing.
+- [x] Oxford–Evolve mapping view (reviewed edges only; none exist yet).
+- [x] Progress: unique items, coverage vs mastery vs assessment; unknown when empty; My Learning summary.
+- [x] Tests, type check and production build.

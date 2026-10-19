@@ -19,3 +19,7 @@
 - Learning navigation state lives separately from learner progress in src/lib/learning.ts; local course removal only edits navigation state and must never erase attempts or rewards.
 - Course browsing uses rememberCourse while gameplay uses remember, so catalogue visits cannot overwrite a resumable game or mission.
 - Catalogue pages share src/components/LearningHub.tsx; school availability uses the live bank selectors so browser-local reviewed additions appear in navigation too.
+- Practice scopes (subunit, unit, through_unit, whole_book, custom) and fixed assessments go through src/lib/scope.ts, and learning.scopeQuestions is the single approved-question service, so every game, count and review uses the same eligibility rules.
+- Every game session is built by src/components/GameSession.tsx from an approved pool; school routes and /practice book routes only supply the pool, so game-specific grading stays identical everywhere.
+- Book-scope attempts store grade/term as null plus a scope key; school grades are never fabricated for non-school content.
+- Scope test fixtures live in src/test/fixtures and are never imported by app code, so they cannot enter production packs.
