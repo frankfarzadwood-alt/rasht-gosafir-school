@@ -1,0 +1,1963 @@
+{
+  "release_id": "2026.10.19-oxford-elementary-r2",
+  "previous_oxford_questions": 568,
+  "added_vocabulary": 639,
+  "added_printed_exercise_items": 2323,
+  "added_questions": 2962,
+  "ready_oxford_questions": 3530,
+  "total_app_questions": 6926,
+  "flashcards": 1072,
+  "assets": 291,
+  "units": 100,
+  "minimum_questions_per_unit": 10,
+  "formats": {
+    "spelling": 1018,
+    "mcq": 2183,
+    "fill_blank": 53,
+    "matching": 8,
+    "short_answer": 15,
+    "reorder_words": 136,
+    "true_false": 117
+  },
+  "scope": "Reviewed expansion across all 100 units; not a claim that every printed exercise, open response or glossary entry is converted.",
+  "units_detail": [
+    {
+      "unit": 1,
+      "title": "Classroom vocabulary",
+      "source_pages": [
+        12,
+        12
+      ],
+      "previous_questions": 16,
+      "added_questions": 10,
+      "ready_questions": 26,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 11,
+        "mcq": 7,
+        "fill_blank": 8
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 2,
+      "title": "Grammar words",
+      "source_pages": [
+        13,
+        13
+      ],
+      "previous_questions": 5,
+      "added_questions": 12,
+      "ready_questions": 17,
+      "flashcards": 9,
+      "formats": {
+        "spelling": 6,
+        "mcq": 11
+      },
+      "exercise_blocks_located": 3,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 3,
+      "title": "Using this book",
+      "source_pages": [
+        14,
+        15
+      ],
+      "previous_questions": 4,
+      "added_questions": 32,
+      "ready_questions": 36,
+      "flashcards": 11,
+      "formats": {
+        "spelling": 10,
+        "mcq": 26
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 4,
+      "title": "Learning new words",
+      "source_pages": [
+        16,
+        17
+      ],
+      "previous_questions": 3,
+      "added_questions": 33,
+      "ready_questions": 36,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 8,
+        "mcq": 28
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 5,
+      "title": "Classroom activities",
+      "source_pages": [
+        18,
+        19
+      ],
+      "previous_questions": 25,
+      "added_questions": 29,
+      "ready_questions": 54,
+      "flashcards": 21,
+      "formats": {
+        "spelling": 20,
+        "matching": 8,
+        "fill_blank": 9,
+        "mcq": 17
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 6,
+      "title": "Numbers",
+      "source_pages": [
+        20,
+        21
+      ],
+      "previous_questions": 18,
+      "added_questions": 18,
+      "ready_questions": 36,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 17,
+        "short_answer": 5,
+        "mcq": 14
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 7,
+      "title": "Telling the time",
+      "source_pages": [
+        22,
+        23
+      ],
+      "previous_questions": 5,
+      "added_questions": 46,
+      "ready_questions": 51,
+      "flashcards": 11,
+      "formats": {
+        "spelling": 6,
+        "mcq": 45
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 8,
+      "title": "Days, seasons and dates",
+      "source_pages": [
+        24,
+        25
+      ],
+      "previous_questions": 17,
+      "added_questions": 23,
+      "ready_questions": 40,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 20,
+        "short_answer": 10,
+        "mcq": 10
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 9,
+      "title": "Time words and phrases",
+      "source_pages": [
+        26,
+        27
+      ],
+      "previous_questions": 6,
+      "added_questions": 35,
+      "ready_questions": 41,
+      "flashcards": 14,
+      "formats": {
+        "spelling": 12,
+        "mcq": 29
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 10,
+      "title": "Parts of the body",
+      "source_pages": [
+        28,
+        29
+      ],
+      "previous_questions": 3,
+      "added_questions": 48,
+      "ready_questions": 51,
+      "flashcards": 13,
+      "formats": {
+        "spelling": 23,
+        "mcq": 28
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 11,
+      "title": "Describing people",
+      "source_pages": [
+        30,
+        31
+      ],
+      "previous_questions": 3,
+      "added_questions": 48,
+      "ready_questions": 51,
+      "flashcards": 13,
+      "formats": {
+        "spelling": 25,
+        "mcq": 16,
+        "true_false": 10
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 12,
+      "title": "Physical actions",
+      "source_pages": [
+        32,
+        33
+      ],
+      "previous_questions": 3,
+      "added_questions": 46,
+      "ready_questions": 49,
+      "flashcards": 15,
+      "formats": {
+        "spelling": 12,
+        "mcq": 37
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 13,
+      "title": "Personal information",
+      "source_pages": [
+        34,
+        35
+      ],
+      "previous_questions": 20,
+      "added_questions": 30,
+      "ready_questions": 50,
+      "flashcards": 15,
+      "formats": {
+        "spelling": 14,
+        "reorder_words": 6,
+        "fill_blank": 8,
+        "mcq": 14,
+        "true_false": 8
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 14,
+      "title": "Family",
+      "source_pages": [
+        36,
+        37
+      ],
+      "previous_questions": 29,
+      "added_questions": 15,
+      "ready_questions": 44,
+      "flashcards": 17,
+      "formats": {
+        "spelling": 13,
+        "fill_blank": 11,
+        "true_false": 10,
+        "mcq": 4,
+        "reorder_words": 6
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 15,
+      "title": "Personality",
+      "source_pages": [
+        38,
+        39
+      ],
+      "previous_questions": 3,
+      "added_questions": 28,
+      "ready_questions": 31,
+      "flashcards": 15,
+      "formats": {
+        "spelling": 14,
+        "mcq": 17
+      },
+      "exercise_blocks_located": 8,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 16,
+      "title": "Relationships",
+      "source_pages": [
+        40,
+        41
+      ],
+      "previous_questions": 3,
+      "added_questions": 27,
+      "ready_questions": 30,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 7,
+        "mcq": 18,
+        "reorder_words": 5
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 17,
+      "title": "Feelings",
+      "source_pages": [
+        42,
+        43
+      ],
+      "previous_questions": 3,
+      "added_questions": 50,
+      "ready_questions": 53,
+      "flashcards": 14,
+      "formats": {
+        "spelling": 23,
+        "mcq": 30
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 18,
+      "title": "Prepositions: time",
+      "source_pages": [
+        44,
+        44
+      ],
+      "previous_questions": 3,
+      "added_questions": 17,
+      "ready_questions": 20,
+      "flashcards": 10,
+      "formats": {
+        "mcq": 20
+      },
+      "exercise_blocks_located": 3,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 19,
+      "title": "Prepositions: direction",
+      "source_pages": [
+        45,
+        45
+      ],
+      "previous_questions": 3,
+      "added_questions": 28,
+      "ready_questions": 31,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 7,
+        "mcq": 24
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 20,
+      "title": "Prepositions: place",
+      "source_pages": [
+        46,
+        47
+      ],
+      "previous_questions": 3,
+      "added_questions": 27,
+      "ready_questions": 30,
+      "flashcards": 8,
+      "formats": {
+        "mcq": 24,
+        "spelling": 6
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 21,
+      "title": "Prepositions: phrases",
+      "source_pages": [
+        48,
+        49
+      ],
+      "previous_questions": 3,
+      "added_questions": 34,
+      "ready_questions": 37,
+      "flashcards": 11,
+      "formats": {
+        "mcq": 37
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 22,
+      "title": "Word + preposition",
+      "source_pages": [
+        50,
+        51
+      ],
+      "previous_questions": 3,
+      "added_questions": 46,
+      "ready_questions": 49,
+      "flashcards": 11,
+      "formats": {
+        "mcq": 45,
+        "spelling": 3,
+        "reorder_words": 1
+      },
+      "exercise_blocks_located": 8,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 23,
+      "title": "Routines",
+      "source_pages": [
+        52,
+        53
+      ],
+      "previous_questions": 6,
+      "added_questions": 48,
+      "ready_questions": 54,
+      "flashcards": 16,
+      "formats": {
+        "mcq": 39,
+        "spelling": 9,
+        "reorder_words": 6
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 24,
+      "title": "Clothes",
+      "source_pages": [
+        54,
+        55
+      ],
+      "previous_questions": 6,
+      "added_questions": 26,
+      "ready_questions": 32,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 22,
+        "mcq": 10
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 25,
+      "title": "Accessories",
+      "source_pages": [
+        56,
+        57
+      ],
+      "previous_questions": 3,
+      "added_questions": 34,
+      "ready_questions": 37,
+      "flashcards": 11,
+      "formats": {
+        "spelling": 11,
+        "true_false": 8,
+        "mcq": 18
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 26,
+      "title": "Colours, size and appearance",
+      "source_pages": [
+        58,
+        59
+      ],
+      "previous_questions": 6,
+      "added_questions": 43,
+      "ready_questions": 49,
+      "flashcards": 16,
+      "formats": {
+        "spelling": 16,
+        "mcq": 33
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 27,
+      "title": "Money",
+      "source_pages": [
+        60,
+        61
+      ],
+      "previous_questions": 3,
+      "added_questions": 48,
+      "ready_questions": 51,
+      "flashcards": 17,
+      "formats": {
+        "spelling": 21,
+        "mcq": 30
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 28,
+      "title": "Shopping",
+      "source_pages": [
+        62,
+        63
+      ],
+      "previous_questions": 3,
+      "added_questions": 34,
+      "ready_questions": 37,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 18,
+        "mcq": 19
+      },
+      "exercise_blocks_located": 8,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 29,
+      "title": "Possessions",
+      "source_pages": [
+        64,
+        65
+      ],
+      "previous_questions": 3,
+      "added_questions": 34,
+      "ready_questions": 37,
+      "flashcards": 16,
+      "formats": {
+        "spelling": 14,
+        "mcq": 15,
+        "true_false": 8
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 30,
+      "title": "Crime",
+      "source_pages": [
+        66,
+        67
+      ],
+      "previous_questions": 3,
+      "added_questions": 59,
+      "ready_questions": 62,
+      "flashcards": 17,
+      "formats": {
+        "spelling": 17,
+        "mcq": 45
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 6,
+      "unconverted_blocks": 0
+    },
+    {
+      "unit": 31,
+      "title": "Illness",
+      "source_pages": [
+        68,
+        69
+      ],
+      "previous_questions": 3,
+      "added_questions": 53,
+      "ready_questions": 56,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 10,
+        "mcq": 36,
+        "true_false": 10
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 32,
+      "title": "Injuries",
+      "source_pages": [
+        70,
+        70
+      ],
+      "previous_questions": 3,
+      "added_questions": 30,
+      "ready_questions": 33,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 10,
+        "mcq": 14,
+        "reorder_words": 9
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 33,
+      "title": "Geography",
+      "source_pages": [
+        71,
+        71
+      ],
+      "previous_questions": 5,
+      "added_questions": 12,
+      "ready_questions": 17,
+      "flashcards": 9,
+      "formats": {
+        "spelling": 9,
+        "mcq": 8
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 34,
+      "title": "The environment",
+      "source_pages": [
+        72,
+        73
+      ],
+      "previous_questions": 5,
+      "added_questions": 23,
+      "ready_questions": 28,
+      "flashcards": 6,
+      "formats": {
+        "spelling": 6,
+        "mcq": 22
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 35,
+      "title": "Countries and nationalities",
+      "source_pages": [
+        74,
+        75
+      ],
+      "previous_questions": 18,
+      "added_questions": 27,
+      "ready_questions": 45,
+      "flashcards": 16,
+      "formats": {
+        "spelling": 16,
+        "true_false": 8,
+        "mcq": 21
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 36,
+      "title": "My country",
+      "source_pages": [
+        76,
+        77
+      ],
+      "previous_questions": 5,
+      "added_questions": 16,
+      "ready_questions": 21,
+      "flashcards": 13,
+      "formats": {
+        "spelling": 13,
+        "mcq": 8
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 6
+    },
+    {
+      "unit": 37,
+      "title": "Weather",
+      "source_pages": [
+        78,
+        79
+      ],
+      "previous_questions": 3,
+      "added_questions": 38,
+      "ready_questions": 41,
+      "flashcards": 11,
+      "formats": {
+        "spelling": 9,
+        "mcq": 25,
+        "reorder_words": 7
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 38,
+      "title": "Animals, insects and birds",
+      "source_pages": [
+        80,
+        81
+      ],
+      "previous_questions": 3,
+      "added_questions": 25,
+      "ready_questions": 28,
+      "flashcards": 11,
+      "formats": {
+        "spelling": 10,
+        "mcq": 18
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 39,
+      "title": "Irregular verbs",
+      "source_pages": [
+        82,
+        83
+      ],
+      "previous_questions": 3,
+      "added_questions": 36,
+      "ready_questions": 39,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 21,
+        "mcq": 18
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 40,
+      "title": "have got and have",
+      "source_pages": [
+        84,
+        85
+      ],
+      "previous_questions": 3,
+      "added_questions": 38,
+      "ready_questions": 41,
+      "flashcards": 7,
+      "formats": {
+        "mcq": 38,
+        "reorder_words": 3
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 41,
+      "title": "make or do",
+      "source_pages": [
+        86,
+        87
+      ],
+      "previous_questions": 3,
+      "added_questions": 38,
+      "ready_questions": 41,
+      "flashcards": 7,
+      "formats": {
+        "mcq": 37,
+        "reorder_words": 4
+      },
+      "exercise_blocks_located": 8,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 42,
+      "title": "get",
+      "source_pages": [
+        88,
+        88
+      ],
+      "previous_questions": 3,
+      "added_questions": 10,
+      "ready_questions": 13,
+      "flashcards": 5,
+      "formats": {
+        "spelling": 3,
+        "mcq": 10
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 43,
+      "title": "see",
+      "source_pages": [
+        89,
+        89
+      ],
+      "previous_questions": 3,
+      "added_questions": 16,
+      "ready_questions": 19,
+      "flashcards": 4,
+      "formats": {
+        "spelling": 2,
+        "mcq": 17
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 44,
+      "title": "Verbs and nouns with the same form",
+      "source_pages": [
+        90,
+        91
+      ],
+      "previous_questions": 3,
+      "added_questions": 23,
+      "ready_questions": 26,
+      "flashcards": 7,
+      "formats": {
+        "spelling": 7,
+        "mcq": 10,
+        "reorder_words": 9
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 45,
+      "title": "Shopping for food",
+      "source_pages": [
+        92,
+        93
+      ],
+      "previous_questions": 3,
+      "added_questions": 31,
+      "ready_questions": 34,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 6,
+        "mcq": 22,
+        "reorder_words": 6
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 46,
+      "title": "Fruit and vegetables",
+      "source_pages": [
+        94,
+        95
+      ],
+      "previous_questions": 7,
+      "added_questions": 42,
+      "ready_questions": 49,
+      "flashcards": 13,
+      "formats": {
+        "spelling": 25,
+        "mcq": 15,
+        "true_false": 9
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 47,
+      "title": "Meat and fish",
+      "source_pages": [
+        96,
+        96
+      ],
+      "previous_questions": 6,
+      "added_questions": 22,
+      "ready_questions": 28,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 8,
+        "true_false": 10,
+        "mcq": 10
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 48,
+      "title": "A restaurant table",
+      "source_pages": [
+        97,
+        97
+      ],
+      "previous_questions": 6,
+      "added_questions": 17,
+      "ready_questions": 23,
+      "flashcards": 6,
+      "formats": {
+        "spelling": 6,
+        "mcq": 17
+      },
+      "exercise_blocks_located": 3,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 49,
+      "title": "Eating in a restaurant",
+      "source_pages": [
+        98,
+        99
+      ],
+      "previous_questions": 3,
+      "added_questions": 54,
+      "ready_questions": 57,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 10,
+        "mcq": 31,
+        "reorder_words": 6,
+        "true_false": 10
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 50,
+      "title": "In a cafe",
+      "source_pages": [
+        100,
+        101
+      ],
+      "previous_questions": 3,
+      "added_questions": 25,
+      "ready_questions": 28,
+      "flashcards": 9,
+      "formats": {
+        "spelling": 6,
+        "mcq": 13,
+        "true_false": 9
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 51,
+      "title": "Vehicles and roads",
+      "source_pages": [
+        102,
+        103
+      ],
+      "previous_questions": 6,
+      "added_questions": 37,
+      "ready_questions": 43,
+      "flashcards": 16,
+      "formats": {
+        "spelling": 13,
+        "mcq": 30
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 52,
+      "title": "Buses",
+      "source_pages": [
+        104,
+        105
+      ],
+      "previous_questions": 5,
+      "added_questions": 11,
+      "ready_questions": 16,
+      "flashcards": 9,
+      "formats": {
+        "mcq": 6,
+        "spelling": 3,
+        "reorder_words": 7
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 53,
+      "title": "Trains",
+      "source_pages": [
+        106,
+        107
+      ],
+      "previous_questions": 3,
+      "added_questions": 40,
+      "ready_questions": 43,
+      "flashcards": 7,
+      "formats": {
+        "spelling": 5,
+        "mcq": 38
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 54,
+      "title": "Directions",
+      "source_pages": [
+        108,
+        109
+      ],
+      "previous_questions": 3,
+      "added_questions": 22,
+      "ready_questions": 25,
+      "flashcards": 9,
+      "formats": {
+        "mcq": 15,
+        "spelling": 4,
+        "reorder_words": 6
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 55,
+      "title": "Signs and notices",
+      "source_pages": [
+        110,
+        111
+      ],
+      "previous_questions": 3,
+      "added_questions": 39,
+      "ready_questions": 42,
+      "flashcards": 14,
+      "formats": {
+        "spelling": 9,
+        "mcq": 33
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 56,
+      "title": "My town",
+      "source_pages": [
+        112,
+        113
+      ],
+      "previous_questions": 6,
+      "added_questions": 16,
+      "ready_questions": 22,
+      "flashcards": 6,
+      "formats": {
+        "spelling": 5,
+        "mcq": 17
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 57,
+      "title": "The countryside",
+      "source_pages": [
+        114,
+        115
+      ],
+      "previous_questions": 3,
+      "added_questions": 20,
+      "ready_questions": 23,
+      "flashcards": 7,
+      "formats": {
+        "spelling": 13,
+        "mcq": 10
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 58,
+      "title": "Home",
+      "source_pages": [
+        116,
+        117
+      ],
+      "previous_questions": 8,
+      "added_questions": 21,
+      "ready_questions": 29,
+      "flashcards": 14,
+      "formats": {
+        "spelling": 13,
+        "mcq": 16
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 6
+    },
+    {
+      "unit": 59,
+      "title": "Kitchen",
+      "source_pages": [
+        118,
+        119
+      ],
+      "previous_questions": 3,
+      "added_questions": 35,
+      "ready_questions": 38,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 9,
+        "mcq": 29
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 60,
+      "title": "Bedroom and bathroom",
+      "source_pages": [
+        120,
+        121
+      ],
+      "previous_questions": 8,
+      "added_questions": 35,
+      "ready_questions": 43,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 12,
+        "mcq": 31
+      },
+      "exercise_blocks_located": 8,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 61,
+      "title": "Living room",
+      "source_pages": [
+        122,
+        122
+      ],
+      "previous_questions": 7,
+      "added_questions": 23,
+      "ready_questions": 30,
+      "flashcards": 7,
+      "formats": {
+        "spelling": 19,
+        "mcq": 11
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 62,
+      "title": "Adjectives with prefixes",
+      "source_pages": [
+        123,
+        123
+      ],
+      "previous_questions": 3,
+      "added_questions": 28,
+      "ready_questions": 31,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 8,
+        "mcq": 23
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 63,
+      "title": "Adjective opposites",
+      "source_pages": [
+        124,
+        125
+      ],
+      "previous_questions": 15,
+      "added_questions": 26,
+      "ready_questions": 41,
+      "flashcards": 17,
+      "formats": {
+        "spelling": 16,
+        "fill_blank": 7,
+        "mcq": 18
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 64,
+      "title": "Common adverbs",
+      "source_pages": [
+        126,
+        127
+      ],
+      "previous_questions": 3,
+      "added_questions": 45,
+      "ready_questions": 48,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 12,
+        "mcq": 36
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 65,
+      "title": "Adverbs of manner",
+      "source_pages": [
+        128,
+        128
+      ],
+      "previous_questions": 3,
+      "added_questions": 31,
+      "ready_questions": 34,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 19,
+        "reorder_words": 8,
+        "mcq": 7
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 66,
+      "title": "School subjects",
+      "source_pages": [
+        129,
+        129
+      ],
+      "previous_questions": 3,
+      "added_questions": 13,
+      "ready_questions": 16,
+      "flashcards": 7,
+      "formats": {
+        "spelling": 7,
+        "mcq": 9
+      },
+      "exercise_blocks_located": 3,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 67,
+      "title": "The education system",
+      "source_pages": [
+        130,
+        131
+      ],
+      "previous_questions": 3,
+      "added_questions": 30,
+      "ready_questions": 33,
+      "flashcards": 9,
+      "formats": {
+        "spelling": 8,
+        "mcq": 25
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 68,
+      "title": "University",
+      "source_pages": [
+        132,
+        133
+      ],
+      "previous_questions": 3,
+      "added_questions": 28,
+      "ready_questions": 31,
+      "flashcards": 6,
+      "formats": {
+        "spelling": 6,
+        "mcq": 25
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 69,
+      "title": "Jobs",
+      "source_pages": [
+        134,
+        135
+      ],
+      "previous_questions": 3,
+      "added_questions": 23,
+      "ready_questions": 26,
+      "flashcards": 6,
+      "formats": {
+        "spelling": 6,
+        "mcq": 20
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 70,
+      "title": "Describing jobs",
+      "source_pages": [
+        136,
+        137
+      ],
+      "previous_questions": 6,
+      "added_questions": 45,
+      "ready_questions": 51,
+      "flashcards": 13,
+      "formats": {
+        "spelling": 13,
+        "mcq": 32,
+        "reorder_words": 6
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 71,
+      "title": "Job interview",
+      "source_pages": [
+        138,
+        138
+      ],
+      "previous_questions": 6,
+      "added_questions": 14,
+      "ready_questions": 20,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 10,
+        "mcq": 10
+      },
+      "exercise_blocks_located": 3,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 72,
+      "title": "First day at work",
+      "source_pages": [
+        139,
+        139
+      ],
+      "previous_questions": 6,
+      "added_questions": 24,
+      "ready_questions": 30,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 8,
+        "mcq": 16,
+        "reorder_words": 6
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 73,
+      "title": "Computers",
+      "source_pages": [
+        140,
+        141
+      ],
+      "previous_questions": 6,
+      "added_questions": 34,
+      "ready_questions": 40,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 21,
+        "mcq": 19
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 74,
+      "title": "Email, letters and the internet",
+      "source_pages": [
+        142,
+        143
+      ],
+      "previous_questions": 3,
+      "added_questions": 22,
+      "ready_questions": 25,
+      "flashcards": 9,
+      "formats": {
+        "spelling": 9,
+        "mcq": 16
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 5
+    },
+    {
+      "unit": 75,
+      "title": "Phoning",
+      "source_pages": [
+        144,
+        145
+      ],
+      "previous_questions": 3,
+      "added_questions": 18,
+      "ready_questions": 21,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 7,
+        "mcq": 14
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 76,
+      "title": "-er / -or / -r nouns",
+      "source_pages": [
+        146,
+        146
+      ],
+      "previous_questions": 3,
+      "added_questions": 23,
+      "ready_questions": 26,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 8,
+        "mcq": 18
+      },
+      "exercise_blocks_located": 3,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 77,
+      "title": "-ing forms",
+      "source_pages": [
+        147,
+        147
+      ],
+      "previous_questions": 3,
+      "added_questions": 11,
+      "ready_questions": 14,
+      "flashcards": 6,
+      "formats": {
+        "spelling": 6,
+        "mcq": 8
+      },
+      "exercise_blocks_located": 4,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 78,
+      "title": "Noun suffixes",
+      "source_pages": [
+        148,
+        149
+      ],
+      "previous_questions": 3,
+      "added_questions": 37,
+      "ready_questions": 40,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 12,
+        "mcq": 28
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 79,
+      "title": "Compound nouns",
+      "source_pages": [
+        150,
+        151
+      ],
+      "previous_questions": 3,
+      "added_questions": 33,
+      "ready_questions": 36,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 1,
+        "mcq": 35
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 80,
+      "title": "Likes and dislikes",
+      "source_pages": [
+        152,
+        153
+      ],
+      "previous_questions": 11,
+      "added_questions": 27,
+      "ready_questions": 38,
+      "flashcards": 11,
+      "formats": {
+        "spelling": 10,
+        "mcq": 22,
+        "reorder_words": 6
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 81,
+      "title": "Free time",
+      "source_pages": [
+        154,
+        155
+      ],
+      "previous_questions": 6,
+      "added_questions": 24,
+      "ready_questions": 30,
+      "flashcards": 13,
+      "formats": {
+        "spelling": 12,
+        "mcq": 18
+      },
+      "exercise_blocks_located": 8,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 6
+    },
+    {
+      "unit": 82,
+      "title": "Sport",
+      "source_pages": [
+        156,
+        157
+      ],
+      "previous_questions": 3,
+      "added_questions": 32,
+      "ready_questions": 35,
+      "flashcards": 7,
+      "formats": {
+        "spelling": 6,
+        "mcq": 29
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 83,
+      "title": "Music",
+      "source_pages": [
+        158,
+        159
+      ],
+      "previous_questions": 18,
+      "added_questions": 23,
+      "ready_questions": 41,
+      "flashcards": 14,
+      "formats": {
+        "spelling": 18,
+        "fill_blank": 10,
+        "mcq": 13
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 84,
+      "title": "Films",
+      "source_pages": [
+        160,
+        161
+      ],
+      "previous_questions": 3,
+      "added_questions": 36,
+      "ready_questions": 39,
+      "flashcards": 9,
+      "formats": {
+        "spelling": 9,
+        "mcq": 23,
+        "true_false": 7
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 85,
+      "title": "The media",
+      "source_pages": [
+        162,
+        163
+      ],
+      "previous_questions": 3,
+      "added_questions": 40,
+      "ready_questions": 43,
+      "flashcards": 7,
+      "formats": {
+        "spelling": 5,
+        "mcq": 38
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 86,
+      "title": "Books",
+      "source_pages": [
+        164,
+        165
+      ],
+      "previous_questions": 18,
+      "added_questions": 30,
+      "ready_questions": 48,
+      "flashcards": 16,
+      "formats": {
+        "spelling": 14,
+        "true_false": 10,
+        "mcq": 24
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 87,
+      "title": "Arranging a holiday",
+      "source_pages": [
+        166,
+        167
+      ],
+      "previous_questions": 7,
+      "added_questions": 31,
+      "ready_questions": 38,
+      "flashcards": 13,
+      "formats": {
+        "spelling": 12,
+        "mcq": 26
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 88,
+      "title": "Hotels",
+      "source_pages": [
+        168,
+        169
+      ],
+      "previous_questions": 15,
+      "added_questions": 38,
+      "ready_questions": 53,
+      "flashcards": 15,
+      "formats": {
+        "spelling": 14,
+        "mcq": 39
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 1
+    },
+    {
+      "unit": 89,
+      "title": "Airports",
+      "source_pages": [
+        170,
+        171
+      ],
+      "previous_questions": 3,
+      "added_questions": 32,
+      "ready_questions": 35,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 14,
+        "mcq": 21
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 90,
+      "title": "Types of holiday",
+      "source_pages": [
+        172,
+        173
+      ],
+      "previous_questions": 13,
+      "added_questions": 32,
+      "ready_questions": 45,
+      "flashcards": 12,
+      "formats": {
+        "spelling": 9,
+        "mcq": 36
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 91,
+      "title": "Meet and greet",
+      "source_pages": [
+        174,
+        175
+      ],
+      "previous_questions": 3,
+      "added_questions": 28,
+      "ready_questions": 31,
+      "flashcards": 8,
+      "formats": {
+        "spelling": 4,
+        "mcq": 23,
+        "reorder_words": 4
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 92,
+      "title": "Ask for information",
+      "source_pages": [
+        176,
+        177
+      ],
+      "previous_questions": 3,
+      "added_questions": 35,
+      "ready_questions": 38,
+      "flashcards": 6,
+      "formats": {
+        "spelling": 5,
+        "mcq": 25,
+        "reorder_words": 8
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 93,
+      "title": "Requests and permission",
+      "source_pages": [
+        178,
+        179
+      ],
+      "previous_questions": 3,
+      "added_questions": 21,
+      "ready_questions": 24,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 6,
+        "mcq": 18
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 94,
+      "title": "Invitations and suggestions",
+      "source_pages": [
+        180,
+        181
+      ],
+      "previous_questions": 3,
+      "added_questions": 7,
+      "ready_questions": 10,
+      "flashcards": 10,
+      "formats": {
+        "spelling": 7,
+        "mcq": 3
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 0,
+      "unconverted_blocks": 6
+    },
+    {
+      "unit": 95,
+      "title": "Offers and saying sorry",
+      "source_pages": [
+        182,
+        183
+      ],
+      "previous_questions": 3,
+      "added_questions": 27,
+      "ready_questions": 30,
+      "flashcards": 9,
+      "formats": {
+        "spelling": 7,
+        "mcq": 23
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 96,
+      "title": "Probably or possibly",
+      "source_pages": [
+        184,
+        185
+      ],
+      "previous_questions": 3,
+      "added_questions": 19,
+      "ready_questions": 22,
+      "flashcards": 14,
+      "formats": {
+        "spelling": 11,
+        "mcq": 11
+      },
+      "exercise_blocks_located": 5,
+      "exercise_blocks_with_new_items": 1,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 97,
+      "title": "Link words 1",
+      "source_pages": [
+        186,
+        187
+      ],
+      "previous_questions": 3,
+      "added_questions": 15,
+      "ready_questions": 18,
+      "flashcards": 5,
+      "formats": {
+        "spelling": 5,
+        "reorder_words": 12,
+        "mcq": 1
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 2,
+      "unconverted_blocks": 4
+    },
+    {
+      "unit": 98,
+      "title": "Link words 2",
+      "source_pages": [
+        188,
+        189
+      ],
+      "previous_questions": 3,
+      "added_questions": 29,
+      "ready_questions": 32,
+      "flashcards": 11,
+      "formats": {
+        "spelling": 6,
+        "mcq": 26
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 3,
+      "unconverted_blocks": 3
+    },
+    {
+      "unit": 99,
+      "title": "Phrasal verbs",
+      "source_pages": [
+        190,
+        191
+      ],
+      "previous_questions": 3,
+      "added_questions": 30,
+      "ready_questions": 33,
+      "flashcards": 4,
+      "formats": {
+        "mcq": 33
+      },
+      "exercise_blocks_located": 6,
+      "exercise_blocks_with_new_items": 4,
+      "unconverted_blocks": 2
+    },
+    {
+      "unit": 100,
+      "title": "Common expressions",
+      "source_pages": [
+        192,
+        193
+      ],
+      "previous_questions": 3,
+      "added_questions": 38,
+      "ready_questions": 41,
+      "flashcards": 11,
+      "formats": {
+        "mcq": 36,
+        "reorder_words": 5
+      },
+      "exercise_blocks_located": 7,
+      "exercise_blocks_with_new_items": 5,
+      "unconverted_blocks": 2
+    }
+  ]
+}

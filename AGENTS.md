@@ -27,3 +27,8 @@
 - Catalogue metadata merges by stable ID; native book placements are never passed through the school grade/term adapter, preventing fabricated school identities.
 - Supplied binary book media uses immutable asset pointers, resolved by content/pilot.ts; QuestionMedia gates required-media answers and GameRunner respects phase-dependent transcript policies.
 - Exact reviewed selections can narrow practice scopes; FixedAssessment preserves complete ordered sections and preflights every required asset, never taking the shuffled or shortened practice-exam path.
+
+- Additional reviewed book content is additive: src/data/oxford/expanded.pack.json composes with the original immutable pack through BOOK_CONTENT; keep its JSON whitespace compact to fit the repository file-size limit without changing parsed payloads. BOOK_RELEASES is ordered and append-only so existing book mission IDs, boundaries and contents cannot shift. Preserve this order for future releases.
+- LIVE_SELECTIONS expands Oxford catalogue memberships and counts; fixed Evolve assessment membership and PILOT baseline exports remain unchanged.
+- Oxford question images are bundled under public/assets/oxford-elementary-r2 with file hashes in the pack. Original Lovable media pointers are preserved. Required-image failures must still block grading without penalty.
+- Flashcards use approved vocabulary_entry_id links via bank.flashcardItems; flip and self-ratings are session-local, award no XP/mastery and never write english-quest-progress-v1. Empty scopes hide this mode.
