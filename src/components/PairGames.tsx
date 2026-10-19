@@ -4,11 +4,11 @@ import { recordAttempt } from "@/lib/progress";
 import { fa } from "@/lib/fa";
 import { Stat } from "./GameRunner";
 
-function log(c: PairCard, correct: boolean, grade: number, term: number, mode: string, ms: number) {
-  recordAttempt({ qid: c.key.split("#")[0]!, canonical: c.qid, grade, term, mode, correct, hinted: false, retry: false, ms, response: c.answer }, "vocabulary");
+function log(c: PairCard, correct: boolean, grade: number | null, term: number | null, mode: string, ms: number, scope?: string) {
+  recordAttempt({ qid: c.key.split("#")[0]!, canonical: c.qid, grade, term, ...(scope ? { scope } : {}), mode, correct, hinted: false, retry: false, ms, response: c.answer }, c.skill);
 }
 
-export function MatchArena({ set, grade, term, footer }: { set: PairCard[]; grade: number; term: number; footer: React.ReactNode }) {
+export function MatchArena({ set, grade, term, scope, footer }: { set: PairCard[]; grade: number | null; term: number | null; scope?: string; footer: React.ReactNode }) {
   const rights = useMemo(() => shuffle(set), [set]);
   const [sel, setSel] = useState<string | null>(null);
   const [matched, setMatched] = useState<string[]>([]);
@@ -20,7 +20,7 @@ export function MatchArena({ set, grade, term, footer }: { set: PairCard[]; grad
     const clue = set.find((s) => s.key === sel)!;
     if (r.key === sel) {
       setMatched((m) => [...m, sel]);
-      log(clue, !missed.includes(sel), grade, term, "match_arena", Date.now() - t0.current);
+      log(clue, !missed.includes(sel), grade, term, "match_arena", Date.now() - t0.current, scope);
       setSel(null);
     } else {
       setMissed((m) => (m.includes(sel) ? m : [...m, sel]));
@@ -53,7 +53,7 @@ export function MatchArena({ set, grade, term, footer }: { set: PairCard[]; grad
   );
 }
 
-export function MemoryPairs({ set, grade, term, footer }: { set: PairCard[]; grade: number; term: number; footer: React.ReactNode }) {
+export function MemoryPairs({ set, grade, term, scope, footer }: { set: PairCard[]; grade: number | null; term: number | null; scope?: string; footer: React.ReactNode }) {
   const cards = useMemo(() => shuffle(set.flatMap((c) => [{ id: c.key + "|c", key: c.key, text: c.clue, side: "سرنخ" }, { id: c.key + "|a", key: c.key, text: c.answer, side: "جواب" }])), [set]);
   const [open, setOpen] = useState<string[]>([]);
   const [found, setFound] = useState<string[]>([]);
@@ -70,7 +70,7 @@ export function MemoryPairs({ set, grade, term, footer }: { set: PairCard[]; gra
       const [a, b] = nextOpen.map((x) => cards.find((c) => c.id === x)!) as [typeof cards[number], typeof cards[number]];
       if (a.key === b.key) {
         const pc = set.find((s) => s.key === a.key)!;
-        log(pc, !missedKeys.includes(a.key), grade, term, "memory_pairs", Date.now() - t0.current);
+        log(pc, !missedKeys.includes(a.key), grade, term, "memory_pairs", Date.now() - t0.current, scope);
         const f = [...found, a.key];
         setFound(f); setOpen([]);
         if (f.length === set.length) setEnd(Date.now());

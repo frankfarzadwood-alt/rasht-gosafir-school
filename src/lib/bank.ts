@@ -175,7 +175,7 @@ export function sentenceItems(track: Question[]) {
   return track.filter((q) => q.eligible_games.includes("sentence_builder") && q.format === "reorder_words" && tokensMatch(q));
 }
 
-export type PairCard = { key: string; qid: string; clue: string; answer: string };
+export type PairCard = { key: string; qid: string; clue: string; answer: string; skill: string };
 export function pairCandidates(track: Question[]): PairCard[] {
   const out: PairCard[] = [];
   for (const q of track) {
@@ -183,7 +183,7 @@ export function pairCandidates(track: Question[]): PairCard[] {
       q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right }));
     } else if ((q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs")) && q.answer.value && q.prompt_en) {
       if (q.prompt_en.length > 90) continue;
-      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, answer: correctText(q) });
+      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, answer: correctText(q), skill: q.skill });
     }
   }
   return out;
