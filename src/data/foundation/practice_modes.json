@@ -1,0 +1,39 @@
+{
+  "schema_version": "2.0.0",
+  "practice_modes": [
+    {
+      "id": "subunit",
+      "scope_kind": "node",
+      "description": "This subunit only; include descendant questions if any."
+    },
+    {
+      "id": "unit",
+      "scope_kind": "node",
+      "description": "The selected unit and every real subunit."
+    },
+    {
+      "id": "through_unit",
+      "scope_kind": "through_unit",
+      "description": "Units in the same book with ordinal <= the selected unit; include all subunits."
+    },
+    {
+      "id": "whole_book",
+      "scope_kind": "node",
+      "description": "All available approved questions in the selected book."
+    },
+    {
+      "id": "custom",
+      "scope_kind": "custom",
+      "description": "The union of selected nodes, then apply skill and game eligibility filters."
+    },
+    {
+      "id": "assessment",
+      "scope_kind": "assessment",
+      "description": "A reviewed fixed question list and section order; never fill with unrelated questions."
+    }
+  ],
+  "notes": [
+    "All scopes select existing canonical question identities. They never create content copies or curriculum units.",
+    "Small or empty pools need honest counts. Retain unit/skill balance when sampling cumulative scopes."
+  ]
+}
