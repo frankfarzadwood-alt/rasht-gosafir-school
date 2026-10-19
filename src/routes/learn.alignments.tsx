@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { catalogueIndex, childrenOf, nodeById, nodeTitle } from "@/lib/learning";
+import { catalogueIndex, childrenOf, nodeById, nodeTitle, scopeQuestions, nodeScope } from "@/lib/learning";
 import { ALIGNMENTS, recommendedAlignments } from "@/lib/scope";
 import { pageMeta } from "@/lib/pageMeta";
 
@@ -26,7 +26,8 @@ function Alignments() {
       <label className="space-y-1"><span className="font-bold">کتاب</span><select className="h-12 w-full rounded-xl border border-input bg-card px-3" value={book ?? ""} onChange={e => navigate({ search: { book: e.target.value || undefined, unit: undefined } })}><option value="">همهٔ کتاب‌ها</option>{books.map(b => <option key={b.id} value={b.id}>{nodeTitle(b)} — {b.title_en}</option>)}</select></label>
       <label className="space-y-1"><span className="font-bold">درس</span><select className="h-12 w-full rounded-xl border border-input bg-card px-3" disabled={!book} value={unit ?? ""} onChange={e => navigate({ search: { book, unit: e.target.value || undefined } })}><option value="">همهٔ درس‌ها</option>{units.map(u => <option key={u.id} value={u.id}>{nodeTitle(u)}</option>)}</select></label>
     </div>
-    {edges.length ? <ul className="space-y-2">{edges.map(e => { const from = nodeById(e.from_node_id)!, to = nodeById(e.to_node_id)!; return <li key={e.id} className="card-soft p-4"><span dir="ltr" lang="en">{from.title_en} ↔ {to.title_en}</span></li>; })}</ul>
+    {edges.length ? <ul className="space-y-2">{edges.map(e => { const from = nodeById(e.from_node_id), to = nodeById(e.to_node_id); if (!from || !to) return null; return <li key={e.id} className="card-soft space-y-2 p-4"><p className="text-xs text-muted-foreground">بازبینی‌شده توسط دستیار؛ تأیید معلم نیست</p><div className="flex flex-wrap items-center gap-2">{[from, to].map((n, i) => <span key={n.id}>{i > 0 && ' ↔ '}<Link to="/learn/$nodeId" params={{ nodeId: n.id }} search={{ view: 'units' }} className="text-primary underline"><span dir="ltr" lang="en">{n.title_en}</span></Link><span className="block text-xs text-muted-foreground">{scopeQuestions(nodeScope(n.id)).length ? 'تمرین آماده دارد' : 'تمرین هنوز آماده نیست'}</span></span>)}</div></li>; })}</ul>
       : <div role="status" className="space-y-2 border-r-4 border-gold bg-muted/50 p-4"><p className="font-bold">هنوز هیچ ارتباط بازبینی‌شده‌ای ثبت نشده است</p><p className="text-sm text-muted-foreground">ارتباط فقط وقتی نمایش داده می‌شود که ویرایش هر دو کتاب، هدف‌های مشترک و شواهد صفحهٔ منبع بازبینی شده باشد.</p></div>}
+    <details className="border-t border-border pt-3"><summary className="cursor-pointer font-bold">پیشنهادهای نیازمند بازبینی</summary>{ALIGNMENTS.alignments.filter(e => e.review_status === 'needs_review').map(e => <p key={e.id} dir="ltr" lang="en" className="en mt-2">{e.from_node_id} ↔ {e.to_node_id} — needs review</p>)}</details>
   </div>;
 }

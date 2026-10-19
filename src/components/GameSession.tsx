@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { GameRunner } from "@/components/GameRunner";
 import { MatchArena, MemoryPairs } from "@/components/PairGames";
 import type { Item } from "@/components/QuestionView";
@@ -8,6 +8,7 @@ import {
 } from "@/lib/bank";
 import { useProgress, dueCanonicals } from "@/lib/progress";
 import { fa } from "@/lib/fa";
+import { Button } from './ui/button';
 
 const toItem = (q: Question): Item => ({ q, kind: "auto" });
 const AUTO_START = ["quest_trail", "review", "gap_builder", "word_forge", "sentence_builder", "grammar_detective", "reading_explorer", "match_arena", "memory_pairs"];
@@ -23,6 +24,8 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
 }) {
   const p = useProgress();
   const [seed] = useState(() => Math.random());
+  const [passage, setPassage] = useState(0);
+  const pairs = useMemo(() => pairSet(pool.filter(q => q.eligible_games.includes(mode)), mode === "memory_pairs" ? 4 : 5, seed), [pool, mode, seed]);
   const [started, setStarted] = useState<null | { len?: number; timer?: boolean }>(AUTO_START.includes(mode) ? {} : null);
   const meta = { grade, term, ...(scope ? { scope } : {}) };
   const a = (avail as Record<string, { count: number; reason?: string }>)[mode];
@@ -35,8 +38,9 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
   );
   const m = mode as ModeId | "review";
   if (m === "quest_trail") {
-    const mi = (missions.find((x) => x.id === missionId) ?? missions[0])!;
-    const qs = mi.questionIds.map((id) => pool.find((q) => q.id === id)!).filter(Boolean);
+    const mi = missions.find((x) => x.id === missionId) ?? missions[0];
+    if (!mi) return <>{back}</>;
+    const qs = mi.questionIds.flatMap((id) => { const q = pool.find((q) => q.id === id); return q ? [q] : []; });
     const idx = missions.indexOf(mi), nx = missions[idx + 1];
     return <>
       <p className="mb-3 text-sm text-muted-foreground">مأموریت {fa(idx + 1)} از {fa(missions.length)}</p>
@@ -69,12 +73,13 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
   if (m === "sentence_builder") return <GameRunner items={shuffle(sentenceItems(pool), seed).slice(0, 6).map((q) => ({ q, kind: "tokens" }))} {...meta} mode="sentence_builder" nextHref={back} />;
   if (m === "grammar_detective") return <GameRunner items={shuffle(grammarItems(pool), seed).slice(0, 7).map(toItem)} {...meta} mode="grammar_detective" showGrammarTag nextHref={back} />;
   if (m === "reading_explorer") {
-    const g = readingGroups(pool, ctx)[0]!;
-    return <GameRunner items={g.questions.map(toItem)} {...meta} mode="reading_explorer" context={g.context} nextHref={back} />;
+    const groups = readingGroups(pool, ctx);
+    const g = groups[passage];
+    if (!g) return <>{back}</>;
+    return <>{groups.length > 1 && <nav aria-label="انتخاب متن" className="mb-3 flex flex-wrap gap-2">{groups.map((group, i) => <Button key={group.context.id} variant={i === passage ? 'default' : 'outline'} aria-pressed={i === passage} onClick={() => setPassage(i)}>متن {fa(i + 1)} · {fa(group.questions.length)} سؤال</Button>)}</nav>}<GameRunner key={g.context.id} items={g.questions.map(toItem)} {...meta} mode="reading_explorer" context={g.context} nextHref={back} /></>;
   }
   if (m === "match_arena" || m === "memory_pairs") {
-    const set = pairSet(pool, m === "memory_pairs" ? 4 : 5);
-    return m === "match_arena" ? <MatchArena set={set} {...meta} footer={back} /> : <MemoryPairs set={set} {...meta} footer={back} />;
+    return m === "match_arena" ? <MatchArena set={pairs} {...meta} footer={back} /> : <MemoryPairs set={pairs} {...meta} footer={back} />;
   }
   if (m === "boss_exam") {
     const all = dedupe(pool);

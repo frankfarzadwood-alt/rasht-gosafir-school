@@ -1,0 +1,1057 @@
+{
+  "schema_version": "2.0.0",
+  "kind": "alignment_pack",
+  "release_id": "2026-10-18-evolve1-ows-r1",
+  "alignments": [
+    {
+      "id": "align.evolve1.u001.ows.u013.a",
+      "source_node_id": "evolve-1.u001",
+      "target_node_id": "ows-elementary.u013.s1",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Personal information: names, nationality, address and questions"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            6,
+            7
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            34
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u001.ows.u001",
+      "source_node_id": "evolve-1.u001",
+      "target_node_id": "ows-elementary.u001",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Classroom context, learners and teachers"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            6,
+            10
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            12
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Classroom-object vocabulary is a supportive extension, not a replacement for the unit."
+    },
+    {
+      "id": "align.evolve1.u001.ows.u005",
+      "source_node_id": "evolve-1.u001",
+      "target_node_id": "ows-elementary.u005",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Understanding basic classroom activity instructions"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            6
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            18,
+            19
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Study-support vocabulary; not a claim that all Oxford activity verbs are taught in Evolve Unit 1."
+    },
+    {
+      "id": "align.evolve1.u002.ows.u014",
+      "source_node_id": "evolve-1.u002",
+      "target_node_id": "ows-elementary.u014",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Family relationships and family members"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            12,
+            13
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            36,
+            37
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u002.ows.u006.a",
+      "source_node_id": "evolve-1.u002",
+      "target_node_id": "ows-elementary.u006.s1",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Small numbers and ages"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            12
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            20
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Only section A is proposed; large-number material is not automatically included."
+    },
+    {
+      "id": "align.evolve1.u002.ows.u035",
+      "source_node_id": "evolve-1.u002",
+      "target_node_id": "ows-elementary.u035",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Countries and nationality adjectives"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            13,
+            15
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            74,
+            75
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u003.ows.u058",
+      "source_node_id": "evolve-1.u003",
+      "target_node_id": "ows-elementary.u058",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Homes, rooms and parts of a building"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            20,
+            22
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            116,
+            117
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u003.ows.u061",
+      "source_node_id": "evolve-1.u003",
+      "target_node_id": "ows-elementary.u061",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Living-room furniture and objects"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            22
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            122
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Includes British/American vocabulary differences such as sofa/couch."
+    },
+    {
+      "id": "align.evolve1.u003.ows.u060",
+      "source_node_id": "evolve-1.u003",
+      "target_node_id": "ows-elementary.u060",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Bedroom and bathroom objects"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            20,
+            22
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            120,
+            121
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u004.ows.u073.a",
+      "source_node_id": "evolve-1.u004",
+      "target_node_id": "ows-elementary.u073.s1",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Computer devices and technology objects"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            28,
+            30
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            140
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u004.ows.u083",
+      "source_node_id": "evolve-1.u004",
+      "target_node_id": "ows-elementary.u083",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Expressing interests in music and related technology"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            30
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            158,
+            159
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. The Oxford unit adds specialist music words beyond the Evolve technology lesson."
+    },
+    {
+      "id": "align.evolve1.u004.ows.u086",
+      "source_node_id": "evolve-1.u004",
+      "target_node_id": "ows-elementary.u086",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Describing books and expressing opinions about them"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            35
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            164,
+            165
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Related interest vocabulary; not equivalent grammar coverage."
+    },
+    {
+      "id": "align.evolve1.u005.ows.u008.a",
+      "source_node_id": "evolve-1.u005",
+      "target_node_id": "ows-elementary.u008.s1",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Days of the week and calendar vocabulary"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            36
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            24
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Days overlap directly; months, dates and seasons are additional practice."
+    },
+    {
+      "id": "align.evolve1.u005.ows.u007",
+      "source_node_id": "evolve-1.u005",
+      "target_node_id": "ows-elementary.u007",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Telling the time"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            38
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            22,
+            23
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u005.ows.u009.a",
+      "source_node_id": "evolve-1.u005",
+      "target_node_id": "ows-elementary.u009.s1",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Time expressions for organizing activities"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            36,
+            38
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            26
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Oxford past/future time expressions extend beyond Evolve Unit 5 present routines."
+    },
+    {
+      "id": "align.evolve1.u006.ows.u056",
+      "source_node_id": "evolve-1.u006",
+      "target_node_id": "ows-elementary.u056",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Places and buildings in a town"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            44
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            112,
+            113
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u006.ows.u033",
+      "source_node_id": "evolve-1.u006",
+      "target_node_id": "ows-elementary.u033",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Natural places and geographical features"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            46
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            71
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u006.ows.u034",
+      "source_node_id": "evolve-1.u006",
+      "target_node_id": "ows-elementary.u034",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Plants, forests and the urban environment"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            50,
+            51
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            72,
+            73
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Environmental-problem language is more demanding extension vocabulary."
+    },
+    {
+      "id": "align.evolve1.u007.ows.u023",
+      "source_node_id": "evolve-1.u007",
+      "target_node_id": "ows-elementary.u023",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Daily activities and activities at home"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            52,
+            53
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            52,
+            53
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Vocabulary overlaps; habitual routine grammar differs from present-continuous practice."
+    },
+    {
+      "id": "align.evolve1.u007.ows.u051",
+      "source_node_id": "evolve-1.u007",
+      "target_node_id": "ows-elementary.u051",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Vehicles and ways of travelling"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            54
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            102,
+            103
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u007.ows.u052",
+      "source_node_id": "evolve-1.u007",
+      "target_node_id": "ows-elementary.u052",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Buses, bus stops and getting around"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            54
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            104,
+            105
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u008.ows.u071",
+      "source_node_id": "evolve-1.u008",
+      "target_node_id": "ows-elementary.u071",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Job interviews and suitability for work"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            65
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            138
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u008.ows.u070",
+      "source_node_id": "evolve-1.u008",
+      "target_node_id": "ows-elementary.u070",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Jobs, offices and workplace activities"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            62
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            136,
+            137
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u008.ows.u072",
+      "source_node_id": "evolve-1.u008",
+      "target_node_id": "ows-elementary.u072",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "People at work and describing a new workplace"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            62
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            139
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. A related workplace narrative; not a substitute for can/cannot ability and possibility."
+    },
+    {
+      "id": "align.evolve1.u009.ows.u090.b",
+      "source_node_id": "evolve-1.u009",
+      "target_node_id": "ows-elementary.u090.s2",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Tours, sightseeing and visiting places"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            68,
+            70
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            173
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. The proposal targets B, a sightseeing holiday, not A, a beach holiday."
+    },
+    {
+      "id": "align.evolve1.u009.ows.u087",
+      "source_node_id": "evolve-1.u009",
+      "target_node_id": "ows-elementary.u087",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Planning travel, booking and travel preparations"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            70,
+            71
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            166,
+            167
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u009.ows.u088",
+      "source_node_id": "evolve-1.u009",
+      "target_node_id": "ows-elementary.u088",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Staying at hotels and hotel vocabulary"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            68,
+            70
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            168,
+            169
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u010.ows.u081",
+      "source_node_id": "evolve-1.u010",
+      "target_node_id": "ows-elementary.u081",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "partial_overlap",
+      "shared_targets": [
+        "Free-time activities and going out"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            76
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            154,
+            155
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u010.ows.u024",
+      "source_node_id": "evolve-1.u010",
+      "target_node_id": "ows-elementary.u024",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Clothes and what to wear"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            78
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            54,
+            55
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u010.ows.u080",
+      "source_node_id": "evolve-1.u010",
+      "target_node_id": "ows-elementary.u080",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Preferences when choosing activities"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            76
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            152,
+            153
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Useful supporting language; the principal Evolve grammar is be going to."
+    },
+    {
+      "id": "align.evolve1.u011.ows.u063",
+      "source_node_id": "evolve-1.u011",
+      "target_node_id": "ows-elementary.u063",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Understanding adjective opposites"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            84
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            124,
+            125
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Shared vocabulary-learning skill; Oxford opposite pairs are mostly additional words."
+    },
+    {
+      "id": "align.evolve1.u011.ows.u026",
+      "source_node_id": "evolve-1.u011",
+      "target_node_id": "ows-elementary.u026",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Colours and appearance"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            86
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            58,
+            59
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u011.ows.u036",
+      "source_node_id": "evolve-1.u011",
+      "target_node_id": "ows-elementary.u036",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Describing places and a country"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            84,
+            86
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            76,
+            77
+          ]
+        }
+      ],
+      "review_status": "needs_review",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Weak connection in the supplied workbook. Keep as a proposed link; do not activate as a recommended unit until additional curriculum evidence is reviewed."
+    },
+    {
+      "id": "align.evolve1.u012.ows.u047",
+      "source_node_id": "evolve-1.u012",
+      "target_node_id": "ows-elementary.u047",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Meat and fish vocabulary"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            92
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            96
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u012.ows.u046",
+      "source_node_id": "evolve-1.u012",
+      "target_node_id": "ows-elementary.u046",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "substantial_overlap",
+      "shared_targets": [
+        "Fruit and vegetables"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            92
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            94,
+            95
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. "
+    },
+    {
+      "id": "align.evolve1.u012.ows.u048",
+      "source_node_id": "evolve-1.u012",
+      "target_node_id": "ows-elementary.u048",
+      "source_edition_id": "evolve-1-workbook-2019-isbn9781108408943",
+      "target_edition_id": "ows-elementary-second-edition-upload-sha256-1a6cbd638e03",
+      "relationship_type": "extension",
+      "shared_targets": [
+        "Restaurant-table vocabulary for eating and requests"
+      ],
+      "evidence": [
+        {
+          "source_id": "evolve1.workbook.2019",
+          "pages": [
+            96
+          ]
+        },
+        {
+          "source_id": "ows.elementary.second-edition.upload",
+          "pages": [
+            97
+          ]
+        }
+      ],
+      "review_status": "ready",
+      "verification_status": "reviewed_by_assistant",
+      "notes": "Preserves the user-supplied correspondence. Reviewed against the provided Workbook; the Evolve Student's Book was not supplied. Recommendation only; no curriculum equivalence or prerequisite is implied. Tableware extends the Evolve food-and-request vocabulary."
+    }
+  ],
+  "notes": [
+    "The original 36 user-proposed Evolve 1 links are preserved. One weak link stays needs_review.",
+    "Only ready links may be shown as practice recommendations. All links are assistant-reviewed, not teacher-verified.",
+    "No Evolve 2–6 mapping was invented. The provided Oxford edition is identified by its cover and exact file hash."
+  ]
+}

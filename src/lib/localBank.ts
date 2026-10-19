@@ -2,7 +2,7 @@
  * Browser-local store for reviewed ready packs (IndexedDB). Affects only this browser.
  * Approved records are loaded into the shared playable catalogue via setLocalOverlay.
  */
-import { ALL_QUESTIONS, CONTEXTS, ID_ALIASES, setLocalOverlay } from "./bank";
+import { BUNDLED_QUESTIONS as ALL_QUESTIONS, BUNDLED_CONTEXTS as CONTEXTS, ID_ALIASES, setLocalOverlay } from "./bank";
 import { planPack, type PackPlan, type StoredC, type StoredQ } from "./pack";
 
 const DB = "english-quest-packs";

@@ -1,8 +1,8 @@
 import { useSyncExternalStore } from "react";
-import catalogue from "@/data/foundation/catalogue.json";
+import { LIVE_CATALOGUE as catalogue } from './content/pilot';
 import { BASELINE_VERSION, contextById, getBankVersion, ID_ALIASES, missions } from "@/lib/bank";
 import { indexCatalogue, canonicalId } from "@/lib/content/core";
-import { buildScope, livePack, resolvePool, type PracticeModeId } from "@/lib/scope";
+import { buildScope, livePack, resolvePool, reviewedPracticeScope, type PracticeModeId } from "@/lib/scope";
 import type { Catalogue, CatalogueNode, Scope } from "@/lib/content/contracts";
 import type { Progress } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
@@ -24,7 +24,10 @@ export function scopeQuestions(scope: Scope, gameId?: string) {
 }
 /** For display/restoration only: an invalid stored scope shows as unavailable instead of crashing. */
 export function safeScopeQuestions(scope: Scope) { try { return scopeQuestions(scope); } catch { return []; } }
-export const practiceScope = (mode: PracticeModeId, nodeId: string, custom: string[] = []) => buildScope(catalogueIndex, mode, nodeId, custom);
+export const practiceScope = (mode: PracticeModeId, nodeId: string, custom: string[] = []) => {
+  const scope = buildScope(catalogueIndex, mode, nodeId, custom);
+  return reviewedPracticeScope(mode, nodeId) ?? scope;
+};
 export const scopeKey = (mode: string, nodeId: string, custom: string[] = []) => [mode, nodeId, ...[...custom].sort()].join(":");
 /** Unique canonical items across saved courses (Home → My Learning). Unknown when none are ready. */
 export function savedStats(ids: string[], p: Progress) {
@@ -40,7 +43,7 @@ function statsFor(ids: Set<string>, p: Progress) {
   const mastered = new Set(Object.entries(p.mastery).filter(([, m]) => m.mastered).map(([id]) => canonicalId(id, ID_ALIASES)).filter(id => ids.has(id))).size;
   return { total: ids.size, attempted, mastered, coverage: ids.size ? attempted / ids.size : null };
 }
-export type Bookmark = { nodeId: string; scope: Scope; game: string | null; release: string; mission?: string; practice?: PracticeModeId; custom?: string[]; ancestors: string[] };
+export type Bookmark = { nodeId: string; scope: Scope; game: string | null; release: string; mission?: string; practice?: PracticeModeId; custom?: string[]; selection?: string; ancestors: string[] };
 export type LearningState = { version: 1; saved: string[]; current: Bookmark | null };
 export const EMPTY_LEARNING: LearningState = { version: 1, saved: [], current: null };
 export const LEARNING_KEY = "english-quest-learning-v1";

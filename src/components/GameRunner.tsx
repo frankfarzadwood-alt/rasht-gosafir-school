@@ -5,14 +5,16 @@ import { correctText, contextById, type Context } from "@/lib/bank";
 import { recordAttempt, update } from "@/lib/progress";
 import { fa, SKILL_FA } from "@/lib/fa";
 import { summarize, learnerExplanation, type Attempt } from "@/lib/display";
+import { QuestionMedia } from './QuestionMedia';
 
 type Result = { item: Item; attempts: readonly Attempt[]; first: boolean; finalCorrect: boolean; correctedOnRetry: boolean; firstResponse: string; response: string; ms: number };
 
 export function GameRunner({
-  items, grade, term, scope, mode, exam = false, timer = false, context, missionId, showGrammarTag, nextHref,
+  items, grade, term, scope, mode, exam = false, timer = false, context, missionId, showGrammarTag, nextHref, sections,
 }: {
   items: Item[]; grade: number | null; term: number | null; scope?: string; mode: string; exam?: boolean; timer?: boolean;
   context?: Context | null; missionId?: string; showGrammarTag?: boolean; nextHref?: React.ReactNode;
+  sections?: { title_en: string | null; questionIds: string[] }[];
 }) {
   const [queue, setQueue] = useState(items);
   const [idx, setIdx] = useState(0);
@@ -25,8 +27,9 @@ export function GameRunner({
   const [elapsed, setElapsed] = useState(0);
   const started = useRef(Date.now());
   const [renderKey, setRenderKey] = useState(0);
+  const [mediaReady, setMediaReady] = useState(false);
 
-  useEffect(() => { started.current = Date.now(); setElapsed(0); }, [idx, renderKey]);
+  useEffect(() => { started.current = Date.now(); setElapsed(0); setMediaReady(false); }, [idx, renderKey]);
   useEffect(() => {
     if (!timer || phase !== "answer") return;
     const t = setInterval(() => setElapsed(Math.floor((Date.now() - started.current) / 1000)), 500);
@@ -37,6 +40,7 @@ export function GameRunner({
   const item = queue[idx]!;
 
   function submit(response: string, correct: boolean) {
+    if (!item || (item.q.assets.source_audio_required || item.q.assets.source_image_required) && !mediaReady) return;
     const ms = Date.now() - started.current;
     const retry = tries > 0 || isRetryRound;
     const xp = exam ? 0 : recordAttempt(
@@ -77,6 +81,7 @@ export function GameRunner({
           <Stat label="تعداد سؤال" value={fa(results.length)} />
         </div>
         {exam && <p className="text-sm text-muted-foreground">نمرهٔ ۲۰ نمایش داده نمی‌شود چون بارم رسمی سؤال‌ها در منبع موجود نیست؛ این عدد فقط دقت تمرینی است.</p>}
+        {[...new Set(results.map(r => r.item.q.context_id))].map(id => { const c = contextById(id); return c?.display_policy === 'after_answer_only' ? <details key={c.id}><summary>متن فایل صوتی</summary><p dir="ltr" lang="en" className="en text-left">{c.text}</p></details> : null; })}
         <div>
           <h3 className="mb-2 font-bold">مهارت‌ها</h3>
           <ul className="space-y-1">{Object.entries(bySkill).map(([s, [c, t]]) => <li key={s} className="flex justify-between text-sm"><span>{SKILL_FA[s] ?? s}</span><span>{fa(c)} از {fa(t)}</span></li>)}</ul>
@@ -118,15 +123,20 @@ export function GameRunner({
         <span className="text-sm font-bold">{fa(idx + 1)}/{fa(queue.length)}</span>
         {timer && <span className="rounded-full bg-gold/30 px-2 text-sm" aria-label="زمان">⏱ {fa(elapsed)}</span>}
       </div>
-      {ctx && (
+      {sections?.find(s => s.questionIds.includes(q.id))?.title_en && <p dir="ltr" lang="en" className="en font-bold">{sections.find(s => s.questionIds.includes(q.id))?.title_en}</p>}
+      {ctx && (ctx.display_policy !== 'after_answer_only' || phase === 'feedback' && !queue.slice(idx + 1).some(item => item.q.context_id === ctx.id)) && (
         <article className="card-soft sticky top-16 z-10 max-h-56 overflow-auto p-4" aria-label="متن درک مطلب">
           <p dir="ltr" lang="en" className="en text-left leading-relaxed">{ctx.text}</p>
           {ctx.content_origin === "faithful_paraphrase_of_source" && <p className="mt-2 text-xs text-muted-foreground">بازنویسی وفادار به متن امتحان؛ نقل‌قول عین متن اصلی نیست.</p>}
         </article>
       )}
       <section className="card-soft p-5" key={`${q.id}-${renderKey}`}>
+        <QuestionMedia key={`${q.id}:${renderKey}`} q={q} onReady={setMediaReady} />
+        {q.reviewer_label && <p className="mb-3 text-xs text-muted-foreground">بازبینی‌شده توسط دستیار؛ تأیید معلم نیست</p>}
+        {showGrammarTag && q.error_sentence_en && <p dir="ltr" lang="en" className="en mb-3 text-left">{q.error_sentence_en}</p>}
         {showGrammarTag && q.grammar_tag && <span className="mb-2 inline-block rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">🔍 <En>{q.grammar_tag}</En></span>}
-        <QuestionView item={item} mode={mode} locked={phase === "feedback"} onSubmit={submit} />
+        <QuestionView item={item} mode={mode} locked={phase === "feedback" || (q.assets.source_audio_required || q.assets.source_image_required) && !mediaReady} onSubmit={submit} />
+        {(q.assets.source_audio_required || q.assets.source_image_required) && !mediaReady && nextHref}
         {phase === "answer" && !exam && (
           <div className="mt-3">
             {hinted ? <p className="rounded-xl bg-gold/20 p-3 text-sm">💡 {hintFor(q, item.kind)}</p>
