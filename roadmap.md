@@ -31,6 +31,7 @@
 
 # Oxford Elementary expansion patch
 - [x] Pass all eight baseline safeguards and apply only supplied payloads; compact oversized JSON without changing parsed content.
-- [ ] Run regression tests with two workers and inspect platform-managed type/build checks.
-- [ ] Verify phone flashcards, new image/grammar questions, pair inventory, school gameplay and no-penalty image failure.
-- [ ] Report verified totals and any blockers; keep Cloud disabled and unpublished; stop after integration.
+- [x] Run regression tests with two workers and inspect platform-managed type/build checks: 122 tests across 15 files pass; latest automatic check reports build OK. Standalone typecheck and production build were not invoked because platform instructions prohibit them.
+- [x] Verify phone flashcards (12 cards and difficult-card replay, unchanged progress), new image/grammar grading, 1,023 pair inventory with 5/4 round sizes, school answering and no-penalty image failure/retry; no page errors.
+- [x] Report verified totals and check boundaries; keep Cloud disabled and unpublished; stop after integration.
+- Oxford expanded JSON compacted to 8,068,305 bytes to satisfy repository limits; parsed data equals the supplied payload exactly. Published media delivery remains unverified because nothing was published.
