@@ -1,3 +1,4 @@
+import { EXERCISE_HOLDS } from './content/reviewHolds';
 import { useSyncExternalStore } from "react";
 import raw from "@/data/bank.json";
 import { PILOT, BOOK_CONTENT, BOOK_RELEASES, mediaAsset } from './content/pilot';
@@ -17,8 +18,8 @@ export type Question = {
   context_id: string | null;
   revision?: number; placements?: { node_id: string; relation: string }[];
   vocabulary_entry_id?: string; letter_pool?: string[]; requires_capabilities?: string[];
-  error_sentence_en?: string; corrected_sentence_en?: string; reviewer_label?: string;
-  assets: { image: unknown; audio: unknown; source_image_required: boolean; source_audio_required: boolean; required_asset_ids?: string[] };
+  error_sentence_en?: string; corrected_sentence_en?: string; reviewer_label?: string; content_origin?: string;
+  assets: { image: unknown; images?: unknown[]; audio: unknown; source_image_required: boolean; source_audio_required: boolean; required_asset_ids?: string[] };
   review_status: string; review_issues: string[]; eligible_games: string[];
   reorder_tokens: string[] | null; pairs: Pair[] | null; word_bank: string[] | null;
   hint_fa: string | null; explanation_fa: string | null; explanation_en: string | null; grammar_tag: string | null;
@@ -26,7 +27,7 @@ export type Question = {
   answer: {
     value: string | null; correct_option_id: string | null; accepted_answers: string[];
     provenance: string; verification_status: string; original_mapped_key?: string | null;
-    key_candidates: { value: string; page?: number }[]; normalization?: Normalization;
+    key_candidates: { value: string; page?: number }[]; normalization?: Normalization; fields?: { label: string; value: string; accepted_answers: string[] }[]; field_order?: 'ordered' | 'unordered';
   };
   source: { listing_url: string; pdf_url: string; pages: number[] };
 };
@@ -76,6 +77,7 @@ const TYPED_FORMATS = ["fill_blank", "word_form", "spelling", "short_answer", "c
 /** Student eligibility rule from the brief. Returns reasons when not eligible. */
 export function ineligibility(q: Question, ctx: CtxLookup = contextById): string[] {
   const r: string[] = [];
+  if (EXERCISE_HOLDS.has(q.id)) r.push("source_response_representation_needs_review");
   if (q.review_status !== "ready") r.push("review_status_not_ready");
   if (q.granularity !== "atomic") r.push("not_atomic");
   if (["source_review", "free_writing"].includes(q.format)) r.push("not_auto_gradable_format");
@@ -120,6 +122,16 @@ export function normalize(s: string, n: Normalization = {}) {
 }
 export function isAccepted(q: Question, response: string) {
   const n = q.answer.normalization;
+  const fields=q.answer.fields;
+  if(fields?.length){
+   let values:unknown;try{values=JSON.parse(response);}catch{return false;}
+   if(!Array.isArray(values)||values.length!==fields.length||!values.every(v=>typeof v==='string'&&normalize(v,n)))return false;
+   const responses=values as string[];const matches=(i:number,j:number)=>[fields[j]!.value,...fields[j]!.accepted_answers].some(v=>normalize(v,n)===normalize(responses[i]!,n));
+   if(q.answer.field_order!=='unordered')return responses.every((_,i)=>matches(i,i));
+   const assigned=new Map<number,number>();
+   const augment=(i:number,seen:Set<number>):boolean=>{for(let j=0;j<fields.length;j++){if(seen.has(j)||!matches(i,j))continue;seen.add(j);if(!assigned.has(j)||augment(assigned.get(j)!,seen)){assigned.set(j,i);return true;}}return false;};
+   return responses.every((_,i)=>augment(i,new Set()));
+  }
   const r = normalize(response, n);
   const list = [q.answer.value ?? "", ...q.answer.accepted_answers];
   return r.length > 0 && list.some((a) => normalize(a, n) === r);
@@ -297,10 +309,10 @@ export function poolMissions(scopeKey: string, pool: Question[]): Mission[] {
 // ---------- Mode catalogue ----------
 export type ModeId =
   | "quest_trail" | "quiz_sprint" | "gap_builder" | "word_forge" | "sentence_builder" | "match_arena"
-  | "memory_pairs" | "flashcards" | "grammar_detective" | "reading_explorer" | "listening_lab" | "boss_exam" | "writing_studio";
+  | "memory_pairs" | "flashcards" | "grammar_detective" | "reading_explorer" | "listening_lab" | "boss_exam" | "writing_studio" | "workbook";
 export const MODES: { id: ModeId; fa: string; desc: string; icon: string }[] = [
   { id: "quest_trail", fa: "مسیر ماجراجویی", desc: "مأموریت‌های کوتاه ترکیبی", icon: "🗺️" },
-  { id: "quiz_sprint", fa: "دوی سرعت", desc: "۶ تا ۸ تست چندگزینه‌ای", icon: "⚡" },
+  { id: "quiz_sprint", fa: "دوی سرعت", desc: "۶ تا ۸ سؤال کوتاه", icon: "⚡" },
   { id: "gap_builder", fa: "جای خالی", desc: "جمله را با کارت کلمه کامل کن", icon: "🧩" },
   { id: "word_forge", fa: "کارگاه کلمه", desc: "کلمه را با حروف بساز", icon: "🔤" },
   { id: "sentence_builder", fa: "جمله‌ساز", desc: "کلمه‌ها را مرتب کن", icon: "🧱" },
@@ -311,9 +323,11 @@ export const MODES: { id: ModeId; fa: string; desc: string; icon: string }[] = [
   { id: "reading_explorer", fa: "کاوشگر متن", desc: "متن را بخوان و جواب بده", icon: "📖" },
   { id: "listening_lab", fa: "آزمایشگاه شنیداری", desc: "فایل صوتی تأییدشده", icon: "🎧" },
   { id: "boss_exam", fa: "امتحان نهایی", desc: "آزمون کامل با بازخورد در پایان", icon: "🏆" },
+  { id: "workbook", fa: "تمرین‌های کتاب", desc: "صفحات اصلی، پیش‌نویس و خودارزیابی", icon: "📚" },
   { id: "writing_studio", fa: "استودیوی نوشتن", desc: "نوشتن آزاد با معیار ارزیابی", icon: "✍️" },
 ];
 
+export const listeningItems = (pool: Question[]) => dedupe(pool.filter(q => isEligible(q) && q.assets.source_audio_required && !!mediaAsset(q.assets.audio)));
 export type ModeAvailability = Record<ModeId, { count: number; reason?: string }>;
 export function modeAvailability(grade: number, term: number): ModeAvailability {
   return poolAvailability(trackQuestions(grade, term), missions(grade, term).length);
@@ -332,8 +346,9 @@ export function poolAvailability(t: Question[], missionCount = poolMissions("x",
     flashcards: { count: flashcardItems(t).length, reason: "واژه و معنی بازبینی‌شده‌ای برای فلش‌کارت این بخش آماده نیست." },
     grammar_detective: { count: grammarItems(t).length },
     reading_explorer: { count: readingGroups(t).length, reason: "متن درک مطلب تأییدشده‌ای برای این بخش وارد نشده است." },
-    listening_lab: { count: 0, reason: t.some(q => q.assets.source_audio_required) ? 'فایل صوتی در بازی‌های سازگار این بخش پخش می‌شود؛ بازی شنیداری جداگانه آماده نیست.' : "هنوز هیچ فایل صوتی تأییدشده‌ای وارد نشده است." },
+    listening_lab: { count: listeningItems(t).length, reason: "سؤال شنیداری آماده‌ای در این محدوده نیست؛ فایل‌های تمرینی در بخش کتاب در دسترس‌اند." },
     boss_exam: { count: dedupe(t).length },
+    workbook: { count: 0, reason: "تمرین کتاب برای این محدوده موجود نیست." },
     writing_studio: { count: 0, reason: "هنوز تمرین نوشتاری بازبینی‌شده با معیار ارزیابی وارد نشده است." },
   };
 }
@@ -346,3 +361,5 @@ export function playableCounts(): Record<string, number> {
   return out;
 }
 export const overlaySize = () => overlayQ.length;
+
+export function responseText(q: Question,response:string){if(!q.answer.fields?.length)return response;try{const v:unknown=JSON.parse(response);return Array.isArray(v)&&v.every(x=>typeof x==='string')?v.join(' ; '):response;}catch{return response;}}

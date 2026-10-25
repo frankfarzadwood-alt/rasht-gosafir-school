@@ -7,6 +7,26 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  vite: {
+    environments: { client: {
+    build: {
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: [{
+              // Keep each immutable data file in its own asset, instead of a
+              // single oversized question-bank JavaScript file.
+              name: (id: string) => {
+                const match = id.replace(/\\/g, '/').match(/\/src\/data\/(.+\.json)(?:\?|$)/);
+                return match ? 'content-' + match[1]!.replace(/[^a-zA-Z0-9]+/g, '-') : null;
+              },
+            }],
+          },
+        },
+      },
+    },
+    } },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

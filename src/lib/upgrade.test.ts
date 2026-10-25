@@ -1,3 +1,5 @@
+import { EXPANSION } from './content/expansion';
+import { LIBRARY } from './content/library';
 import { describe, expect, it } from 'vitest';
 import { PILOT, ASSET_POINTERS, mediaAsset, LIVE_CATALOGUE } from './content/pilot';
 import { mergeQuestionRevisions, stableStringify } from './content/core';
@@ -20,7 +22,7 @@ describe('full Evolve 1 + Oxford upgrade', () => {
     expect(PILOT.questions.filter(q => q.id.startsWith('evolve1.quiz.'))).toHaveLength(956);
     expect(PILOT.questions.filter(q => q.id.startsWith('ows.'))).toHaveLength(568);
     expect(ALL_QUESTIONS).toHaveLength(1801);
-    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length);
+    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length + LIBRARY.questions.length + EXPANSION.questions.length);
     expect(PILOT.questions.every(q => q.answer.verification_status === 'reviewed_by_assistant')).toBe(true);
   });
   it('upgrading from the pilot adds 1963 and leaves all 200 pilot records unchanged', () => {

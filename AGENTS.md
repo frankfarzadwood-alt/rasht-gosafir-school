@@ -32,3 +32,10 @@
 - LIVE_SELECTIONS expands Oxford catalogue memberships and counts; fixed Evolve assessment membership and PILOT baseline exports remain unchanged.
 - Oxford question images are bundled under public/assets/oxford-elementary-r2 with file hashes in the pack. Original Lovable media pointers are preserved. Required-image failures must still block grading without penalty.
 - Flashcards use approved vocabulary_entry_id links via bank.flashcardItems; flip and self-ratings are session-local, award no XP/mastery and never write english-quest-progress-v1. Empty scopes hide this mode.
+- The source library is appended after PILOT and OXFORD; preserve that order and all original canonical payloads. Source tasks use catalogue boundaries and are separate from automatically scored questions.
+- SourceStudio stores per-activity drafts/self-review only in english-quest-workbook-drafts-v1. It must never record attempts, XP, mastery or invented IELTS bands. Answer-key pages stay hidden until requested. Book audio shelves are explicit navigation.
+- Required question media includes every source image plus required audio. Failed media blocks grading without recording attempts; listening transcripts stay after-answer-only in the shared GameRunner.
+- Reviewed release arrays are immutable. Imports and review changes must replace arrays, so content-readiness caches cannot become stale.
+- Exercise expansion r2 is appended after the original releases and never rewrites their question payloads or canonical IDs. Source-format review holds must apply in both bank and core eligibility selectors.
+- Multipart responses use the shared grader. Preserve explicit field order and key alternatives; unordered response sets require one distinct answer per field.
+- Coverage counts inspected answer-key blocks, with converted, partial, pending and self-review states. Source-page availability does not imply full automatic exercise conversion.

@@ -1,3 +1,4 @@
+import { EXERCISE_HOLDS } from './reviewHolds';
 /**
  * Pure content core, adapted from the foundation package's reference/content-core.ts.
  * General selection only: game-specific rules (word banks, tokens, letter pools, pairs) stay in src/lib/bank.ts.
@@ -93,6 +94,7 @@ export const VERIFIED = ["reviewed_by_assistant", "reviewed_by_teacher", "review
 
 /** General ready gate (atomic, reviewed, usable prompt/answer, resolved context/assets, supported task). */
 export function isPlayable(q: Question, contexts: Map<string, Context>, assets: Map<string, Asset>): boolean {
+  if (EXERCISE_HOLDS.has(q.id)) return false;
   if (q.review_status !== "ready" || q.granularity !== "atomic" || !q.prompt_en?.trim()) return false;
   if (!VERIFIED.includes(q.answer.verification_status) || !q.answer.value?.trim()) return false;
   if (q.format === "free_writing" || q.format === "source_review" || q.eligible_games.length === 0) return false;
@@ -113,12 +115,19 @@ export function isPlayable(q: Question, contexts: Map<string, Context>, assets: 
   return true;
 }
 
+// Released arrays are immutable; review/import updates replace arrays.
+const readyPools = new WeakMap<QuestionPack, { questions: Question[]; contexts: Context[]; assets: Asset[]; pool: Question[] }>();
+function readyPool(pack: QuestionPack): Question[] {
+ const cached=readyPools.get(pack);
+ if(cached?.questions===pack.questions&&cached.contexts===pack.contexts&&cached.assets===pack.assets)return cached.pool;
+ const contexts=new Map(pack.contexts.map(c=>[c.id,c]));const assets=new Map(pack.assets.map(a=>[a.id,a]));
+ const pool=pack.questions.filter(q=>isPlayable(q,contexts,assets));readyPools.set(pack,{questions:pack.questions,contexts:pack.contexts,assets:pack.assets,pool});return pool;
+}
+
 /** Scope → deduplicated ready questions. Unknown nodes throw; fixed assessments are never shortened. */
 export function selectQuestions(pack: QuestionPack, catalogue: Catalogue | CatalogueIndex, scope: Scope, gameId?: string): Question[] {
   const ix = "nodes" in catalogue && catalogue.nodes instanceof Map ? (catalogue as CatalogueIndex) : indexCatalogue(catalogue as Catalogue);
-  const contexts = new Map(pack.contexts.map((c) => [c.id, c]));
-  const assets = new Map(pack.assets.map((a) => [a.id, a]));
-  const pool = pack.questions.filter((q) => isPlayable(q, contexts, assets));
+  const pool = readyPool(pack);
   if (scope.kind === "assessment") {
     if (scope.node_ids.length || scope.skills?.length || scope.question_ids?.length || scope.through_unit_id) throw new Error("A fixed assessment cannot be shortened by scope filters");
     const a = pack.assessments.find((x) => x.id === scope.assessment_id);
