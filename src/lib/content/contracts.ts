@@ -15,10 +15,10 @@ export interface Catalogue { schema_version: "2.0.0"; kind: "catalogue"; nodes: 
 export interface Placement { node_id: string; relation: "primary" | "supplementary" }
 export interface Answer {
   value: string | null; correct_option_id: string | null; accepted_answers: string[];
-  provenance: string; verification_status: string; normalization?: Record<string, unknown>;
+  provenance: string; verification_status: string; normalization?: Record<string, unknown>; fields?: { label: string; value: string; accepted_answers: string[] }[]; field_order?: 'ordered' | 'unordered';
   [key: string]: unknown;
 }
-export interface Assets { source_image_required: boolean; source_audio_required: boolean; image?: unknown; audio?: unknown; required_asset_ids?: string[] }
+export interface Assets { source_image_required: boolean; source_audio_required: boolean; image?: unknown; images?: unknown[]; audio?: unknown; required_asset_ids?: string[] }
 interface QuestionBase {
   id: string; canonical_id: string; source_id: string;
   skill: string; format: string; granularity: string; prompt_en: string | null;

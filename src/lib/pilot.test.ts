@@ -1,3 +1,5 @@
+import { EXPANSION } from './content/expansion';
+import { LIBRARY } from './content/library';
 import { describe, expect, it } from 'vitest';
 import { PILOT, LIVE_SELECTIONS, LIVE_CATALOGUE, mediaAsset } from './content/pilot';
 import { mergeQuestionRevisions, stableStringify } from './content/core';
@@ -22,8 +24,8 @@ describe('bundled pilot boundaries', () => {
     expect(ALL_QUESTIONS).toHaveLength(1801);
     expect(PILOT200).toHaveLength(200);
     expect(PILOT.questions).toHaveLength(2163);
-    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length);
-    expect(new Set(pack.questions.map(q => q.canonical_id)).size).toBe(3964 + OXFORD.questions.length);
+    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length + LIBRARY.questions.length + EXPANSION.questions.length);
+    expect(new Set(pack.questions.map(q => q.canonical_id)).size).toBe(3964 + OXFORD.questions.length + LIBRARY.questions.length + EXPANSION.questions.length);
     expect(PILOT.questions.every(q => q.review_status === 'ready' && q.answer.verification_status === 'reviewed_by_assistant')).toBe(true);
     expect(PILOT.questions.every(q => q.grade === undefined && q.term === undefined && q.placements.filter(p => p.relation === 'primary').length === 1)).toBe(true);
     expect(PILOT_QUESTIONS.filter(q => !isEligible(q)).map(q => ({ id: q.id, why: ineligibility(q) }))).toEqual([]);
@@ -49,7 +51,7 @@ describe('bundled pilot boundaries', () => {
     expect(scopeQuestions(practiceScope('whole_book', 'evolve-1'))).toHaveLength(639 + 956);
     expect(scopeQuestions(practiceScope('whole_book', 'ows-elementary'))).toHaveLength(OXFORD_COVERAGE.ready_oxford_questions);
     expect(scopeQuestions(practiceScope('custom', 'evolve-1', ['evolve-1.u001.s2'])).length).toBeGreaterThanOrEqual(9);
-    expect(scopeQuestions(practiceScope('whole_book', 'evolve-2'))).toEqual([]);
+    expect(scopeQuestions(practiceScope('whole_book', 'evolve-2')).length).toBeGreaterThan(0);
   });
   it('keeps all bundled school payloads and mission contents independent of pilot reapplication', () => {
     const before = stableStringify(missions(7, 1));
@@ -108,7 +110,7 @@ describe('pilot gameplay and media contracts', () => {
     expect(forgeItems(PILOT_QUESTIONS)).toHaveLength(35);
     expect(sentenceItems(PILOT_QUESTIONS)).toHaveLength(16);
     expect(readingGroups(PILOT_QUESTIONS).flatMap(g => g.questions)).toHaveLength(17);
-    expect(poolAvailability(PILOT_QUESTIONS).listening_lab.count).toBe(0);
+    expect(poolAvailability(PILOT_QUESTIONS).listening_lab.count).toBe(11);
   });
   it('fixed quizzes preserve complete 38/40 lists, source sections and no timer/marks', () => {
     expect(plannedAssessments.assessments).toHaveLength(244);

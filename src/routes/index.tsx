@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ActivityLink, DailyGoal, NodeCard } from "@/components/LearningHub";
 import { useProgress, update, useHydrated } from "@/lib/progress";
 import { missions, useBankVersion, MODES } from "@/lib/bank";
-import { bookmark, courseTitle, legacyBookmark, nodeById, nodeScope, nodeTitle, restoreBookmark, safeScopeQuestions as scopeQuestions, savedStats, setLearning, useLearning, childrenOf } from "@/lib/learning";
+import { bookmark, courseTitle, legacyBookmark, nodeById, nodeScope, nodeTitle, restoreBookmark, safeScopeQuestions as scopeQuestions, savedStats, setLearning, useLearning, childrenOf, scopeActivities } from "@/lib/learning";
 import { pageMeta } from "@/lib/pageMeta";
 import { fa } from "@/lib/fa";
 
@@ -28,14 +28,14 @@ function Home() {
       setLearning(s => ({ ...s, current: bookmark(initial), saved: nodeById(initial)?.kind === "book" ? [...new Set([...s.saved, initial])] : s.saved }));
     }}>
       <div className="space-y-2"><label htmlFor="nick" className="font-bold">نام مستعار</label><input id="nick" autoComplete="off" value={name} onChange={e => setName(e.target.value)} maxLength={24} placeholder="مثلاً ستاره" className="h-12 w-full rounded-xl border-2 border-input bg-card px-4" /><p className="text-xs text-muted-foreground">نام واقعی، تاریخ تولد یا شماره تلفن وارد نکن.</p></div>
-      <div className="space-y-2"><label htmlFor="initial-course" className="font-bold">از کجا شروع می‌کنی؟</label><select id="initial-course" className="h-12 w-full rounded-xl border border-input bg-card px-3" value={initial} onChange={e => setInitial(e.target.value)}><option value="school">انگلیسی مدرسه — انتخاب پایه و نوبت</option>{childrenOf("general").map(series => <optgroup label={nodeTitle(series)} key={series.id}>{childrenOf(series.id).map(book => <option key={book.id} value={book.id}>{nodeTitle(book)}{scopeQuestions(nodeScope(book.id)).length ? ' — تمرین آماده' : ' — در حال آماده‌سازی'}</option>)}</optgroup>)}<optgroup label="آیلتس">{childrenOf("ielts").map(n => <option key={n.id} value={n.id}>{nodeTitle(n)} — در حال آماده‌سازی</option>)}</optgroup></select></div>
+      <div className="space-y-2"><label htmlFor="initial-course" className="font-bold">از کجا شروع می‌کنی؟</label><select id="initial-course" className="h-12 w-full rounded-xl border border-input bg-card px-3" value={initial} onChange={e => setInitial(e.target.value)}><option value="school">انگلیسی مدرسه — انتخاب پایه و نوبت</option>{childrenOf("general").map(series => <optgroup label={nodeTitle(series)} key={series.id}>{childrenOf(series.id).map(book => <option key={book.id} value={book.id}>{nodeTitle(book)}{(scopeQuestions(nodeScope(book.id)).length || scopeActivities(nodeScope(book.id)).length) ? ' — تمرین آماده' : ' — در حال آماده‌سازی'}</option>)}</optgroup>)}<optgroup label="آیلتس">{childrenOf("ielts").map(n => <option key={n.id} value={n.id}>{nodeTitle(n)}{scopeActivities(nodeScope(n.id)).length ? ' — تمرین آماده' : ' — در حال آماده‌سازی'}</option>)}</optgroup></select></div>
       <Button type="submit" className="btn w-full" disabled={!name.trim()}>شروع یادگیری<ArrowLeft /></Button>
     </form>
   </section>;
   const current = restoreBookmark(learning.current) ?? legacyBookmark(p);
   const activeNode = current ? nodeById(current.nodeId) : null;
   const isTrack = activeNode?.kind === "term" && activeNode.grade && activeNode.term;
-  const available = current ? scopeQuestions(current.scope).length > 0 : false;
+  const available = current ? scopeQuestions(current.scope).length > 0 || scopeActivities(current.scope).length > 0 : false;
   const ids = new Set(current ? scopeQuestions(current.scope).map(q => q.canonical_id) : []);
   const mistakes = Object.entries(p.mastery).filter(([id, m]) => ids.has(id) && !m.lastCorrect).length;
   const mission = isTrack && current?.game === "quest_trail" ? missions(activeNode.grade ?? 0, activeNode.term ?? 0).find(m => !p.missionsDone.includes(m.id))?.id : current?.mission;

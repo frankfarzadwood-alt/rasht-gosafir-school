@@ -7,9 +7,11 @@ import { useProgress, todayCount, update } from "@/lib/progress";
 import { useBankVersion, MODES, modeAvailability, poolAvailability, poolMissions, pairInventoryCount, readingGroups, trackQuestions, type ModeAvailability, type Question } from "@/lib/bank";
 import { modesFor, PRACTICE_FA, ScopeError, type PracticeModeId } from "@/lib/scope";
 import { fa, SKILL_FA } from "@/lib/fa";
-import { ancestorsOf, bookmark, catalogueIndex, childrenOf, nodeById, nodeScope, nodeTitle, practiceScope, scopeKey, scopeQuestions, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
+import { ancestorsOf, bookmark, catalogueIndex, childrenOf, nodeById, nodeScope, nodeTitle, practiceScope, scopeKey, scopeQuestions, scopeActivities, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
 import type { AssessmentPlan, CatalogueNode } from "@/lib/content/contracts";
-import { PILOT, LIVE_SELECTIONS } from '@/lib/content/pilot';
+import type { Scope } from '@/lib/content/contracts';
+import { BOOK_CONTENT, LIVE_SELECTIONS } from '@/lib/content/pilot';
+import { exerciseCoverage } from '@/lib/content/expansion';
 const PLAN = planRaw as unknown as AssessmentPlan;
 
 export function ActivityLink({ current, game, children, className = "", mission }: { current: Bookmark; game?: string | null; children: ReactNode; className?: string; mission?: string | undefined }) {
@@ -33,11 +35,12 @@ export function SaveCourse({ node }: { node: CatalogueNode }) {
 export function NodeCard({ node }: { node: CatalogueNode }) {
   const p = useProgress();
   const stats = scopeStats(nodeScope(node.id), p);
+  const activities = scopeActivities(nodeScope(node.id)).filter(t => t.kind !== 'writing').length;
   return <Link to="/learn/$nodeId" params={{ nodeId: node.id }} search={{ view: "units" }} className="card-soft flex min-h-24 items-center gap-3 p-4 hover:border-primary">
     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary"><BookOpen aria-hidden /></span>
     <span className="min-w-0 flex-1"><span className="block font-extrabold">{nodeTitle(node)}</span>
-      {node.kind === "book" && <span lang="en" dir="ltr" className="block text-sm text-muted-foreground">{node.title_en}</span>}
-      <span className="block text-xs text-muted-foreground">{stats.total ? `${fa(stats.total)} سؤال آماده · ${fa(stats.attempted)} تمرین‌شده` : "محتوا در حال آماده‌سازی است"}</span>
+      {['book','unit','subunit'].includes(node.kind) && <span lang="en" dir="ltr" className="block text-sm text-muted-foreground">{node.title_en}</span>}
+      <span className="block text-xs text-muted-foreground">{stats.total ? `${fa(stats.total)} سؤال آماده · ${fa(stats.attempted)} تمرین‌شده` : activities ? `${fa(activities)} فعالیت اصلی کتاب با خودارزیابی` : "محتوا در حال آماده‌سازی است"}</span>
     </span><ChevronLeft aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground" />
   </Link>;
 }
@@ -57,16 +60,18 @@ export function Preparation() {
 export function ScopeProgress({ node }: { node: CatalogueNode }) {
   const p = useProgress();
   const stats = scopeStats(nodeScope(node.id), p);
-  return <section className="space-y-3"><h2 className="text-lg font-extrabold">پیشرفت این بخش</h2>{stats.coverage === null ? <Preparation /> : <>
+  const activities = scopeActivities(nodeScope(node.id)).filter(t => t.kind !== 'writing').length;
+  return <section className="space-y-3"><h2 className="text-lg font-extrabold">پیشرفت این بخش</h2>{stats.coverage === null ? activities ? <p>تمرین‌های اصلی کتاب با خودارزیابی آماده است؛ هنوز سؤال با تصحیح خودکار در این بخش نیست.</p> : <Preparation /> : <>
     <dl className="grid grid-cols-3 gap-2 text-center"><div><dt className="text-sm text-muted-foreground">سؤال آماده</dt><dd className="text-xl font-extrabold">{fa(stats.total)}</dd></div><div><dt className="text-sm text-muted-foreground">تمرین‌شده</dt><dd className="text-xl font-extrabold">{fa(stats.attempted)}</dd></div><div><dt className="text-sm text-muted-foreground">مسلط</dt><dd className="text-xl font-extrabold text-teal">{fa(stats.mastered)}</dd></div></dl>
     <progress className="h-3 w-full accent-teal" max={stats.total} value={stats.attempted} aria-label="پوشش تمرین" /><p className="text-sm text-muted-foreground">پوشش تمرین: {fa(Math.round(stats.coverage * 100))}٪ · تسلط جدا از پوشش شمرده می‌شود.</p>
-  </>}{PILOT.assessments.filter(a => a.anchor_node_id === node.id).map(a => {
+  </>}{BOOK_CONTENT.assessments.filter(a => a.anchor_node_id === node.id && a.status === 'ready').map(a => {
     const attempts = p.attempts.filter(x => x.scope === `assessment:${a.id}` && !x.retry).slice(-a.question_ids.length);
     const complete = attempts.length === a.question_ids.length && attempts.every((x, i) => x.qid === a.question_ids[i]);
     return <p key={a.id} className="text-sm text-muted-foreground"><span dir="ltr" lang="en">{a.title_en}</span> · {complete ? `دقت تمرینی: ${fa(Math.round(attempts.filter(x => x.correct).length / attempts.length * 100))}٪` : 'نتیجهٔ کامل هنوز ثبت نشده است'}</p>;
-  })}<p className="text-sm text-muted-foreground">عملکرد آزمون ثابت جدا از پوشش و تسلط سؤال‌هاست.</p></section>;
+  })}<ConversionStatus nodeId={node.id}/><p className="text-sm text-muted-foreground">عملکرد آزمون ثابت جدا از پوشش و تسلط سؤال‌هاست.</p></section>;
 }
 function modeLabel(id: string, a: { count: number }, readingQs: number, pairAnswers: number) {
+  if (id === 'workbook' || id === 'writing_studio') return `${fa(a.count)} فعالیت با خودارزیابی`;
   if (id === "match_arena" || id === "memory_pairs") return `${fa(pairAnswers)} پاسخ در بانک · تا ${fa(id === "match_arena" ? 5 : 4)} جفت در هر دور`;
   if (id === "flashcards") return `${fa(a.count)} کارت`;
   return id === "reading_explorer" ? `${fa(a.count)} متن · ${fa(readingQs)} سؤال` : `${fa(a.count)} ${["match_arena", "memory_pairs"].includes(id) ? "جفت" : id === "quest_trail" ? "مأموریت" : "سؤال"}`;
@@ -97,24 +102,28 @@ export function ScopePractice({ node }: { node: CatalogueNode }) {
   const [selection, setSelection] = useState('');
   const [skill, setSkill] = useState('');
   if (!mode) return <><Preparation /><Button disabled className="btn"><Play />شروع تمرین</Button></>;
-  let pool: Question[] = [], error: string | null = null;
+  let pool: Question[] = [], error: string | null = null, chosenScope: Scope | null = null;
   const selections = LIVE_SELECTIONS.filter(s => s.anchor_node_id === node.id && s.selection_type !== 'reviewed_quiz_practice');
-  try { const chosen = selections.find(s => s.id === selection)?.scope ?? practiceScope(mode, node.id, custom); pool = scopeQuestions({ ...chosen, ...(skill ? { skills: [skill] } : {}) }); }
+  try { const chosen = selections.find(s => s.id === selection)?.scope ?? practiceScope(mode, node.id, custom); chosenScope = { ...chosen, ...(skill ? { skills: [skill] } : {}) }; pool = scopeQuestions(chosenScope); }
   catch (e) { if (e instanceof ScopeError && mode === "custom") error = "حداقل یک درس را انتخاب کن."; else throw e; }
   const key = scopeKey(mode, node.id, custom);
   const units = node.kind === "book" ? childrenOf(node.id).filter(n => n.kind === "unit") : [];
   const planned = PLAN.assessments.filter(a => a.anchor_node_id === node.id);
-  const assessments = [...planned, ...PILOT.assessments.filter(a => a.anchor_node_id === node.id || planned.some(p => a.id === `${p.id}.practice`))];
+  const assessments = [...planned.filter(p => !BOOK_CONTENT.assessments.some(a => a.id === `${p.id}.practice`)), ...BOOK_CONTENT.assessments.filter(a => a.anchor_node_id === node.id || planned.some(p => a.id === `${p.id}.practice`))];
+  const sourceActivities = chosenScope ? scopeActivities(chosenScope) : [];
+  const availability = poolAvailability(pool, poolMissions(key, pool).length);
+  availability.workbook = { count: sourceActivities.filter(t => t.kind !== 'writing').length, reason: skill ? 'برای صفحات چندمهارتی، فیلتر مهارت را بردار.' : 'تمرین کتاب برای این محدوده موجود نیست.' };
+  availability.writing_studio = { count: sourceActivities.filter(t => t.kind === 'writing').length, reason: 'تمرین نوشتاری مشخصی در این محدوده نیست.' };
   return <div className="space-y-4">
     <fieldset className="space-y-2"><legend className="font-bold">محدودهٔ تمرین</legend><div className="flex flex-wrap gap-2">{modes.map(m => <Button key={m} variant={m === mode ? "default" : "outline"} className="btn" aria-pressed={m === mode} onClick={() => { setMode(m); setSelection(''); }}>{PRACTICE_FA[m]}</Button>)}</div></fieldset>
     {selections.length > 0 && <label className="block space-y-1"><span className="text-sm font-bold">مجموعهٔ بازبینی‌شده</span><select value={selection} onChange={e => setSelection(e.target.value)} className="h-12 w-full border border-input bg-card px-3"><option value="">محدودهٔ انتخاب‌شده</option>{selections.map(s => <option key={s.id} value={s.id}>{s.title_en}</option>)}</select></label>}
     {mode === "custom" && <fieldset className="max-h-56 space-y-1 overflow-y-auto rounded-xl border border-border p-3"><legend className="px-1 text-sm font-bold">درس‌ها</legend>{units.map(u => <label key={u.id} className="flex min-h-11 items-center gap-2"><input type="checkbox" className="h-5 w-5" checked={custom.includes(u.id)} onChange={() => setCustom(c => c.includes(u.id) ? c.filter(x => x !== u.id) : [...c, u.id])} />{nodeTitle(u)}</label>)}</fieldset>}
     <label className="block space-y-1"><span className="text-sm font-bold">مهارت</span><select value={skill} onChange={e => setSkill(e.target.value)} className="h-12 w-full border border-input bg-card px-3"><option value="">همهٔ مهارت‌ها</option>{['vocabulary', 'grammar', 'reading', 'listening', 'spelling', 'conversation'].map(s => <option key={s} value={s}>{SKILL_FA[s] ?? (s === 'spelling' ? 'املا' : 'مکالمه')}</option>)}</select></label>
-    <p role="status" className="text-sm font-bold">{error ?? (pool.length ? `${fa(pool.length)} سؤال آمادهٔ یکتا در این محدوده` : "محتوا در حال آماده‌سازی است — هنوز سؤال تأییدشده‌ای در این محدوده نیست.")}</p>
-    {!error && <ModeGrid pairAnswers={pairInventoryCount(pool)} avail={poolAvailability(pool, poolMissions(key, pool).length)} readingQs={readingGroups(pool).reduce((n, g) => n + g.questions.length, 0)}
+    <p role="status" className="text-sm font-bold">{error ?? `${fa(pool.length)} سؤال با تصحیح خودکار · ${fa(sourceActivities.filter(t => t.kind !== 'writing').length)} فعالیت اصلی کتاب با خودارزیابی`}</p>
+    {!error && <ModeGrid pairAnswers={pairInventoryCount(pool)} avail={availability} readingQs={readingGroups(pool).reduce((n, g) => n + g.questions.length, 0)}
       link={(game, body) => <Link to="/practice/$nodeId/$mode" params={{ nodeId: node.id, mode: game }} search={{ scope: mode, units: custom.length ? custom.join(",") : undefined, selection: selection || undefined, skills: skill || undefined }} className="card-soft block h-full min-w-0 p-4 hover:border-primary">{body}</Link>} />}
     {assessments.length > 0 && <section className="space-y-2 border-t border-border pt-4"><h2 className="font-bold">آزمون‌های ثابت کتاب</h2><p className="text-xs text-muted-foreground">این آزمون‌ها فهرست و ترتیب ثابت دارند و هرگز با سؤال دیگری پر یا کوتاه نمی‌شوند.</p>
-      <ul className="grid gap-2 sm:grid-cols-2">{assessments.map(a => <li key={a.id} aria-disabled={a.status !== 'ready'} className="rounded-xl border border-dashed border-border p-3 text-muted-foreground"><span dir="ltr" lang="en" className="block font-bold">{a.title_en}</span>{a.status === 'ready' ? <><p className="text-xs">نسخهٔ تمرینی بازبینی‌شده؛ طرح اصلی آزمون همچنان در انتظار منبع است.</p><Button asChild variant="outline" className="mt-2"><Link to="/practice/$nodeId/$mode" params={{ nodeId: a.anchor_node_id, mode: 'boss_exam' }} search={{ scope: 'unit', selection: a.id }}>آزمون تمرینی · {fa(a.question_ids.length)} سؤال</Link></Button></> : <span className="text-xs">در انتظار منبع بازبینی‌شده — هنوز در دسترس نیست</span>}</li>)}</ul></section>}
+      <ul className="grid gap-2 sm:grid-cols-2">{assessments.map(a => <li key={a.id} aria-disabled={a.status !== 'ready'} className="rounded-xl border border-dashed border-border p-3 text-muted-foreground"><span dir="ltr" lang="en" className="block font-bold">{a.title_en}</span>{a.status === 'ready' ? <><p className="text-xs">نسخهٔ تمرینی با ترتیب اصلی و درصد پاسخ درست؛ بدون بارم رسمی.</p><Button asChild variant="outline" className="mt-2"><Link to="/practice/$nodeId/$mode" params={{ nodeId: a.anchor_node_id, mode: 'boss_exam' }} search={{ scope: 'unit', selection: a.id }}>آزمون تمرینی · {fa(a.question_ids.length)} سؤال</Link></Button></> : <span className="text-xs">{a.status === 'incomplete' ? 'صفحات اصلی در تمرین‌های کتاب موجود است؛ تصحیح خودکار کامل هنوز آماده نیست.' : 'در انتظار منبع بازبینی‌شده — هنوز در دسترس نیست'}</span>}</li>)}</ul></section>}
   </div>;
 }
 export function CataloguePage({ node, view }: { node: CatalogueNode; view: string }) {
@@ -129,10 +138,11 @@ export function CataloguePage({ node, view }: { node: CatalogueNode; view: strin
     {node.kind === "term" && <ActivityLink current={bookmark(node.id)} className="bg-primary text-primary-foreground">نقشهٔ ماجراجویی<ChevronLeft /></ActivityLink>}
     {course && <nav className="flex gap-1 border-b border-border" aria-label="نمای دوره">{([["units", "درس‌ها"], ["practice", "تمرین"], ["progress", "پیشرفت"]] as const).map(([id, title]) => <Button key={id} variant="ghost" asChild className={`btn rounded-b-none ${view === id ? "border-b-2 border-primary text-primary" : "text-muted-foreground"}`}><Link to="/learn/$nodeId" params={{ nodeId: node.id }} search={{ view: id }}>{title}</Link></Button>)}</nav>}
     {view === "progress" && course ? <ScopeProgress node={node} /> : view === "practice" && course ? <GameChoices node={node} /> : <>
-      {course && !scopeStats(nodeScope(node.id), p).total && <Preparation />}
+      {course && !scopeStats(nodeScope(node.id), p).total && !scopeActivities(nodeScope(node.id)).length && <Preparation />}{node.kind === 'book' && <Button asChild className="btn"><Link to="/learn/$nodeId" params={{nodeId:node.id}} search={{view:'practice'}}>تمرین‌های این کتاب<Play /></Link></Button>}
       {children.length > 0 && <div className="grid gap-3 sm:grid-cols-2">{children.map(n => <NodeCard key={n.id} node={n} />)}</div>}
       {node.kind === "subunit" && <GameChoices node={node} />}
     </>}
     {mapping && <section className="border-t border-border pt-4"><h2 className="font-bold">ارتباط آکسفورد و ایوالو</h2><p className="mt-1 text-sm text-muted-foreground">پیشنهادهای مطالعهٔ بازبینی‌شده توسط دستیار</p><Link to="/learn/alignments" search={{ book: trail.find(n => n.kind === "book")?.id, unit: node.kind === "unit" ? node.id : undefined }} className="btn mt-2 inline-flex border border-border text-sm">نقشهٔ ارتباط درس‌ها</Link></section>}
   </div>;
 }
+function ConversionStatus({nodeId}:{nodeId:string}){const c=exerciseCoverage(nodeId);return c.inspected?<div className="rounded-xl border border-border p-3 text-sm" aria-label="وضعیت تبدیل تمرین‌ها"><p className="font-bold">وضعیت تبدیل تمرین‌ها</p><p>{fa(c.inspected)} بخش از کلید پاسخ بررسی شده: {fa(c.converted)} تبدیل‌شده، {fa(c.partial)} دارای بخشی از سؤال‌ها، {fa(c.self_review)} خودارزیابی و {fa(c.pending)} در انتظار بررسی.</p><p className="mt-1 text-xs text-muted-foreground">این شمارش، کل تمرین‌های چاپی کتاب نیست. وجود صفحهٔ کتاب به معنی تبدیل همهٔ تمرین‌ها به بازی نیست.</p></div>:null;}

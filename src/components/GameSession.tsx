@@ -5,14 +5,14 @@ import { MatchArena, MemoryPairs } from "@/components/PairGames";
 import type { Item } from "@/components/QuestionView";
 import {
   type Mission, type ModeAvailability, type ModeId, type Question, type CtxLookup, contextById,
-  dedupe, shuffle, flashcardItems, quizItems, gapItems, forgeItems, sentenceItems, grammarItems, readingGroups, pairSet,
+  dedupe, shuffle, flashcardItems, quizItems, gapItems, forgeItems, sentenceItems, grammarItems, readingGroups, pairSet, listeningItems,
 } from "@/lib/bank";
 import { useProgress, dueCanonicals } from "@/lib/progress";
 import { fa } from "@/lib/fa";
 import { Button } from './ui/button';
 
 const toItem = (q: Question): Item => ({ q, kind: "auto" });
-const AUTO_START = ["quest_trail", "review", "gap_builder", "word_forge", "sentence_builder", "grammar_detective", "reading_explorer", "match_arena", "memory_pairs"];
+const AUTO_START = ["quest_trail", "review", "gap_builder", "word_forge", "sentence_builder", "grammar_detective", "reading_explorer", "match_arena", "memory_pairs", "listening_lab"];
 
 /**
  * One session builder for every location: a school track and a book scope both pass their approved pool here.
@@ -48,6 +48,7 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
       <GameRunner key={mi.id} items={qs.map(toItem)} {...meta} mode="quest_trail" missionId={mi.id} nextHref={nx ? missionLink(nx.id) : back} />
     </>;
   }
+  if (m === "listening_lab") return <GameRunner items={shuffle(listeningItems(pool), seed).slice(0, 8).map(toItem)} {...meta} mode="listening_lab" nextHref={back} />;
   if (m === "flashcards") return <Flashcards cards={flashcardItems(pool)} seed={seed} back={back} />;
   if (m === "review") {
     const ids = new Set(pool.map((q) => q.canonical_id));
@@ -60,7 +61,7 @@ export function GameSession({ mode, pool, avail, missions, missionId, grade, ter
   if (m === "quiz_sprint") {
     if (!started) return (
       <section className="card-soft space-y-3 p-5">
-        <p>{fa(Math.min(8, quizItems(pool).length))} سؤال چندگزینه‌ای. زمان‌سنج به‌طور پیش‌فرض خاموش است.</p>
+        <p>{fa(Math.min(8, quizItems(pool).length))} سؤال کوتاه. زمان‌سنج به‌طور پیش‌فرض خاموش است.</p>
         <div className="flex flex-wrap gap-2">
           <button className="btn bg-primary text-primary-foreground" onClick={() => setStarted({ timer: false })}>شروع بدون زمان</button>
           <button className="btn border border-border" onClick={() => setStarted({ timer: true })}>⏱ شروع با زمان‌سنج</button>

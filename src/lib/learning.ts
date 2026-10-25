@@ -7,6 +7,7 @@ import type { Catalogue, CatalogueNode, Scope } from "@/lib/content/contracts";
 import type { Progress } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
 
+import { selectSourceTasks } from './sourcePractice';
 export const catalogueIndex = indexCatalogue(catalogue as unknown as Catalogue);
 export const nodeById = (id: string) => catalogueIndex.nodes.get(id);
 export const childrenOf = (id: string | null) => [...catalogueIndex.nodes.values()].filter(n => n.parent_id === id).sort((a, b) => (a.ordinal ?? 0) - (b.ordinal ?? 0));
@@ -18,6 +19,7 @@ export function ancestorsOf(id: string): CatalogueNode[] {
   return out;
 }
 export const nodeScope = (id: string): Scope => ({ kind: "node", node_ids: [id], include_descendants: true });
+export const scopeActivities = (scope: Scope) => selectSourceTasks(catalogueIndex, scope);
 /** Single approved-question service: scope → unique canonical items (live bundled + browser-local reviewed). Unknown scopes throw. */
 export function scopeQuestions(scope: Scope, gameId?: string) {
   return resolvePool(livePack(catalogue as unknown as Catalogue, getBankVersion()), catalogueIndex, scope, contextById, gameId);
@@ -61,7 +63,7 @@ export function restoreBookmark(b: Bookmark | null): Bookmark | null {
   if (!b) return null;
   const n = nodeById(b.nodeId);
   if (n) {
-    const available = safeScopeQuestions(b.scope).length > 0;
+    const available = safeScopeQuestions(b.scope).length > 0 || ['workbook','writing_studio'].includes(b.game ?? '') && scopeActivities(b.scope).some(t => b.game === 'writing_studio' ? t.kind === 'writing' : t.kind !== 'writing');
     if (!b.game || available) return b;
   }
   const parent = [...b.ancestors].reverse().map(nodeById).find(n => n && safeScopeQuestions(nodeScope(n.id)).length > 0);

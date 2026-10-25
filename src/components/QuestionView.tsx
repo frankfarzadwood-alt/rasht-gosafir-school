@@ -53,6 +53,7 @@ export function QuestionView({ item, mode, locked, onSubmit }: Props) {
         : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(q.reorder_tokens ?? [])} joiner=" " locked={locked} onSubmit={onSubmit} />
         : q.format === "matching" && q.pairs?.length ? <PairsInline key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : q.format === "matching" && isBookQuestion(q) ? <BoundedAnswer key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
+        : q.answer.fields?.length ? <MultipartAnswer key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : isChoice(q) ? <Choices key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : <Typed key={q.id} q={q} locked={locked} onSubmit={onSubmit} />}
     </div>
@@ -93,7 +94,7 @@ function Typed({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit
     <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); if (v.trim()) onSubmit(v, isAccepted(q, v)); }}>
       {q.prompt_en && <Prompt text={q.prompt_en} />}
       <label htmlFor={id} className="block text-sm font-bold">پاسخ انگلیسی</label>
-      <input id={id} autoFocus dir="ltr" lang="en" value={v} maxLength={120} disabled={locked} autoComplete="off" spellCheck={false}
+      <textarea id={id} autoFocus dir="ltr" lang="en" value={v} maxLength={2400} disabled={locked} autoComplete="off" spellCheck={false}
         onChange={(e) => setV(e.target.value)}
         className="en h-12 w-full rounded-xl border-2 border-input bg-card px-4 text-left text-lg focus:border-primary focus:outline-none" />
       {!locked && <button className="btn w-full bg-primary text-primary-foreground" disabled={!v.trim()}>بررسی پاسخ</button>}
@@ -175,3 +176,11 @@ function PairsInline({ q, locked, onSubmit }: { q: Question; locked: boolean; on
 }
 
 export { correctText };
+
+function MultipartAnswer({q,locked,onSubmit}:{q:Question;locked:boolean;onSubmit:Props['onSubmit']}){
+ const fields=q.answer.fields!;const [values,setValues]=useState(()=>fields.map(()=>''));const prefix=useId();
+ return <form className="space-y-3" onSubmit={e=>{e.preventDefault();if(!locked&&values.every(v=>v.trim())){const response=JSON.stringify(values);onSubmit(response,isAccepted(q,response));}}}>
+ <Prompt text={q.prompt_en??''}/><p className="text-sm text-muted-foreground">{q.answer.field_order==='unordered'?'هر پاسخ را در یک کادر بنویس؛ ترتیب پاسخ‌ها مهم نیست.':'پاسخ‌ها را به ترتیب قسمت‌های همین مورد بنویس.'}</p>
+ {fields.map((f,i)=><div key={i} className="space-y-1"><label htmlFor={`${prefix}-${i}`} dir="ltr" lang="en" className="en block text-sm font-bold">{f.label}</label><input id={`${prefix}-${i}`} autoFocus={i===0} dir="ltr" lang="en" value={values[i]} maxLength={2400} disabled={locked} autoComplete="off" spellCheck={false} onChange={e=>setValues(v=>v.map((x,j)=>i===j?e.target.value:x))} className="en h-12 w-full rounded-xl border-2 border-input bg-card px-4 text-left text-lg focus:border-primary focus:outline-none"/></div>)}
+ <button className="btn w-full bg-primary text-primary-foreground" disabled={locked||values.some(v=>!v.trim())}>بررسی پاسخ</button></form>;
+}

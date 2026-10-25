@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { QuestionView, hintFor, En, type Item } from "./QuestionView";
-import { correctText, contextById, type Context } from "@/lib/bank";
+import { correctText, responseText, contextById, type Context } from "@/lib/bank";
 import { recordAttempt, update } from "@/lib/progress";
 import { fa, SKILL_FA } from "@/lib/fa";
 import { summarize, learnerExplanation, type Attempt } from "@/lib/display";
@@ -97,7 +97,7 @@ export function GameRunner({
               <li key={r.item.q.id} className="rounded-xl bg-muted p-3 text-sm">
                 <En className="font-semibold">{r.item.q.prompt_en}</En>
                 <div className="mt-1">پاسخ درست: <En className="font-bold text-success">{correctText(r.item.q)}</En></div>
-                {r.firstResponse && <div className="mt-1">پاسخ اول تو: <En className="text-destructive">{r.firstResponse}</En></div>}
+                {r.firstResponse && <div className="mt-1">پاسخ اول تو: <En className="text-destructive">{responseText(r.item.q,r.firstResponse)}</En></div>}
                 {r.correctedOnRetry && <div className="mt-1 font-bold text-teal">✔ در تلاش دوباره درست شد (در دقت اولین تلاش حساب نمی‌شود)</div>}
                 {exam && learnerExplanation(r.item.q).fa && <div className="mt-1 text-muted-foreground">{learnerExplanation(r.item.q).fa}</div>}
               </li>

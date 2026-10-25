@@ -1,3 +1,5 @@
+import { EXPANSION } from './content/expansion';
+import { LIBRARY } from './content/library';
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -16,8 +18,8 @@ describe('reviewed Oxford expansion', () => {
     expect(OXFORD.questions).toHaveLength(2962);
     expect(OXFORD.vocabulary_entries).toHaveLength(639);
     expect(OXFORD_COVERAGE.ready_oxford_questions).toBe(3530);
-    expect(BUNDLED_QUESTIONS).toHaveLength(6926);
-    expect(dedupe(BUNDLED_QUESTIONS)).toHaveLength(6926);
+    expect(BUNDLED_QUESTIONS).toHaveLength(6926 + LIBRARY.questions.length + EXPANSION.questions.length);
+    expect(dedupe(BUNDLED_QUESTIONS)).toHaveLength(6926 + LIBRARY.questions.length + EXPANSION.questions.length);
     expect(PILOT.questions).toHaveLength(2163);
     expect(ALL_QUESTIONS).toHaveLength(1801);
     const live = new Map(BOOK_CONTENT.questions.map(q => [q.id, q]));
