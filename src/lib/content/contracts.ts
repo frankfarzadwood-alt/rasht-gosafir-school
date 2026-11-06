@@ -32,7 +32,7 @@ export interface Question extends QuestionBase {
   grade?: number; term?: number; revision: number; placements: Placement[];
 }
 export interface Context { id: string; kind: string; text: string | null; review_status: string; [key: string]: unknown }
-export interface Asset { id: string; kind: string; path: string; sha256: string; review_status: string; [key: string]: unknown }
+export interface Asset { id: string; kind: string; path: string; sha256: string; review_status: string; atlas_columns?: number; tile_index?: number; native_crop?: [number, number, number, number]; [key: string]: unknown }
 export interface Assessment {
   id: string; anchor_node_id: string; title_en: string; status: string;
   coverage_node_ids: string[]; question_ids: string[];

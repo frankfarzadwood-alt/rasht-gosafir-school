@@ -48,14 +48,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ماجراجویی انگلیسی | English Quest" },
-      { name: "description", content: "تمرین امتحان انگلیسی پایهٔ هفتم تا دوازدهم با بازی‌های آموزشی." },
+      { title: "GO SAFIR | ماجراجویی انگلیسی" },
+      { name: "description", content: "یادگیری انگلیسی با بازی؛ مدرسه، Evolve، Project، Oxford Word Skills و IELTS در سفیر." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/brand/safir-logo.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/brand/safir-logo.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Vazirmatn:wght@400;500;700;800&display=swap" },
@@ -86,19 +87,19 @@ function RootComponent() {
   useEffect(() => { void loadLocalOverlay(); }, []);
   return (
     <QueryClientProvider client={queryClient}>
-      <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
-        <nav className="mx-auto flex max-w-3xl items-center gap-2 px-3 py-2" aria-label="ناوبری اصلی">
-          <Link to="/" className="flex min-h-11 items-center gap-1.5 whitespace-nowrap text-sm font-extrabold text-primary sm:text-base">
-            <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" className="fill-primary" /><path d="M9 20 L16 8 L23 20 Z" className="fill-gold" /><circle cx="16" cy="22" r="3" className="fill-teal" /></svg>
-            ماجراجویی انگلیسی
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-background/95 backdrop-blur">
+        <nav className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-3" aria-label="سربرگ سفیر">
+          <Link to="/" className="flex min-h-11 items-center gap-3 whitespace-nowrap text-primary">
+            <img src="/brand/safir-logo.png" width="48" height="48" alt="نشان آموزشگاه زبان سفیر" className="h-12 w-12 rounded-full bg-white" />
+            <span><span lang="en" dir="ltr" className="block text-base font-extrabold tracking-widest">GO SAFIR</span><span className="block text-xs font-bold text-muted-foreground">ماجراجویی انگلیسی</span></span>
           </Link>
           <span className="flex-1" />
-          {p.nickname && <span className="whitespace-nowrap rounded-full bg-gold/25 px-2 py-1 text-xs font-bold" aria-label="امتیاز">⭐ {fa(totalXp(p))}</span>}
+          {p.nickname && <span className="whitespace-nowrap rounded-2xl border border-gold/50 bg-gold/20 px-3 py-2 text-xs font-extrabold" aria-label="امتیاز">⭐ {fa(totalXp(p))}</span>}
         </nav>
       </header>
-      <main className="mx-auto max-w-3xl px-3 py-5 pb-28"><Outlet /></main>
-      <nav aria-label="ناوبری اصلی" className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
-        <div className="mx-auto grid max-w-3xl grid-cols-5 px-1 py-2">
+      <main className="mx-auto max-w-3xl px-4 py-6 pb-36"><Outlet /></main>
+      <nav aria-label="ناوبری اصلی" className="app-dock fixed inset-x-0 bottom-0 z-30 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="mx-auto grid max-w-3xl grid-cols-5 gap-1 rounded-3xl border-2 border-border bg-card/95 p-2 shadow-xl backdrop-blur">
           {([{ to: "/", label: "خانه", icon: Home }, { to: "/learn", label: "یادگیری", icon: BookOpen }, { to: "/games", label: "بازی‌ها", icon: Gamepad2 }, { to: "/progress", label: "پیشرفت", icon: ChartNoAxesCombined }, { to: "/profile", label: "پروفایل", icon: User }] as const).map(item => <Button asChild key={item.to} variant="ghost" className="h-14 min-w-0 rounded-xl px-1"><Link to={item.to} activeOptions={{ exact: item.to === "/" }} activeProps={{ className: "bg-secondary text-primary" }} inactiveProps={{ className: "text-muted-foreground" }} className="flex flex-col gap-1 text-xs font-bold"><item.icon aria-hidden className="h-5 w-5" />{item.label}</Link></Button>)}
         </div>
       </nav>

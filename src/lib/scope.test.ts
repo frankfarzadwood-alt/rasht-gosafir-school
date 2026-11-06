@@ -91,9 +91,9 @@ describe("live school content through the shared service", () => {
     expect(modeAvailability(7, 1).quiz_sprint.count).toBe(81);
     expect(modeAvailability(8, 2).grammar_detective.count).toBe(26);
   });
-  it("books outside the supplied pilot remain empty", () => {
-    expect(scopeQuestions(practiceScope("whole_book", "evolve-2"))).toEqual([]);
-    expect(scopeQuestions(practiceScope("through_unit", "evolve-2.u003"))).toEqual([]);
+  it("the final book has its own populated scope and unknown units fail closed", () => {
+    expect(scopeQuestions(practiceScope("whole_book", "ielts-speaking-maximizer"))).toHaveLength(1320);
+    expect(() => practiceScope("through_unit", "ielts-speaking-maximizer.u999")).toThrow(ScopeError);
   });
   it("real choice grading uses stable option IDs and a wrong-first/correct-retry summary keeps first-try accuracy", () => {
     const q = quizItems(scopeQuestions(nodeScope("school")))[0]!;

@@ -1,0 +1,1132 @@
+{
+  "book": "evolve-1",
+  "release": "evolve-1-native-r1",
+  "preserved_workbook_questions": 639,
+  "preserved_quiz_questions": 956,
+  "adapted_page_image_questions": 127,
+  "new_workbook_listening_questions": 90,
+  "quiz_recordings": 24,
+  "workbook_recordings": 12,
+  "generated_picture_tiles": 64,
+  "oxford_recommendations": [
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 1,
+      "node_id": "evolve-1.u001",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 13,
+          "section": "A",
+          "unit_node_id": "ows-elementary.u013",
+          "source_label": "UNIT 13A"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 1,
+          "section": null,
+          "unit_node_id": "ows-elementary.u001",
+          "source_label": "UNIT 1"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 5,
+          "section": null,
+          "unit_node_id": "ows-elementary.u005",
+          "source_label": "UNIT 5"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 2,
+      "node_id": "evolve-1.u002",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 14,
+          "section": null,
+          "unit_node_id": "ows-elementary.u014",
+          "source_label": "UNIT 14"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 6,
+          "section": "A",
+          "unit_node_id": "ows-elementary.u006",
+          "source_label": "UNIT 6A"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 35,
+          "section": null,
+          "unit_node_id": "ows-elementary.u035",
+          "source_label": "UNIT 35"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 3,
+      "node_id": "evolve-1.u003",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 58,
+          "section": null,
+          "unit_node_id": "ows-elementary.u058",
+          "source_label": "UNIT 58"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 61,
+          "section": null,
+          "unit_node_id": "ows-elementary.u061",
+          "source_label": "UNIT 61"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 60,
+          "section": null,
+          "unit_node_id": "ows-elementary.u060",
+          "source_label": "UNIT 60"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 4,
+      "node_id": "evolve-1.u004",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 73,
+          "section": "A",
+          "unit_node_id": "ows-elementary.u073",
+          "source_label": "UNIT 73A"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 83,
+          "section": null,
+          "unit_node_id": "ows-elementary.u083",
+          "source_label": "UNIT 83"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 86,
+          "section": null,
+          "unit_node_id": "ows-elementary.u086",
+          "source_label": "UNIT 86"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 5,
+      "node_id": "evolve-1.u005",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 8,
+          "section": "A",
+          "unit_node_id": "ows-elementary.u008",
+          "source_label": "UNIT 8A"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 7,
+          "section": null,
+          "unit_node_id": "ows-elementary.u007",
+          "source_label": "UNIT 7"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 9,
+          "section": "A",
+          "unit_node_id": "ows-elementary.u009",
+          "source_label": "UNIT 9A"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 6,
+      "node_id": "evolve-1.u006",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 56,
+          "section": null,
+          "unit_node_id": "ows-elementary.u056",
+          "source_label": "UNIT 56"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 33,
+          "section": null,
+          "unit_node_id": "ows-elementary.u033",
+          "source_label": "UNIT 33"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 34,
+          "section": null,
+          "unit_node_id": "ows-elementary.u034",
+          "source_label": "UNIT 34"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 7,
+      "node_id": "evolve-1.u007",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 23,
+          "section": null,
+          "unit_node_id": "ows-elementary.u023",
+          "source_label": "UNIT 23"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 51,
+          "section": null,
+          "unit_node_id": "ows-elementary.u051",
+          "source_label": "UNIT 51"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 52,
+          "section": null,
+          "unit_node_id": "ows-elementary.u052",
+          "source_label": "UNIT 52"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 8,
+      "node_id": "evolve-1.u008",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 71,
+          "section": null,
+          "unit_node_id": "ows-elementary.u071",
+          "source_label": "UNIT 71"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 70,
+          "section": null,
+          "unit_node_id": "ows-elementary.u070",
+          "source_label": "UNIT 70"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 72,
+          "section": null,
+          "unit_node_id": "ows-elementary.u072",
+          "source_label": "UNIT 72"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 9,
+      "node_id": "evolve-1.u009",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 90,
+          "section": "B",
+          "unit_node_id": "ows-elementary.u090",
+          "source_label": "UNIT 90B"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 87,
+          "section": null,
+          "unit_node_id": "ows-elementary.u087",
+          "source_label": "UNIT 87"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 88,
+          "section": null,
+          "unit_node_id": "ows-elementary.u088",
+          "source_label": "UNIT 88"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 10,
+      "node_id": "evolve-1.u010",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 81,
+          "section": null,
+          "unit_node_id": "ows-elementary.u081",
+          "source_label": "UNIT 81"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 24,
+          "section": null,
+          "unit_node_id": "ows-elementary.u024",
+          "source_label": "UNIT 24"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 80,
+          "section": null,
+          "unit_node_id": "ows-elementary.u080",
+          "source_label": "UNIT 80"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 11,
+      "node_id": "evolve-1.u011",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 63,
+          "section": null,
+          "unit_node_id": "ows-elementary.u063",
+          "source_label": "UNIT 63"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 26,
+          "section": null,
+          "unit_node_id": "ows-elementary.u026",
+          "source_label": "UNIT 26"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 36,
+          "section": null,
+          "unit_node_id": "ows-elementary.u036",
+          "source_label": "UNIT 36"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    },
+    {
+      "evolve_book_id": "evolve-1",
+      "unit": 12,
+      "node_id": "evolve-1.u012",
+      "recommendations": [
+        {
+          "book_id": "ows-elementary",
+          "unit": 47,
+          "section": null,
+          "unit_node_id": "ows-elementary.u047",
+          "source_label": "UNIT 47"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 46,
+          "section": null,
+          "unit_node_id": "ows-elementary.u046",
+          "source_label": "UNIT 46"
+        },
+        {
+          "book_id": "ows-elementary",
+          "unit": 48,
+          "section": null,
+          "unit_node_id": "ows-elementary.u048",
+          "source_label": "UNIT 48"
+        }
+      ],
+      "source": "Evolve 1 Question Bank/Evolve 1 - Oxford corresponding units.md"
+    }
+  ],
+  "learning_targets": [
+    {
+      "unit": 1,
+      "section": 1,
+      "title": "I’m Brazilian. And you?",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Countries and nationalities"
+        },
+        {
+          "skill": "grammar",
+          "target": "I am, you are"
+        }
+      ]
+    },
+    {
+      "unit": 1,
+      "section": 2,
+      "title": "What’s your last name?",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "The alphabet; personal information"
+        },
+        {
+          "skill": "grammar",
+          "target": "What’s …?,  It’s …"
+        }
+      ]
+    },
+    {
+      "unit": 1,
+      "section": 3,
+      "title": "This is the key",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Checking into a hotel"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Checking spelling"
+        }
+      ]
+    },
+    {
+      "unit": 1,
+      "section": 4,
+      "title": "My profile",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Jobs"
+        },
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 2,
+      "section": 1,
+      "title": "A family party",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Family; numbers"
+        },
+        {
+          "skill": "grammar",
+          "target": "is /are in statements and yes/no questions"
+        }
+      ]
+    },
+    {
+      "unit": 2,
+      "section": 2,
+      "title": "They’re really funny!",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Describing people; really / very"
+        },
+        {
+          "skill": "grammar",
+          "target": "is not / are not"
+        }
+      ]
+    },
+    {
+      "unit": 2,
+      "section": 3,
+      "title": "When is your birthday?",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Asking about and saying ages and"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Correcting yourself"
+        }
+      ]
+    },
+    {
+      "unit": 2,
+      "section": 4,
+      "title": "Here’s my band",
+      "targets": [
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "grammar",
+          "target": "Prepositions of place"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 3,
+      "section": 1,
+      "title": "Welcome to my home",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Rooms in a home"
+        },
+        {
+          "skill": "grammar",
+          "target": "Possessive adjectives; possessive ’s and s’"
+        }
+      ]
+    },
+    {
+      "unit": 3,
+      "section": 2,
+      "title": "Is it really a chair?",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Furniture"
+        },
+        {
+          "skill": "grammar",
+          "target": "It is"
+        }
+      ]
+    },
+    {
+      "unit": 3,
+      "section": 3,
+      "title": "Coffee or tea?",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Making and replying to offers; accepting"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Asking about words you don’t understand"
+        }
+      ]
+    },
+    {
+      "unit": 3,
+      "section": 4,
+      "title": "Home-share",
+      "targets": [
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "grammar",
+          "target": "Information questions with be"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 4,
+      "section": 1,
+      "title": "Favorite things",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Technology"
+        },
+        {
+          "skill": "grammar",
+          "target": "Simple present: statements with I, you, we"
+        }
+      ]
+    },
+    {
+      "unit": 4,
+      "section": 2,
+      "title": "My phone is my world",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Using technology"
+        },
+        {
+          "skill": "grammar",
+          "target": "Simple present yes/no questions with I, you, we"
+        }
+      ]
+    },
+    {
+      "unit": 4,
+      "section": 3,
+      "title": "What about you?",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Continuing a conversation"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Showing you are listening"
+        }
+      ]
+    },
+    {
+      "unit": 4,
+      "section": 4,
+      "title": "Great! Five stars",
+      "targets": [
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "grammar",
+          "target": "a/an; Adjectives before nouns"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 5,
+      "section": 1,
+      "title": "Play or fast-forward?",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Days and times of day; everyday activities"
+        },
+        {
+          "skill": "grammar",
+          "target": "Simple present statements: he/she/they"
+        }
+      ]
+    },
+    {
+      "unit": 5,
+      "section": 2,
+      "title": "Listen to your body clock",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Telling the time"
+        },
+        {
+          "skill": "grammar",
+          "target": "Simple present questions"
+        }
+      ]
+    },
+    {
+      "unit": 5,
+      "section": 3,
+      "title": "Me, too",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Showing you agree and have things"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Short answers with adverbs of frequency"
+        }
+      ]
+    },
+    {
+      "unit": 5,
+      "section": 4,
+      "title": "A happy life",
+      "targets": [
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "listening",
+          "target": "Listen for supporting detail"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 6,
+      "section": 1,
+      "title": "Good places",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Places in cities"
+        },
+        {
+          "skill": "grammar",
+          "target": "There’s, There are; a lot of, some, no"
+        }
+      ]
+    },
+    {
+      "unit": 6,
+      "section": 2,
+      "title": "City life, wild life",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Nature"
+        },
+        {
+          "skill": "grammar",
+          "target": "Count and non-count nouns"
+        }
+      ]
+    },
+    {
+      "unit": 6,
+      "section": 3,
+      "title": "Is it near here?",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Asking for and giving directions"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Checking information"
+        }
+      ]
+    },
+    {
+      "unit": 6,
+      "section": 4,
+      "title": "A forest in the city",
+      "targets": [
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 7,
+      "section": 1,
+      "title": "A good time to call",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Activities around the house"
+        },
+        {
+          "skill": "grammar",
+          "target": "Present continuous statements"
+        }
+      ]
+    },
+    {
+      "unit": 7,
+      "section": 2,
+      "title": "Texting on the run",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Transportation"
+        },
+        {
+          "skill": "grammar",
+          "target": "Present continuous questions"
+        }
+      ]
+    },
+    {
+      "unit": 7,
+      "section": 3,
+      "title": "A new life",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Asking how things are going"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Reacting to news"
+        }
+      ]
+    },
+    {
+      "unit": 7,
+      "section": 4,
+      "title": "Chaos!",
+      "targets": [
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 8,
+      "section": 1,
+      "title": "She likes music, but she can’t dance!",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Verbs to describe skills"
+        },
+        {
+          "skill": "grammar",
+          "target": "can and can’t for ability; well"
+        }
+      ]
+    },
+    {
+      "unit": 8,
+      "section": 2,
+      "title": "Happy workers = great workers",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Work"
+        },
+        {
+          "skill": "grammar",
+          "target": "can and can’t for possibility"
+        }
+      ]
+    },
+    {
+      "unit": 8,
+      "section": 3,
+      "title": "Are you the right person?",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Giving and asking for opinions"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Explaining and saying more about an idea"
+        }
+      ]
+    },
+    {
+      "unit": 8,
+      "section": 4,
+      "title": "Computers and our jobs",
+      "targets": [
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "section": 1,
+      "title": "I love it here!",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Travel"
+        },
+        {
+          "skill": "grammar",
+          "target": "This and These"
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "section": 2,
+      "title": "San Francisco, here we come",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Travel arrangements"
+        },
+        {
+          "skill": "grammar",
+          "target": "like to, want, to, need to, have to"
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "section": 3,
+      "title": "They’re two for $15",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Asking for missing information and"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Asking someone to repeat something"
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "section": 4,
+      "title": "A great destination",
+      "targets": [
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "section": 1,
+      "title": "White nights",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Going out"
+        },
+        {
+          "skill": "grammar",
+          "target": "Statements with be going to"
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "section": 2,
+      "title": "But it’s summer there!",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Clothes; seasons"
+        },
+        {
+          "skill": "grammar",
+          "target": "Questions with be going to"
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "section": 3,
+      "title": "Let’s meet at the hotel",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Making and responding to suggestions"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Saying why you can’t do something"
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "section": 4,
+      "title": "A 24-hour city",
+      "targets": [
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "section": 1,
+      "title": "Flashback Friday",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Describing people, places, and things"
+        },
+        {
+          "skill": "grammar",
+          "target": "Statements with was and were"
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "section": 2,
+      "title": "Our old phone was green",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Colors"
+        },
+        {
+          "skill": "grammar",
+          "target": "Questions with was and were"
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "section": 3,
+      "title": "I have no idea",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Expressing uncertainty"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Taking time to think"
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "section": 4,
+      "title": "Things we keep",
+      "targets": [
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    },
+    {
+      "unit": 12,
+      "section": 1,
+      "title": "Backpacking and snacking",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Snacks and small meals"
+        },
+        {
+          "skill": "grammar",
+          "target": "Simple past statements"
+        }
+      ]
+    },
+    {
+      "unit": 12,
+      "section": 2,
+      "title": "What did you eat?",
+      "targets": [
+        {
+          "skill": "vocabulary",
+          "target": "Food, drinks and desserts"
+        },
+        {
+          "skill": "grammar",
+          "target": "Simple past questions; any"
+        }
+      ]
+    },
+    {
+      "unit": 12,
+      "section": 3,
+      "title": "Please pass the butter",
+      "targets": [
+        {
+          "skill": "functional language",
+          "target": "Making and responding to offers and"
+        },
+        {
+          "skill": "real-world strategy",
+          "target": "Using so and really to make words"
+        }
+      ]
+    },
+    {
+      "unit": 12,
+      "section": 4,
+      "title": "What did the reviewers say?",
+      "targets": [
+        {
+          "skill": "listening",
+          "target": "LISTENING"
+        },
+        {
+          "skill": "reading",
+          "target": "READING"
+        },
+        {
+          "skill": "writing",
+          "target": "WRITING"
+        }
+      ]
+    }
+  ],
+  "coverage_statement": "Native conversion covers the existing reviewed workbook and quiz bank, with the supplied workbook listening tasks added. Open writing and personal-response tasks are offered separately as unscored practice; counts are not a claim that every printed task has an automatically graded equivalent."
+}

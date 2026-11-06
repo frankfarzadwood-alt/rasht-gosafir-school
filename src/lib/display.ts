@@ -34,7 +34,13 @@ export const isGenericInstruction = (s: string | null | undefined) => !s || GENE
 
 export function learnerInstruction(q: Question, mode?: string): { fa?: string; en?: string } {
   if (q.assets.source_audio_required) return { fa: 'فایل صوتی را گوش بده و به انگلیسی پاسخ بده.' };
-  if (mode === 'grammar_detective' && q.format === 'reorder_words') return { fa: 'جملهٔ خطادار را بخوان و با کارت‌ها شکل درست آن را بساز.' };
+  if (q.id.startsWith('evolve1.') && q.assets.source_image_required && (!mode || mode === 'quest_trail' || mode === 'boss_exam')) return { fa: 'تصویر را ببین و پاسخ مناسب را بنویس یا انتخاب کن.' };
+  if (q.native_options) return { fa: 'تصویری را انتخاب کن که با جمله مطابقت دارد.' };
+  if (q.native_presentation && q.format === 'odd_one_out') return { fa: 'گزینهٔ نامناسب را پیدا کن.' };
+  if (q.native_presentation && (q.prompt_en?.match(/_{2,}/g) ?? []).length > 1 && ['mcq','true_false','classify','odd_one_out'].includes(q.format)) return { fa: 'گزینه‌ای را انتخاب کن که پاسخ همهٔ جاهای خالی را به ترتیب از چپ به راست نشان می‌دهد.' };
+  if ((q.native_presentation || q.id.startsWith('evolve1.')) && mode === 'quiz_sprint' && !['mcq','true_false','classify','odd_one_out'].includes(q.format)) return { fa: q.format === 'reorder_words' ? 'با کارت‌ها جملهٔ درست را بساز.' : 'پاسخ مناسب را بنویس.' };
+  if (mode === 'grammar_detective' && q.format === 'reorder_words') return { fa: q.error_sentence_en ? 'جملهٔ خطادار را بخوان و با کارت‌ها شکل درست آن را بساز.' : 'با کارت‌ها جملهٔ درست را بساز.' };
+  if (mode === 'grammar_detective' && (q.native_presentation || /^evolve[1-6]\./.test(q.id)) && !['mcq','true_false','classify','odd_one_out'].includes(q.format)) return { fa: 'با توجه به دستور زبان، پاسخ درست را بنویس.' };
   const m = mode ? MODE_INSTRUCTION_FA[mode] : undefined;
   if (m) return { fa: m };
   if (!isGenericInstruction(q.instruction_fa)) return { fa: q.instruction_fa! };

@@ -1,0 +1,11 @@
+import raw from '@/data/project3/native.pack.json?raw';
+import catalogue from '@/data/project3/catalogue.json';
+import targets from '@/data/project3/learning-targets.json';
+import writing from '@/data/project3/writing.json';
+import selections from '@/data/project3/selections.json';
+import type { CatalogueNode,QuestionPack,Scope } from './contracts';
+export const PROJECT3_NATIVE=JSON.parse(raw) as QuestionPack;
+export const PROJECT3_NODES=catalogue as unknown as CatalogueNode[];
+export const PROJECT3_TARGETS=targets;
+export const PROJECT3_WRITING=writing;
+export const PROJECT3_SELECTIONS=selections as unknown as {id:string;title_en:string;anchor_node_id:string;selection_type:string;scope:Scope;expected_ready_count:number;counted_canonical_question_ids:string[]}[];

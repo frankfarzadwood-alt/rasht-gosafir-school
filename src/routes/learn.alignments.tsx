@@ -9,7 +9,7 @@ export const Route = createFileRoute("/learn/alignments")({
     book: typeof s["book"] === "string" ? s["book"] : undefined,
     unit: typeof s["unit"] === "string" ? s["unit"] : undefined,
   }),
-  head: () => pageMeta("ارتباط آکسفورد و ایوالو", "نقشهٔ دوطرفهٔ ارتباط درس‌های Oxford Word Skills و Evolve، فقط با ارتباط‌های بازبینی‌شده."),
+  head: () => pageMeta("ارتباط Oxford Word Skills و Evolve", "نقشهٔ دوطرفهٔ ارتباط درس‌های Oxford Word Skills و Evolve، فقط با ارتباط‌های بازبینی‌شده."),
   component: Alignments,
 });
 function Alignments() {
@@ -20,10 +20,10 @@ function Alignments() {
   const edges = recommendedAlignments(ALIGNMENTS, catalogueIndex, { book, unit });
   return <div className="space-y-5">
     <nav className="text-sm"><Link to="/learn" className="btn px-2">یادگیری</Link></nav>
-    <h1 className="text-2xl font-extrabold text-primary">ارتباط آکسفورد و ایوالو</h1>
+    <h1 className="text-2xl font-extrabold text-primary">ارتباط Oxford Word Skills و Evolve</h1>
     <p className="text-sm text-muted-foreground">ارتباط‌ها دوطرفه‌اند و فقط برای پیشنهاد مطالعه نشان داده می‌شوند؛ تکمیل یا تسلط از یک درس به درس دیگر منتقل نمی‌شود. سطح CEFR و سختی تمرین جدا از هم نگه داشته می‌شوند.</p>
     <div className="grid gap-3 sm:grid-cols-2">
-      <label className="space-y-1"><span className="font-bold">کتاب</span><select className="h-12 w-full rounded-xl border border-input bg-card px-3" value={book ?? ""} onChange={e => navigate({ search: { book: e.target.value || undefined, unit: undefined } })}><option value="">همهٔ کتاب‌ها</option>{books.map(b => <option key={b.id} value={b.id}>{nodeTitle(b)} — {b.title_en}</option>)}</select></label>
+      <label className="space-y-1"><span className="font-bold">کتاب</span><select className="h-12 w-full rounded-xl border border-input bg-card px-3" value={book ?? ""} onChange={e => navigate({ search: { book: e.target.value || undefined, unit: undefined } })}><option value="">همهٔ کتاب‌ها</option>{books.map(b => <option key={b.id} value={b.id}>{nodeTitle(b)}</option>)}</select></label>
       <label className="space-y-1"><span className="font-bold">درس</span><select className="h-12 w-full rounded-xl border border-input bg-card px-3" disabled={!book} value={unit ?? ""} onChange={e => navigate({ search: { book, unit: e.target.value || undefined } })}><option value="">همهٔ درس‌ها</option>{units.map(u => <option key={u.id} value={u.id}>{nodeTitle(u)}</option>)}</select></label>
     </div>
     {edges.length ? <ul className="space-y-2">{edges.map(e => { const from = nodeById(e.from_node_id), to = nodeById(e.to_node_id); if (!from || !to) return null; return <li key={e.id} className="card-soft space-y-2 p-4"><p className="text-xs text-muted-foreground">بازبینی‌شده توسط دستیار؛ تأیید معلم نیست</p><div className="flex flex-wrap items-center gap-2">{[from, to].map((n, i) => <span key={n.id}>{i > 0 && ' ↔ '}<Link to="/learn/$nodeId" params={{ nodeId: n.id }} search={{ view: 'units' }} className="text-primary underline"><span dir="ltr" lang="en">{n.title_en}</span></Link><span className="block text-xs text-muted-foreground">{scopeQuestions(nodeScope(n.id)).length ? 'تمرین آماده دارد' : 'تمرین هنوز آماده نیست'}</span></span>)}</div></li>; })}</ul>

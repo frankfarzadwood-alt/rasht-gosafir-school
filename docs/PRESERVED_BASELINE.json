@@ -1,0 +1,32 @@
+[
+  {
+    "file": "src/data/bank.json",
+    "unchanged": true,
+    "sha256": "ec9dff3327360ecd67678f529cf1b33ce2945cd187502b304c0bc2692df36a9d"
+  },
+  {
+    "file": "src/data/pilot/question_pack.pilot.json",
+    "unchanged": true,
+    "sha256": "e0a38ae3e175722fdccdd450b3af95daf3aa298df01afd279cca2093e6ea84a7"
+  },
+  {
+    "file": "src/data/oxford/expanded.pack.json",
+    "unchanged": true,
+    "sha256": "2a76eccb7d63a2cc935105052a75c756d1aa8f1d7306fc3e1add6ebb83aea506"
+  },
+  {
+    "file": "src/lib/progress.ts",
+    "unchanged": true,
+    "sha256": "7ca3e5552c65b0620a4253a3b3315b5ad5597198c37d00096c71787cf0b24ee2"
+  },
+  {
+    "file": "vite.config.ts",
+    "unchanged": true,
+    "sha256": "694f17daf64d3bf3481ee838ce69c26c593c60c0ed45a19209754fe5a742bcf0"
+  },
+  {
+    "file": "package.json",
+    "unchanged": true,
+    "sha256": "73981cf5f7ebb5a84d2dae1dcd66082efe0798d8916e0129abde8f2db64149e0"
+  }
+]

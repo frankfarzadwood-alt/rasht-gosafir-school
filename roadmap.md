@@ -1,3 +1,7 @@
+# Complete collection status - 6 November 2026
+
+All eighteen requested books are implemented in the cumulative source, alongside the completed school section. The bank now contains 31,000 questions; native writing/speaking and bonus shadowing practice remain separate and unscored. See LOVABLE_IMPORT.md and the current book-specific documents in docs for coverage and handover. The original planning and verification notes below describe earlier stages; they are historical records rather than current capability limits or workflow instructions.
+
 # Stage 02
 - [x] Repair strict type errors in shared learning navigation without changing content or reward rules.
 - [x] Build five Persian destinations, Home and local onboarding.

@@ -1,0 +1,14 @@
+# Oxford Intermediate generated photos
+
+Created with the built-in image generation tool and visually inspected. Each 4-by-4 atlas supplies 16 independent native photo choices. No source-page crops are used. Selected files:
+
+- `public/assets/oxford-intermediate-native/animals-v1.png`
+- `public/assets/oxford-intermediate-native/produce-v1.png`
+
+## Animals final prompt
+
+Use case: scientific-educational. Asset type: native English vocabulary game photo atlas. Create one square image divided into EXACTLY 4 rows and 4 columns of 16 equally sized square photographs. No gaps, borders, labels, letters or numbers. Each photograph has one clearly recognizable subject entirely within its cell with safe margins, independent natural composition and soft realistic lighting. Row 1 left to right: a bull with visible horns standing in a field; a tiger in grass; a camel in a desert; a brown bear near woodland. Row 2: a leopard with spots on a rock; a grey wolf standing; a crocodile beside a river; an eagle perched with visible beak and body. Row 3: a spider with eight legs on a leaf; a butterfly with open colourful wings; a honeybee on a flower; a mosquito in macro view on a plain leaf. Row 4: one detached bird feather on a neutral backdrop; a close view of one outstretched bird wing; a close detail of thick brown mammal fur; a close view of a cat's long tail with enough hindquarters to show it is a tail. Photographic realism, consistent educational clarity. Avoid text, branding, book imagery and objects crossing cell boundaries. This is new independent artwork.
+
+## Produce final prompt
+
+Use case: scientific-educational. Asset type: native English vocabulary game photo atlas. Create one square image with EXACTLY 4 rows and 4 columns of 16 equal square photographic cells. No borders, gaps, captions, numbers or letters. One produce subject per cell, centered with safe margins on a pale neutral backdrop, realistic food photography, clear botanical distinctions. Row 1 left to right: a cantaloupe melon with one cut wedge showing orange flesh; a pineapple with green crown; a mango with one sliced cheek showing orange flesh; a small cluster of red cherries with stems. Row 2: a green pear; a whole round green cabbage; an ear of sweetcorn partly peeled; a head of leafy green lettuce with loose visible leaves. Row 3: a garlic bulb with one clove; a courgette (zucchini) with tapered stem, smooth dark green skin and a cut round showing pale firm flesh; a cucumber with bumpy dark green skin and a cut round showing translucent seeded centre; a sprig of mint showing serrated leaves. Row 4: a small pile of green beans; a red bell pepper; a head of broccoli; a bunch of flat-leaf parsley. No packaging, logos, labels or book pages. All 16 cells are independent photographs with no spill between neighbouring cells.

@@ -1,6 +1,9 @@
 import { useSyncExternalStore } from "react";
 import raw from "@/data/bank.json";
 import { PILOT, BOOK_CONTENT, BOOK_RELEASES, mediaAsset } from './content/pilot';
+import { evolveUnitNumbers, type NativeScene } from './content/evolve';
+import { projectWritingUnits } from './content/project-series';
+import { ieltsWritingUnits,ieltsSpeakingTasks } from './content/ielts-series';
 
 export type Option = { id: string; text: string };
 export type Pair = { left: string; right: string };
@@ -18,6 +21,8 @@ export type Question = {
   revision?: number; placements?: { node_id: string; relation: string }[];
   vocabulary_entry_id?: string; letter_pool?: string[]; requires_capabilities?: string[];
   error_sentence_en?: string; corrected_sentence_en?: string; reviewer_label?: string;
+  native_scene?: NativeScene; native_options?: Record<string, string>;
+  native_presentation?: boolean;
   assets: { image: unknown; audio: unknown; source_image_required: boolean; source_audio_required: boolean; required_asset_ids?: string[] };
   review_status: string; review_issues: string[]; eligible_games: string[];
   reorder_tokens: string[] | null; pairs: Pair[] | null; word_bank: string[] | null;
@@ -32,6 +37,7 @@ export type Question = {
 };
 export type Context = {
   display_policy?: string;
+  spoken_transcript?: boolean;
   id: string; kind: string; text: string | null; review_status: string; content_origin?: string;
   source_id?: string; source_page?: number; source_pdf_url?: string;
 };
@@ -96,12 +102,14 @@ export function ineligibility(q: Question, ctx: CtxLookup = contextById): string
   if (q.assets?.source_audio_required && !q.assets.audio) r.push("missing_audio");
   if (q.skill === "listening" && !q.assets?.audio) r.push("missing_audio");
   if (isBookQuestion(q)) {
-    const supported = ['image_display', 'audio_playback', 'reading_context', 'context_display', 'error_correction_display'];
+    const supported = ['image_display', 'audio_playback', 'reading_context', 'context_display', 'error_correction_display', 'native_scene'];
     for (const c of q.requires_capabilities ?? []) if (!supported.includes(c)) r.push(`unsupported_capability:${c}`);
     for (const id of q.assets.required_asset_ids ?? []) if (!mediaAsset(id)) r.push(`unresolved_asset:${id}`);
     if (q.assets.source_image_required && !mediaAsset(q.assets.image)) r.push('unresolved_image');
     if (q.assets.source_audio_required && !mediaAsset(q.assets.audio)) r.push('unresolved_audio');
     if (q.requires_capabilities?.includes('error_correction_display') && (!q.error_sentence_en || !q.corrected_sentence_en)) r.push('missing_error_correction');
+    if (q.requires_capabilities?.includes('native_scene') && !q.native_scene && !q.native_options) r.push('missing_native_scene');
+    if (q.native_options && q.options.some(o => !mediaAsset(q.native_options?.[o.id]))) r.push('missing_native_option_image');
   }
   return r;
 }
@@ -136,8 +144,11 @@ export function tokensMatch(q: Question) {
 export function gradeTokens(q: Question, order: string[]) {
   return isAccepted(q, order.join(" "));
 }
-export const correctText = (q: Question) =>
-  isChoice(q) ? q.options.find((o) => o.id === q.answer.correct_option_id)?.text ?? q.answer.value ?? "" : q.answer.value ?? "";
+export const correctText = (q: Question) => {
+  const correctImage = q.answer.correct_option_id && q.native_options?.[q.answer.correct_option_id];
+  if (correctImage) return mediaAsset(correctImage)?.alt || q.answer.value || "Correct picture";
+  return isChoice(q) ? q.options.find((o) => o.id === q.answer.correct_option_id)?.text ?? q.answer.value ?? "" : q.answer.value ?? "";
+};
 
 // ---------- Track queries ----------
 export const trackQuestions = (grade: number, term: number) =>
@@ -187,7 +198,24 @@ export function gapItems(track: Question[]): GapItem[] {
 export function forgeItems(track: Question[]) {
   return track.filter((q) => q.eligible_games.includes("word_forge") && /^[A-Za-z]{3,14}$/.test(q.answer.value ?? "") && (!isBookQuestion(q) || (q.letter_pool?.map(s => s.toLowerCase()).sort().join('') === q.answer.value?.toLowerCase().split('').sort().join(''))));
 }
-export const letterPool = (word: string) => shuffle(word.split(""));
+/** Approved pools specify the letters, not their display order. Scramble afresh for each question. */
+export function letterPool(word: string, approvedPool?: readonly string[], seed = Math.random()): string[] {
+  const letters = approvedPool?.length ? [...approvedPool] : word.split('');
+  const blocked = new Set([word.toLowerCase(), word.split('').reverse().join('').toLowerCase()]);
+  const predictable = (pool: string[]) => blocked.has(pool.join('').toLowerCase());
+  let mixed = shuffle(letters, seed);
+  for (let retry = 1; predictable(mixed) && retry <= 8; retry++) {
+    mixed = shuffle(letters, (seed + retry * 0.618033988749895) % 1);
+  }
+  if (!predictable(mixed)) return mixed;
+  // A bounded fallback also handles repeated letters and fixed random seeds.
+  for (let i = 0; i < mixed.length; i++) for (let j = i + 1; j < mixed.length; j++) {
+    const candidate = [...mixed];
+    [candidate[i], candidate[j]] = [candidate[j]!, candidate[i]!];
+    if (!predictable(candidate)) return candidate;
+  }
+  return mixed; // No other order exists (for example, identical letters).
+}
 
 export function sentenceItems(track: Question[]) {
   return track.filter((q) => q.eligible_games.includes("sentence_builder") && q.format === "reorder_words" && tokensMatch(q));
@@ -199,7 +227,7 @@ export function pairCandidates(track: Question[]): PairCard[] {
   for (const q of track) {
     // Pair-only runners cannot display a passage or required media. Other games
     // retain these questions and provide their context/audio/image controls.
-    if (q.context_id || q.assets.source_audio_required || q.assets.source_image_required || q.assets.required_asset_ids?.length) continue;
+    if (q.context_id || q.native_scene || q.native_options || q.assets.source_audio_required || q.assets.source_image_required || q.assets.required_asset_ids?.length) continue;
     if (q.format === "matching" && q.pairs && (q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs"))) {
       q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right, skill: q.skill }));
     } else if ((q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs")) && q.answer.value && q.prompt_en) {
@@ -236,7 +264,7 @@ export function flashcardItems(pool: Question[]): FlashcardItem[] {
   });
 }
 
-export const grammarItems = (track: Question[]) => track.filter((q) => q.eligible_games.includes("grammar_detective") && q.skill === "grammar" && (isBookQuestion(q) ? !!q.error_sentence_en && !!q.corrected_sentence_en && tokensMatch(q) : isChoice(q)));
+export const grammarItems = (track: Question[]) => track.filter((q) => q.eligible_games.includes("grammar_detective") && q.skill === "grammar" && (/^(?:evolve[1-6]\.|project[1-5]\.|ieltsg\.|ieltsv65\.|ieltsv60\.|maxi\.|ows\.(?:int|upper)\.)/.test(q.id) ? isChoice(q) || isTyped(q) || q.format === 'reorder_words' && tokensMatch(q) : isBookQuestion(q) ? !!q.error_sentence_en && !!q.corrected_sentence_en && tokensMatch(q) : isChoice(q)));
 export const quizItems = (track: Question[]) => track.filter((q) => (isChoice(q) || !!isBookQuestion(q)) && q.eligible_games.includes("quiz_sprint"));
 /** Each passage keeps only its own questions; a passage whose context cannot be resolved is left out. */
 export function readingGroups(track: Question[], ctx: CtxLookup = contextById) {
@@ -297,7 +325,7 @@ export function poolMissions(scopeKey: string, pool: Question[]): Mission[] {
 // ---------- Mode catalogue ----------
 export type ModeId =
   | "quest_trail" | "quiz_sprint" | "gap_builder" | "word_forge" | "sentence_builder" | "match_arena"
-  | "memory_pairs" | "flashcards" | "grammar_detective" | "reading_explorer" | "listening_lab" | "boss_exam" | "writing_studio";
+  | "memory_pairs" | "flashcards" | "grammar_detective" | "reading_explorer" | "listening_lab" | "boss_exam" | "writing_studio" | "speaking_studio";
 export const MODES: { id: ModeId; fa: string; desc: string; icon: string }[] = [
   { id: "quest_trail", fa: "مسیر ماجراجویی", desc: "مأموریت‌های کوتاه ترکیبی", icon: "🗺️" },
   { id: "quiz_sprint", fa: "دوی سرعت", desc: "۶ تا ۸ تست چندگزینه‌ای", icon: "⚡" },
@@ -312,6 +340,7 @@ export const MODES: { id: ModeId; fa: string; desc: string; icon: string }[] = [
   { id: "listening_lab", fa: "آزمایشگاه شنیداری", desc: "فایل صوتی تأییدشده", icon: "🎧" },
   { id: "boss_exam", fa: "امتحان نهایی", desc: "آزمون کامل با بازخورد در پایان", icon: "🏆" },
   { id: "writing_studio", fa: "استودیوی نوشتن", desc: "نوشتن آزاد با معیار ارزیابی", icon: "✍️" },
+  { id:'speaking_studio',fa:'استودیوی گفتار',desc:'گفتار با پرسش، کارت و تایمر تمرینی',icon:'🗣️' },
 ];
 
 export type ModeAvailability = Record<ModeId, { count: number; reason?: string }>;
@@ -332,9 +361,10 @@ export function poolAvailability(t: Question[], missionCount = poolMissions("x",
     flashcards: { count: flashcardItems(t).length, reason: "واژه و معنی بازبینی‌شده‌ای برای فلش‌کارت این بخش آماده نیست." },
     grammar_detective: { count: grammarItems(t).length },
     reading_explorer: { count: readingGroups(t).length, reason: "متن درک مطلب تأییدشده‌ای برای این بخش وارد نشده است." },
-    listening_lab: { count: 0, reason: t.some(q => q.assets.source_audio_required) ? 'فایل صوتی در بازی‌های سازگار این بخش پخش می‌شود؛ بازی شنیداری جداگانه آماده نیست.' : "هنوز هیچ فایل صوتی تأییدشده‌ای وارد نشده است." },
+    listening_lab: { count: t.filter(q => q.eligible_games.includes('listening_lab') && /^(?:evolve[1-6]|project[1-5]|ieltsg|ieltsv65|ieltsv60)\./.test(q.id) && q.assets.source_audio_required && isEligible(q)).length, reason: 'هنوز فایل صوتی آماده‌ای در این محدوده نیست.' },
     boss_exam: { count: dedupe(t).length },
-    writing_studio: { count: 0, reason: "هنوز تمرین نوشتاری بازبینی‌شده با معیار ارزیابی وارد نشده است." },
+    writing_studio: { count: evolveUnitNumbers(t, true).length + projectWritingUnits(t).length + ieltsWritingUnits(t).length, reason: "هنوز تمرین نوشتاری برای این محدوده آماده نیست." },
+    speaking_studio:{count:ieltsSpeakingTasks(t).length,reason:'هنوز کارت گفتاری برای این محدوده آماده نیست.'},
   };
 }
 

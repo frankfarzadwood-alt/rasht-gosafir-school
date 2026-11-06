@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { NativePhoto } from './NativeScene';
+import { mediaAsset } from '@/lib/content/pilot';
 import { learnerInstruction } from "@/lib/display";
 import { useId } from "react";
 import { type Question, gradeChoice, isAccepted, isChoice, shuffle, letterPool, correctText, isBookQuestion } from "@/lib/bank";
@@ -40,16 +42,17 @@ export function hintFor(q: Question, kind: Kind) {
   return "جمله را کامل بخوان و معنی کلی آن را در نظر بگیر.";
 }
 
-type Props = { item: Item; mode?: string; locked: boolean; onSubmit: (response: string, correct: boolean) => void };
+type Props = { item: Item; mode?: string; locked: boolean; onSubmit: (response: string, correct: boolean) => void; onMediaReady?: (ready: boolean) => void };
 
-export function QuestionView({ item, mode, locked, onSubmit }: Props) {
+export function QuestionView({ item, mode, locked, onSubmit, onMediaReady }: Props) {
   const { q, kind } = item;
   const ins = learnerInstruction(q, mode);
   return (
     <div className="space-y-4">
       <p className="text-sm font-medium text-muted-foreground">{ins.fa ?? <En>{ins.en}</En>}</p>
-      {kind === "chips" ? <ChipGap key={q.id} item={item} locked={locked} onSubmit={onSubmit} />
-        : kind === "letters" ? <Builder key={q.id} q={q} tiles={q.letter_pool?.length ? q.letter_pool : letterPool(q.answer.value ?? "")} joiner="" locked={locked} onSubmit={onSubmit} clue />
+      {q.native_options ? <PictureChoices key={q.id} q={q} locked={locked} onSubmit={onSubmit} onMediaReady={onMediaReady} />
+        : kind === "chips" ? <ChipGap key={q.id} item={item} locked={locked} onSubmit={onSubmit} />
+        : kind === "letters" ? <Builder key={q.id} q={q} tiles={letterPool(q.answer.value ?? "", q.letter_pool)} joiner="" locked={locked} onSubmit={onSubmit} clue />
         : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(q.reorder_tokens ?? [])} joiner=" " locked={locked} onSubmit={onSubmit} />
         : q.format === "matching" && q.pairs?.length ? <PairsInline key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : q.format === "matching" && isBookQuestion(q) ? <BoundedAnswer key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
@@ -57,6 +60,14 @@ export function QuestionView({ item, mode, locked, onSubmit }: Props) {
         : <Typed key={q.id} q={q} locked={locked} onSubmit={onSubmit} />}
     </div>
   );
+}
+
+function PictureChoices({ q, locked, onSubmit, onMediaReady }: { q: Question; locked: boolean; onSubmit: Props['onSubmit']; onMediaReady?: Props['onMediaReady'] }) {
+  const opts = useMemo(() => shuffle(q.options), [q.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [loaded, setLoaded] = useState<string[]>([]), [failed, setFailed] = useState(false), [retry, setRetry] = useState(0);
+  const ready = !failed && loaded.length === q.options.length;
+  useEffect(() => { onMediaReady?.(ready); }, [ready, onMediaReady]);
+  return <><Prompt text={q.prompt_en ?? ''} /><div className="grid grid-cols-3 gap-3" dir="ltr">{opts.map((o,i) => {const label=String.fromCharCode(65+i),assetId=q.native_options![o.id]!;return <button key={o.id} disabled={locked || !ready} aria-label={`Picture ${label}`} className="rounded-2xl border-2 border-border bg-card p-1 transition hover:border-primary focus-visible:outline-2 focus-visible:outline-primary disabled:cursor-default" onClick={() => onSubmit(mediaAsset(assetId)?.alt || `Picture ${label}`, gradeChoice(q,o.id))}><NativePhoto key={`${o.id}:${retry}`} assetId={assetId} onLoad={() => setLoaded(ids => ids.includes(o.id) ? ids : [...ids,o.id])} onError={() => setFailed(true)} /><span className="block py-1 text-sm font-bold">{label}</span></button>;})}</div>{failed && <div role="alert" className="space-y-2"><p>تصویرها بارگیری نشدند؛ پاسخی ثبت نشده است.</p><Button variant="outline" onClick={() => { setLoaded([]); setFailed(false); setRetry(r => r+1); }}>تلاش دوباره</Button></div>}</>;
 }
 
 function BoundedAnswer({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit: Props['onSubmit'] }) {

@@ -1,3 +1,20 @@
+import {MAXIMIZER_NATIVE} from './content/ielts-maximizer';
+import {IELTS_VOCABULARY60_NATIVE} from './content/ielts-vocabulary60';
+import {IELTS_VOCABULARY65_NATIVE} from './content/ielts-vocabulary65';
+import {IELTS_GRAMMAR_NATIVE} from './content/ielts-grammar65';
+import { PROJECT5_NATIVE } from './content/project5';
+import { PROJECT4_NATIVE } from './content/project4';
+import { PROJECT3_NATIVE } from './content/project3';
+import { PROJECT2_NATIVE } from './content/project2';
+import { PROJECT1_NATIVE } from './content/project1';
+import { EVOLVE6_NATIVE } from './content/evolve6';
+import { OXFORD_UPPER } from './content/oxford-upper';
+import { EVOLVE5_NATIVE } from './content/evolve5';
+import { EVOLVE4_NATIVE } from './content/evolve4';
+import { EVOLVE_NATIVE } from './content/evolve';
+import { EVOLVE2_NATIVE } from './content/evolve2';
+import { EVOLVE3_NATIVE } from './content/evolve3';
+import { OXFORD_INTERMEDIATE } from './content/oxford-intermediate';
 import { describe, expect, it } from 'vitest';
 import { PILOT, ASSET_POINTERS, mediaAsset, LIVE_CATALOGUE } from './content/pilot';
 import { mergeQuestionRevisions, stableStringify } from './content/core';
@@ -20,7 +37,7 @@ describe('full Evolve 1 + Oxford upgrade', () => {
     expect(PILOT.questions.filter(q => q.id.startsWith('evolve1.quiz.'))).toHaveLength(956);
     expect(PILOT.questions.filter(q => q.id.startsWith('ows.'))).toHaveLength(568);
     expect(ALL_QUESTIONS).toHaveLength(1801);
-    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length);
+    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length + EVOLVE_NATIVE.questions.length + EVOLVE2_NATIVE.questions.length + EVOLVE3_NATIVE.questions.length + OXFORD_INTERMEDIATE.questions.length + EVOLVE4_NATIVE.questions.length + EVOLVE5_NATIVE.questions.length + OXFORD_UPPER.questions.length + EVOLVE6_NATIVE.questions.length + PROJECT1_NATIVE.questions.length + PROJECT2_NATIVE.questions.length + PROJECT3_NATIVE.questions.length + PROJECT4_NATIVE.questions.length + PROJECT5_NATIVE.questions.length + IELTS_GRAMMAR_NATIVE.questions.length + IELTS_VOCABULARY65_NATIVE.questions.length + IELTS_VOCABULARY60_NATIVE.questions.length + MAXIMIZER_NATIVE.questions.length);
     expect(PILOT.questions.every(q => q.answer.verification_status === 'reviewed_by_assistant')).toBe(true);
   });
   it('upgrading from the pilot adds 1963 and leaves all 200 pilot records unchanged', () => {
@@ -37,7 +54,7 @@ describe('full Evolve 1 + Oxford upgrade', () => {
   });
   it('every required context and media dependency resolves; nothing is gated by missing files', () => {
     expect(Object.keys(ASSET_POINTERS)).toHaveLength(58);
-    expect(PILOT.assets.every(a => mediaAsset(a.id)?.url.startsWith('/__l5e/assets-v1/'))).toBe(true);
+    expect(PILOT.assets.every(a => mediaAsset(a.id)?.url.startsWith(a.kind === 'audio' ? '/assets/evolve-1-native/' : '/__l5e/assets-v1/'))).toBe(true);
     for (const q of PILOT_QUESTIONS) if (q.context_id) expect(contextById(q.context_id), q.id).toBeTruthy();
     expect(PILOT_QUESTIONS.filter(q => !isEligible(q)).map(q => q.id)).toEqual([]);
   });

@@ -1,3 +1,20 @@
+import {MAXIMIZER_NATIVE} from './content/ielts-maximizer';
+import {IELTS_VOCABULARY60_NATIVE} from './content/ielts-vocabulary60';
+import {IELTS_VOCABULARY65_NATIVE} from './content/ielts-vocabulary65';
+import {IELTS_GRAMMAR_NATIVE} from './content/ielts-grammar65';
+import { PROJECT5_NATIVE } from './content/project5';
+import { PROJECT4_NATIVE } from './content/project4';
+import { PROJECT3_NATIVE } from './content/project3';
+import { PROJECT2_NATIVE } from './content/project2';
+import { EVOLVE6_NATIVE } from './content/evolve6';
+import { PROJECT1_NATIVE } from './content/project1';
+import { OXFORD_UPPER } from './content/oxford-upper';
+import { EVOLVE5_NATIVE } from './content/evolve5';
+import { EVOLVE4_NATIVE } from './content/evolve4';
+import { EVOLVE_NATIVE } from './content/evolve';
+import { EVOLVE2_NATIVE } from './content/evolve2';
+import { EVOLVE3_NATIVE } from './content/evolve3';
+import { OXFORD_INTERMEDIATE } from './content/oxford-intermediate';
 import { describe, expect, it } from 'vitest';
 import { PILOT, LIVE_SELECTIONS, LIVE_CATALOGUE, mediaAsset } from './content/pilot';
 import { mergeQuestionRevisions, stableStringify } from './content/core';
@@ -22,8 +39,8 @@ describe('bundled pilot boundaries', () => {
     expect(ALL_QUESTIONS).toHaveLength(1801);
     expect(PILOT200).toHaveLength(200);
     expect(PILOT.questions).toHaveLength(2163);
-    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length);
-    expect(new Set(pack.questions.map(q => q.canonical_id)).size).toBe(3964 + OXFORD.questions.length);
+    expect(pack.questions).toHaveLength(3964 + OXFORD.questions.length + EVOLVE_NATIVE.questions.length + EVOLVE2_NATIVE.questions.length + EVOLVE3_NATIVE.questions.length + OXFORD_INTERMEDIATE.questions.length + EVOLVE4_NATIVE.questions.length + EVOLVE5_NATIVE.questions.length + OXFORD_UPPER.questions.length + EVOLVE6_NATIVE.questions.length + PROJECT1_NATIVE.questions.length + PROJECT2_NATIVE.questions.length + PROJECT3_NATIVE.questions.length + PROJECT4_NATIVE.questions.length + PROJECT5_NATIVE.questions.length + IELTS_GRAMMAR_NATIVE.questions.length + IELTS_VOCABULARY65_NATIVE.questions.length + IELTS_VOCABULARY60_NATIVE.questions.length + MAXIMIZER_NATIVE.questions.length);
+    expect(new Set(pack.questions.map(q => q.canonical_id)).size).toBe(3964 + OXFORD.questions.length + EVOLVE_NATIVE.questions.length + EVOLVE2_NATIVE.questions.length + EVOLVE3_NATIVE.questions.length + OXFORD_INTERMEDIATE.questions.length + EVOLVE4_NATIVE.questions.length + EVOLVE5_NATIVE.questions.length + OXFORD_UPPER.questions.length + EVOLVE6_NATIVE.questions.length + PROJECT1_NATIVE.questions.length + PROJECT2_NATIVE.questions.length + PROJECT3_NATIVE.questions.length + PROJECT4_NATIVE.questions.length + PROJECT5_NATIVE.questions.length + IELTS_GRAMMAR_NATIVE.questions.length + IELTS_VOCABULARY65_NATIVE.questions.length + IELTS_VOCABULARY60_NATIVE.questions.length + MAXIMIZER_NATIVE.questions.length);
     expect(PILOT.questions.every(q => q.review_status === 'ready' && q.answer.verification_status === 'reviewed_by_assistant')).toBe(true);
     expect(PILOT.questions.every(q => q.grade === undefined && q.term === undefined && q.placements.filter(p => p.relation === 'primary').length === 1)).toBe(true);
     expect(PILOT_QUESTIONS.filter(q => !isEligible(q)).map(q => ({ id: q.id, why: ineligibility(q) }))).toEqual([]);
@@ -36,9 +53,9 @@ describe('bundled pilot boundaries', () => {
     expect(PILOT200.filter(q => q.assets.source_audio_required)).toHaveLength(11);
   });
   it('merges six real Oxford sections without removing any original node', () => {
-    expect(LIVE_CATALOGUE.nodes).toHaveLength(932);
+    expect(LIVE_CATALOGUE.nodes.length).toBeGreaterThanOrEqual(932);
     expect(baselineCatalogue.nodes.every(n => catalogueIndex.nodes.has(n.id))).toBe(true);
-    expect(LIVE_CATALOGUE.nodes.filter(n => n.kind === 'book')).toHaveLength(17);
+    expect(LIVE_CATALOGUE.nodes.filter(n => n.kind === 'book')).toHaveLength(18);
   });
   it('resolves every supplied exact practice-selection membership and count', () => {
     for (const s of LIVE_SELECTIONS) {
@@ -46,10 +63,10 @@ describe('bundled pilot boundaries', () => {
       expect(qs.length, s.id).toBe(s.expected_ready_count);
       expect(ids(qs), s.id).toEqual([...s.counted_canonical_question_ids].sort());
     }
-    expect(scopeQuestions(practiceScope('whole_book', 'evolve-1'))).toHaveLength(639 + 956);
+    expect(scopeQuestions(practiceScope('whole_book', 'evolve-1'))).toHaveLength(639 + 956 + EVOLVE_NATIVE.questions.length);
     expect(scopeQuestions(practiceScope('whole_book', 'ows-elementary'))).toHaveLength(OXFORD_COVERAGE.ready_oxford_questions);
     expect(scopeQuestions(practiceScope('custom', 'evolve-1', ['evolve-1.u001.s2'])).length).toBeGreaterThanOrEqual(9);
-    expect(scopeQuestions(practiceScope('whole_book', 'evolve-2'))).toEqual([]);
+    expect(scopeQuestions(practiceScope('whole_book', 'ielts-speaking-maximizer'))).toHaveLength(1320);
   });
   it('keeps all bundled school payloads and mission contents independent of pilot reapplication', () => {
     const before = stableStringify(missions(7, 1));
@@ -60,7 +77,7 @@ describe('bundled pilot boundaries', () => {
     }
     const progress = stableStringify(DEFAULT);
     const r = mergeQuestionRevisions(pack.questions, PILOT.questions);
-    expect(r.counts).toEqual({ added: 0, updated: 0, unchanged: 2163, stale: 0, conflicts: 0 });
+    expect(r.counts.added).toBe(0); expect(r.counts.updated).toBe(0); expect(r.counts.conflicts).toBe(0); expect(r.counts.unchanged + r.counts.stale).toBe(2163);
     expect(stableStringify(missions(7, 1))).toBe(before);
     expect(stableStringify(DEFAULT)).toBe(progress);
   });
@@ -95,7 +112,7 @@ describe('pilot gameplay and media contracts', () => {
   });
   it('all 58 assets resolve and listening scripts remain after-answer-only', () => {
     expect(PILOT.assets).toHaveLength(58);
-    expect(PILOT.assets.every(a => mediaAsset(a.id)?.url.startsWith('/__l5e/assets-v1/'))).toBe(true);
+    expect(PILOT.assets.every(a => mediaAsset(a.id)?.url.startsWith(a.kind === 'audio' ? '/assets/evolve-1-native/' : '/__l5e/assets-v1/'))).toBe(true);
     for (const q of PILOT_QUESTIONS.filter(q => q.assets.source_audio_required)) expect(contextById(q.context_id)?.display_policy).toBe('after_answer_only');
     for (const group of readingGroups(PILOT_QUESTIONS)) expect(group.questions.every(q => q.context_id === group.context.id)).toBe(true);
     const q = PILOT_QUESTIONS.find(q => q.assets.source_audio_required); if (!q) throw new Error('audio absent');

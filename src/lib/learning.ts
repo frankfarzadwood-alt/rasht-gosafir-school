@@ -10,7 +10,7 @@ import { fa, gradeLabel, termLabel } from "@/lib/fa";
 export const catalogueIndex = indexCatalogue(catalogue as unknown as Catalogue);
 export const nodeById = (id: string) => catalogueIndex.nodes.get(id);
 export const childrenOf = (id: string | null) => [...catalogueIndex.nodes.values()].filter(n => n.parent_id === id).sort((a, b) => (a.ordinal ?? 0) - (b.ordinal ?? 0));
-export const nodeTitle = (n: CatalogueNode) => n.kind === "grade" && n.grade ? gradeLabel(n.grade) : fa(n.title_fa);
+export const nodeTitle = (n: CatalogueNode) => n.kind === "book" || n.kind === "series" ? n.title_en : n.kind === "grade" && n.grade ? gradeLabel(n.grade) : fa(n.title_fa);
 export function ancestorsOf(id: string): CatalogueNode[] {
   const out: CatalogueNode[] = [];
   let n = nodeById(id);

@@ -1,0 +1,2882 @@
+{
+  "evolve1.wb.u01.s4.e1a.01": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.0",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.0"
+      ]
+    },
+    "prompt_en": "What does this person do?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u01.s4.e1a.01",
+      "original_image": "evolve1.workbook.p010",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u01.s4.e1a.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.1",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.1"
+      ]
+    },
+    "prompt_en": "What does this person do?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u01.s4.e1a.02",
+      "original_image": "evolve1.workbook.p010",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u01.s4.e1a.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.2",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.2"
+      ]
+    },
+    "prompt_en": "What does this person do?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u01.s4.e1a.03",
+      "original_image": "evolve1.workbook.p010",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u01.s4.e1a.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.3",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.3"
+      ]
+    },
+    "prompt_en": "What does this person do?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u01.s4.e1a.04",
+      "original_image": "evolve1.workbook.p010",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.02": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Helen is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.02",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.03": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Barry is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.03",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.04": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Tommy and Annie are my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.04",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.05": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Barbara is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.05",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.06": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Linda is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.06",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.07": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Tommy is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.07",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.08": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Annie is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.08",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.09": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Anna is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.09",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.10": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. John is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.10",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.11": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Margaret is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.11",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s1.e1a.12": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "family"
+    },
+    "prompt_en": "You are Bill. Peter is my ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s1.e1a.12",
+      "original_image": "evolve1.workbook.p012",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.9",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.9"
+      ]
+    },
+    "prompt_en": "This person is about twenty years old. Choose the adjective.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.02",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.10",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.10"
+      ]
+    },
+    "prompt_en": "The lesson makes everybody yawn. The lesson is ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.03",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.11",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.11"
+      ]
+    },
+    "prompt_en": "This story makes you want to learn more. The story is ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.04",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.12",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.12"
+      ]
+    },
+    "prompt_en": "Look at the two friends. The person on the left is ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.05",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.12",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.12"
+      ]
+    },
+    "prompt_en": "Look at the two friends. The person on the right is ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.06",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.07": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.13",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.13"
+      ]
+    },
+    "prompt_en": "This person feels nervous when meeting someone new. They are ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.07",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.08": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.14",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.14"
+      ]
+    },
+    "prompt_en": "This person makes the audience laugh. They are ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.08",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.09": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "prompt_en": "This person learns difficult things quickly and solves problems well. They are ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.09",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u02.s2.e1a.10": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.15",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.15"
+      ]
+    },
+    "prompt_en": "This person smiles, waves, and welcomes a new friend. They are ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u02.s2.e1a.10",
+      "original_image": "evolve1.workbook.p014",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.5",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.5"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.02",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.3",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.3"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.03",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.6",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.6"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.04",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.4",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.4"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.05",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.0",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.0"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.06",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.07": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.7",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.7"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.07",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.08": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.2",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.2"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.08",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.09": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.15",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.15"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.09",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s1.e1a.10": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.6",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.6"
+      ]
+    },
+    "prompt_en": "What is this room or part of a home?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s1.e1a.10",
+      "original_image": "evolve1.workbook.p020",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e1b.01": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.8",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.8"
+      ]
+    },
+    "prompt_en": "What is this piece of technology?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e1b.01",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e1b.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.9",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.9"
+      ]
+    },
+    "prompt_en": "What is this piece of technology?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e1b.02",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e1b.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.10",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.10"
+      ]
+    },
+    "prompt_en": "What is this piece of technology?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e1b.04",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e1b.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.11",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.11"
+      ]
+    },
+    "prompt_en": "What is this piece of technology?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e1b.05",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e1b.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.12",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.12"
+      ]
+    },
+    "prompt_en": "What is this piece of technology?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e1b.06",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e1b.07": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.13",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.13"
+      ]
+    },
+    "prompt_en": "What is this piece of technology?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e1b.07",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e1b.08": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.14",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.14"
+      ]
+    },
+    "prompt_en": "What is this piece of technology?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e1b.08",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.21": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "I",
+      "verb": "like",
+      "object": "apps",
+      "polarity": "positive"
+    },
+    "prompt_en": "Build an affirmative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.21",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.22": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "I",
+      "verb": "like",
+      "object": "video games",
+      "polarity": "negative"
+    },
+    "prompt_en": "Build a negative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.22",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.31": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "you",
+      "verb": "want",
+      "object": "a small refrigerator",
+      "polarity": "positive"
+    },
+    "prompt_en": "Build an affirmative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.31",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.32": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "you",
+      "verb": "want",
+      "object": "a big refrigerator",
+      "polarity": "negative"
+    },
+    "prompt_en": "Build a negative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.32",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.41": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "I",
+      "verb": "love",
+      "object": "photo apps",
+      "polarity": "positive"
+    },
+    "prompt_en": "Build an affirmative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.41",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.42": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "I",
+      "verb": "love",
+      "object": "music apps",
+      "polarity": "negative"
+    },
+    "prompt_en": "Build a negative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.42",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.51": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "we",
+      "verb": "have",
+      "object": "an apartment",
+      "polarity": "positive"
+    },
+    "prompt_en": "Build an affirmative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.51",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.52": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "we",
+      "verb": "have",
+      "object": "a house",
+      "polarity": "negative"
+    },
+    "prompt_en": "Build a negative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.52",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.61": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "we",
+      "verb": "want",
+      "object": "a new camera",
+      "polarity": "negative"
+    },
+    "prompt_en": "Build a negative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.61",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u04.s1.e2a.62": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "sentence_cue",
+      "subject": "we",
+      "verb": "want",
+      "object": "a new computer",
+      "polarity": "positive"
+    },
+    "prompt_en": "Build an affirmative sentence.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u04.s1.e2a.62",
+      "original_image": "evolve1.workbook.p028",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u06.s2.e1a.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.12",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.12"
+      ]
+    },
+    "prompt_en": "Which words describe this landscape?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u06.s2.e1a.02",
+      "original_image": "evolve1.workbook.p046",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u06.s2.e1a.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.13",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.13"
+      ]
+    },
+    "prompt_en": "Which words describe this landscape?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u06.s2.e1a.03",
+      "original_image": "evolve1.workbook.p046",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u06.s2.e1a.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.14",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.14"
+      ]
+    },
+    "prompt_en": "Which words describe this landscape?",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u06.s2.e1a.04",
+      "original_image": "evolve1.workbook.p046",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.0",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.0"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.02",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.1",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.1"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.03",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.2",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.2"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.04",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.3",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.3"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.05",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.4",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.4"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.06",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.07": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.5",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.5"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.07",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.08": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.6",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.6"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.08",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.09": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.7",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.7"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.09",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.10": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.8",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.10",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.11": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.9",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.9"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.11",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u08.s1.e1a.12": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.10",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Complete the sentence: This person ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u08.s1.e1a.12",
+      "original_image": "evolve1.workbook.p060",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u09.s3.e1a.04": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "prompt_en": "Correct this sentence: I need buy a ticket to Bogotá.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u09.s3.e1a.04",
+      "original_image": "evolve1.workbook.p072",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s3.e1a.01": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "preferences"
+    },
+    "prompt_en": "Dan wants tea.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s3.e1a.01",
+      "original_image": "evolve1.workbook.p024",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s3.e1a.02": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "preferences"
+    },
+    "prompt_en": "Dan wants milk.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s3.e1a.02",
+      "original_image": "evolve1.workbook.p024",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s3.e1a.03": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "preferences"
+    },
+    "prompt_en": "Dan wants one sugar.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s3.e1a.03",
+      "original_image": "evolve1.workbook.p024",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s3.e1a.04": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "preferences"
+    },
+    "prompt_en": "Coco wants coffee.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s3.e1a.04",
+      "original_image": "evolve1.workbook.p024",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s3.e1a.05": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "preferences"
+    },
+    "prompt_en": "Dalia wants tea and milk.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s3.e1a.05",
+      "original_image": "evolve1.workbook.p024",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s3.e1a.06": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "preferences"
+    },
+    "prompt_en": "Dalia wants two sugars.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s3.e1a.06",
+      "original_image": "evolve1.workbook.p024",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u03.s3.e1a.07": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "preferences"
+    },
+    "prompt_en": "Dalia wants a cookie.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u03.s3.e1a.07",
+      "original_image": "evolve1.workbook.p024",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u06.s3.e3a.01": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "map"
+    },
+    "prompt_en": "Ji-young: The zoo is on ____ Street. Look at the map.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u06.s3.e3a.01",
+      "original_image": "evolve1.workbook.p049",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u06.s3.e3a.02": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "map"
+    },
+    "prompt_en": "Start at YOU ARE HERE and walk north along Third Street for two blocks. To go toward the zoo, turn ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u06.s3.e3a.02",
+      "original_image": "evolve1.workbook.p049",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u06.s3.e3a.03": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "map"
+    },
+    "prompt_en": "After turning onto Park Street, go one ____. The zoo is beside the next street corner.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u06.s3.e3a.03",
+      "original_image": "evolve1.workbook.p049",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u06.s3.e3a.04": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "map"
+    },
+    "prompt_en": "Walk west along Park Street. The zoo is on the ____.",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u06.s3.e3a.04",
+      "original_image": "evolve1.workbook.p049",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u11.s4.e1b.01": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "quote",
+      "text": "Maybe your favorite toy when you were a child was from your grandparents. You don’t play with the toy now. You never see it.",
+      "focus": "it"
+    },
+    "prompt_en": "What does “it” refer to in this extract?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u11.s4.e1b.01",
+      "original_image": "evolve1.workbook.p090",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u11.s4.e1b.02": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "quote",
+      "text": "Because it’s from your grandparents. You love them very much. So you keep the toy.",
+      "focus": "them"
+    },
+    "prompt_en": "What does “them” refer to in this extract?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u11.s4.e1b.02",
+      "original_image": "evolve1.workbook.p090",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u11.s4.e1b.03": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "quote",
+      "text": "Do you have your parents’ old music? Maybe the music was five dollars in the 1970s. Maybe it is going to be 50 or 100 dollars in 20 years.",
+      "focus": "it"
+    },
+    "prompt_en": "What does “it” refer to in this extract?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u11.s4.e1b.03",
+      "original_image": "evolve1.workbook.p090",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u11.s4.e1b.04": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "quote",
+      "text": "Sometimes we keep things because we can get money for them in the future.",
+      "focus": "them"
+    },
+    "prompt_en": "What does “them” refer to in this extract?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u11.s4.e1b.04",
+      "original_image": "evolve1.workbook.p090",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.wb.u11.s4.e1b.05": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "quote",
+      "text": "Why are you keeping your old soccer ball or your old guitar? You’re keeping them for your children.",
+      "focus": "them"
+    },
+    "prompt_en": "What does “them” refer to in this extract?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.wb.u11.s4.e1b.05",
+      "original_image": "evolve1.workbook.p090",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.01": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.4",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.4"
+      ]
+    },
+    "prompt_en": "Janet is an ____. Her studio is in New York.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.01",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.5",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.5"
+      ]
+    },
+    "prompt_en": "Sergio is a ____ at a school in Lima.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.02",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.0",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.0"
+      ]
+    },
+    "prompt_en": "Luis is a car ____.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.03",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.1",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.1"
+      ]
+    },
+    "prompt_en": "My friend Anita is a ____ at the hospital in my town.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.04",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.2",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.2"
+      ]
+    },
+    "prompt_en": "Luigi is a ____ in an Italian restaurant.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.05",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.6",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.6"
+      ]
+    },
+    "prompt_en": "Emilia is a ____ at the Hotel Royal.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.06",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.07": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.7",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.7"
+      ]
+    },
+    "prompt_en": "Danilo is a ____ at the University of São Paulo.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.07",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u01.b.c.08": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.jobs.3",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.jobs.3"
+      ]
+    },
+    "prompt_en": "Marta is a ____ in a café downtown.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u01.b.c.08",
+      "original_image": "evolve1.quiz.u01.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.b.01": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.0",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.0"
+      ]
+    },
+    "prompt_en": "Name the room.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.b.01",
+      "original_image": "evolve1.quiz.u03.a.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.b.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.1",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.1"
+      ]
+    },
+    "prompt_en": "Name the room.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.b.02",
+      "original_image": "evolve1.quiz.u03.a.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.b.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.2",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.2"
+      ]
+    },
+    "prompt_en": "Name the room.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.b.03",
+      "original_image": "evolve1.quiz.u03.a.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.b.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.3",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.3"
+      ]
+    },
+    "prompt_en": "Name the room.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.b.04",
+      "original_image": "evolve1.quiz.u03.a.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.b.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.4",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.4"
+      ]
+    },
+    "prompt_en": "Name the room.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.b.05",
+      "original_image": "evolve1.quiz.u03.a.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.c.01": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.8",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.8"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.c.01",
+      "original_image": "evolve1.quiz.u03.a.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.c.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.9",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.9"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.c.02",
+      "original_image": "evolve1.quiz.u03.a.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.c.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.10",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.10"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.c.03",
+      "original_image": "evolve1.quiz.u03.a.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.c.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.11",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.11"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.c.04",
+      "original_image": "evolve1.quiz.u03.a.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.c.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.12",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.12"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.c.05",
+      "original_image": "evolve1.quiz.u03.a.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.c.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.13",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.13"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.c.06",
+      "original_image": "evolve1.quiz.u03.a.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.a.c.07": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.14",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.14"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.a.c.07",
+      "original_image": "evolve1.quiz.u03.a.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.b.01": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "room"
+    },
+    "prompt_en": "Is there a desk?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.b.01",
+      "original_image": "evolve1.quiz.u03.b.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.b.02": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "room"
+    },
+    "prompt_en": "Is there a shower?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.b.02",
+      "original_image": "evolve1.quiz.u03.b.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.b.03": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "room"
+    },
+    "prompt_en": "Is there a bookcase?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.b.03",
+      "original_image": "evolve1.quiz.u03.b.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.b.04": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "room"
+    },
+    "prompt_en": "Are there big windows?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.b.04",
+      "original_image": "evolve1.quiz.u03.b.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.b.05": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": []
+    },
+    "native_scene": {
+      "kind": "room"
+    },
+    "prompt_en": "Is there a lamp?",
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.b.05",
+      "original_image": "evolve1.quiz.u03.b.paper.b.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.c.01": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.4",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.4"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.c.01",
+      "original_image": "evolve1.quiz.u03.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.c.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.15",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.15"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.c.02",
+      "original_image": "evolve1.quiz.u03.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.c.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.0",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.0"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.c.03",
+      "original_image": "evolve1.quiz.u03.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.c.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.5",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.5"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.c.04",
+      "original_image": "evolve1.quiz.u03.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.c.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.actions.15",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.15"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.c.05",
+      "original_image": "evolve1.quiz.u03.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.c.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.6",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.6"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.c.06",
+      "original_image": "evolve1.quiz.u03.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.c.07": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.home.2",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.home.2"
+      ]
+    },
+    "prompt_en": "Choose its name.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.c.07",
+      "original_image": "evolve1.quiz.u03.b.paper.c.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.d.01": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.0",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.0"
+      ]
+    },
+    "prompt_en": "Name the item.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.d.01",
+      "original_image": "evolve1.quiz.u03.b.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.d.02": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.1",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.1"
+      ]
+    },
+    "prompt_en": "Name the item.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.d.02",
+      "original_image": "evolve1.quiz.u03.b.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.d.03": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.2",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.2"
+      ]
+    },
+    "prompt_en": "Name the item.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.d.03",
+      "original_image": "evolve1.quiz.u03.b.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.d.04": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.3",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.3"
+      ]
+    },
+    "prompt_en": "Name the item.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.d.04",
+      "original_image": "evolve1.quiz.u03.b.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.d.05": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.4",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.4"
+      ]
+    },
+    "prompt_en": "Name the item.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.d.05",
+      "original_image": "evolve1.quiz.u03.b.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u03.b.d.06": {
+    "assets": {
+      "source_image_required": true,
+      "source_audio_required": false,
+      "image": "evolve1.native.photo.food.5",
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.food.5"
+      ]
+    },
+    "prompt_en": "Name the item.",
+    "requires_capabilities": [],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u03.b.d.06",
+      "original_image": "evolve1.quiz.u03.b.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.01": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: I love to snowboard.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.01",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.02": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: I read music.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.02",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.03": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: I surf in the ocean.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.03",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.04": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: Iván is an artist.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.04",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.05": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: I like to fix things.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.05",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.06": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: I want to speak two languages.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.06",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.07": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: My sister loves to skateboard.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.07",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  },
+  "evolve1.quiz.u08.a.d.08": {
+    "assets": {
+      "source_image_required": false,
+      "source_audio_required": false,
+      "image": null,
+      "audio": null,
+      "required_asset_ids": [
+        "evolve1.native.photo.actions.8",
+        "evolve1.native.photo.actions.4",
+        "evolve1.native.photo.actions.6",
+        "evolve1.native.photo.actions.1",
+        "evolve1.native.photo.actions.3",
+        "evolve1.native.photo.actions.2",
+        "evolve1.native.photo.actions.5",
+        "evolve1.native.photo.actions.11",
+        "evolve1.native.photo.actions.10"
+      ]
+    },
+    "prompt_en": "Choose the matching activity: My mother and father dance.",
+    "native_options": {
+      "opt_1": "evolve1.native.photo.actions.8",
+      "opt_2": "evolve1.native.photo.actions.4",
+      "opt_3": "evolve1.native.photo.actions.6",
+      "opt_4": "evolve1.native.photo.actions.1",
+      "opt_5": "evolve1.native.photo.actions.3",
+      "opt_6": "evolve1.native.photo.actions.2",
+      "opt_7": "evolve1.native.photo.actions.5",
+      "opt_8": "evolve1.native.photo.actions.11",
+      "opt_9": "evolve1.native.photo.actions.10"
+    },
+    "requires_capabilities": [
+      "native_scene"
+    ],
+    "revision": 2,
+    "native_adaptation": {
+      "release": "evolve-1-native-r1",
+      "original_question_id": "evolve1.quiz.u08.a.d.08",
+      "original_image": "evolve1.quiz.u08.a.paper.d.image",
+      "method": "Reconstructed as an interactive native activity; answer verified against the supplied key."
+    }
+  }
+}

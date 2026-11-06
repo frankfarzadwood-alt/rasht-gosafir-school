@@ -41,13 +41,13 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.99 0.004 85);
+  --background: #ffffff;
   --foreground: oklch(0.24 0.06 275);
-  --card: oklch(0.995 0.006 85);
+  --card: #ffffff;
   --card-foreground: oklch(0.24 0.06 275);
-  --popover: oklch(0.995 0.006 85);
+  --popover: #ffffff;
   --popover-foreground: oklch(0.24 0.06 275);
-  --primary: oklch(0.38 0.17 275);
+  --primary: oklch(0.4 0.18 285);
   --primary-foreground: oklch(0.98 0.01 85);
   --secondary: oklch(0.93 0.03 275);
   --secondary-foreground: oklch(0.3 0.12 275);
@@ -62,11 +62,11 @@
   --success: oklch(0.55 0.13 160);
   --destructive: oklch(0.56 0.2 25);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.88 0.02 85);
-  --input: oklch(0.86 0.02 85);
+  --border: oklch(0.91 0.015 285);
+  --input: oklch(0.86 0.025 285);
   --ring: oklch(0.55 0.2 275);
   --shadow-chip: 0 3px 0 0 var(--border);
-  --shadow-card: 0 10px 30px -18px color-mix(in oklab, var(--primary) 45%, transparent);
+  --shadow-card: 0 4px 0 color-mix(in oklab, var(--border) 70%, transparent), 0 8px 24px -18px color-mix(in oklab, var(--primary) 30%, transparent);
 }
 
 /* Upper grades: same components, calmer palette */
@@ -125,7 +125,7 @@
 
 @utility card-soft {
   background: var(--color-card);
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-card);
 }
@@ -143,6 +143,43 @@
 
 @keyframes pop { 0% { transform: scale(0.96); opacity: 0 } 100% { transform: scale(1); opacity: 1 } }
 .animate-pop { animation: pop 220ms ease-out; }
+
+/* Playful accents sit on a white canvas. Existing dark-mode preference stays available. */
+.quest-hero {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid color-mix(in oklab, var(--primary) 12%, var(--card));
+  border-radius: var(--radius-3xl);
+  padding: 1.5rem;
+  background: linear-gradient(115deg, color-mix(in oklab, var(--gold) 15%, var(--card)), color-mix(in oklab, var(--secondary) 60%, var(--card)));
+}
+.quest-emblem { position: relative; width: 104px; height: 104px; border: 3px solid var(--card); border-radius: 30px; background: var(--primary); color: var(--primary-foreground); box-shadow: 0 6px 0 color-mix(in oklab, var(--primary) 22%, transparent); transform: rotate(-8deg); }
+.quest-star { position: absolute; top: -8px; right: -8px; filter: drop-shadow(0 2px 0 var(--card)); }
+.course-card { --course-color: var(--teal); transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+.course-card[data-family="evolve"], .course-card[data-family="general"] { --course-color: var(--coral); }
+.course-card[data-family="project"] { --course-color: var(--teal); }
+.course-card[data-family="oxford"] { --course-color: var(--primary); }
+.course-card[data-family="ielts"] { --course-color: var(--gold); }
+.course-card:hover { border-color: var(--course-color); transform: translateY(-3px); }
+.course-card:active { transform: translateY(1px); box-shadow: none; }
+.course-art { display: flex; flex: 0 0 78px; height: 108px; align-items: center; justify-content: center; }
+.course-art img { max-width: 100%; width: auto; height: auto; max-height: 108px; object-fit: contain; border-radius: 4px; box-shadow: -3px 4px 6px #0000001a; }
+.course-art.collection-art { flex-basis: 108px; }
+.course-art.collection-art img { box-shadow: none; border-radius: 12px; }
+.course-arrow, .course-icon { background: color-mix(in oklab, var(--course-color) 12%, var(--card)); color: var(--foreground); }
+.game-card { --game-color: var(--primary); }
+.game-card:nth-child(3n + 2) { --game-color: var(--teal); }
+.game-card:nth-child(3n) { --game-color: var(--coral); }
+.game-icon { background: color-mix(in oklab, var(--game-color) 12%, var(--card)); }
+.game-card > a { transition: transform 160ms ease, border-color 160ms ease; }
+.game-card > a:hover { transform: translateY(-3px); border-color: var(--game-color); }
+.game-card > a:active { transform: translateY(1px); }
+.app-dock a[aria-current="page"] svg { stroke-width: 2.5; }
+@media (max-width: 420px) {
+  .course-card { gap: 0.75rem; padding: 1rem 0.875rem; }
+  .course-art.collection-art { flex-basis: 84px; }
+  .course-arrow { width: 26px; height: 26px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
