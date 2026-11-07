@@ -3,7 +3,8 @@ import { useEffect, useMemo } from "react";
 import { GameSession } from "@/components/GameSession";
 import { MODES, poolAvailability, poolMissions, useBankVersion } from "@/lib/bank";
 import { useHydrated } from "@/lib/progress";
-import { bookmark, nodeById, nodeTitle, practiceScope, remember, scopeKey, scopeQuestions } from "@/lib/learning";
+import { bookmark, comingSoonBook, nodeById, nodeTitle, practiceScope, remember, scopeKey, scopeQuestions } from "@/lib/learning";
+import { ComingSoonPage } from "@/components/ComingSoon";
 import { PRACTICE_FA, type PracticeModeId } from "@/lib/scope";
 import { pageMeta } from "@/lib/pageMeta";
 import { BOOK_CONTENT, LIVE_SELECTIONS, LIVE_CATALOGUE } from '@/lib/content/pilot';
@@ -26,8 +27,14 @@ export const Route = createFileRoute("/practice/$nodeId/$mode")({
     const m = MODES.find((x) => x.id === params.mode)?.fa ?? "مرور اشتباهات";
     return pageMeta(`${m} · ${n ? nodeTitle(n) : "تمرین"}`, "تمرین با سؤال‌های تأییدشدهٔ همین بخش از کتاب.");
   },
-  component: Practice,
+  component: PracticeEntry,
 });
+
+function PracticeEntry() {
+  const { nodeId } = Route.useParams();
+  const locked = comingSoonBook(nodeId);
+  return locked ? <ComingSoonPage title={nodeTitle(locked)} /> : <Practice />;
+}
 
 function Practice() {
   const { nodeId, mode } = Route.useParams();

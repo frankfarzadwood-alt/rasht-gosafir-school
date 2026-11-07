@@ -6,6 +6,7 @@ import { buildScope, livePack, resolvePool, reviewedPracticeScope, type Practice
 import type { Catalogue, CatalogueNode, Scope } from "@/lib/content/contracts";
 import type { Progress } from "@/lib/progress";
 import { fa, gradeLabel, termLabel } from "@/lib/fa";
+import { PRESENTATION_BOOKS, PRESENTATION_MODE } from "@/lib/presentation-mode";
 
 export const catalogueIndex = indexCatalogue(catalogue as unknown as Catalogue);
 export const nodeById = (id: string) => catalogueIndex.nodes.get(id);
@@ -16,6 +17,11 @@ export function ancestorsOf(id: string): CatalogueNode[] {
   let n = nodeById(id);
   while (n) { out.unshift(n); n = n.parent_id ? nodeById(n.parent_id) : undefined; }
   return out;
+}
+export function comingSoonBook(id: string): CatalogueNode | undefined {
+  if (!PRESENTATION_MODE) return undefined;
+  const book = ancestorsOf(id).find(node => node.kind === "book");
+  return book && !PRESENTATION_BOOKS.has(book.id) ? book : undefined;
 }
 export const nodeScope = (id: string): Scope => ({ kind: "node", node_ids: [id], include_descendants: true });
 /** Single approved-question service: scope → unique canonical items (live bundled + browser-local reviewed). Unknown scopes throw. */
@@ -58,13 +64,13 @@ export function toggleSaved(s: LearningState, id: string): LearningState {
   return { ...s, saved: s.saved.includes(id) ? s.saved.filter(x => x !== id) : [...s.saved, id] };
 }
 export function restoreBookmark(b: Bookmark | null): Bookmark | null {
-  if (!b) return null;
+  if (!b || comingSoonBook(b.nodeId)) return null;
   const n = nodeById(b.nodeId);
   if (n) {
     const available = safeScopeQuestions(b.scope).length > 0;
     if (!b.game || available) return b;
   }
-  const parent = [...b.ancestors].reverse().map(nodeById).find(n => n && safeScopeQuestions(nodeScope(n.id)).length > 0);
+  const parent = [...b.ancestors].reverse().map(nodeById).find(n => n && !comingSoonBook(n.id) && safeScopeQuestions(nodeScope(n.id)).length > 0);
   return parent ? bookmark(parent.id) : n ? bookmark(n.id) : bookmark("school");
 }
 export function legacyBookmark(p: Progress): Bookmark | null {

@@ -11,6 +11,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { useProgress, totalXp } from "@/lib/progress";
 import { fa, isSenior } from "@/lib/fa";
+import { publicAssetUrl } from "@/lib/public-asset";
+
+const logo = publicAssetUrl("/brand/safir-logo.png");
 
 function NotFoundComponent() {
   return (
@@ -36,7 +39,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         <h1 className="text-xl font-semibold text-foreground">این صفحه بارگذاری نشد</h1>
         <div className="mt-6 flex justify-center gap-2">
           <button onClick={() => { router.invalidate(); reset(); }} className="btn bg-primary text-primary-foreground">دوباره امتحان کن</button>
-          <a href="/" className="btn border border-border">خانه</a>
+          <Link to="/" className="btn border border-border">خانه</Link>
         </div>
       </div>
     </div>
@@ -55,8 +58,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/brand/safir-logo.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/brand/safir-logo.png" },
+      { rel: "icon", href: logo, type: "image/png" },
+      { rel: "apple-touch-icon", href: logo },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Vazirmatn:wght@400;500;700;800&display=swap" },
@@ -69,6 +72,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  if (import.meta.env.MODE === "pages") return <><HeadContent />{children}</>;
   return (
     <html lang="fa" dir="rtl">
       <head><HeadContent /></head>
@@ -90,7 +94,7 @@ function RootComponent() {
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/95 backdrop-blur">
         <nav className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-3" aria-label="سربرگ سفیر">
           <Link to="/" className="flex min-h-11 items-center gap-3 whitespace-nowrap text-primary">
-            <img src="/brand/safir-logo.png" width="48" height="48" alt="نشان آموزشگاه زبان سفیر" className="h-12 w-12 rounded-full bg-white" />
+            <img src={logo} width="48" height="48" alt="نشان آموزشگاه زبان سفیر" className="h-12 w-12 rounded-full bg-white" />
             <span><span lang="en" dir="ltr" className="block text-base font-extrabold tracking-widest">GO SAFIR</span><span className="block text-xs font-bold text-muted-foreground">ماجراجویی انگلیسی</span></span>
           </Link>
           <span className="flex-1" />

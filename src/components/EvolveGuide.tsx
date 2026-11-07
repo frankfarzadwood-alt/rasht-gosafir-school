@@ -4,6 +4,8 @@ import { evolveGuideFor, oxfordDestination } from '@/lib/content/evolve-series';
 import { LIVE_CATALOGUE } from '@/lib/content/pilot';
 import type { CatalogueNode } from '@/lib/content/contracts';
 import { fa } from '@/lib/fa';
+import { comingSoonBook } from '@/lib/learning';
+import { ComingSoonBadge } from './ComingSoon';
 
 export function EvolveGuide({ node }: { node: CatalogueNode }) {
   const guide=evolveGuideFor(node.id);
@@ -27,6 +29,7 @@ export function EvolveGuide({ node }: { node: CatalogueNode }) {
       <div className="grid gap-2 sm:grid-cols-3">{recommendations.recommendations.map(r=>{
         const destination=oxfordDestination(r,LIVE_CATALOGUE.nodes);
         const label=<span>درس {fa(r.unit)}{r.section&&<span dir="ltr" className="ml-1 inline-block rounded bg-secondary px-2 py-1">{r.section}</span>}</span>;
+        if (comingSoonBook(r.book_id)) return <div key={r.source_label} aria-disabled="true" className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border bg-card p-3 text-sm">{label}<ComingSoonBadge /></div>;
         return destination?<Link key={r.source_label} to="/learn/$nodeId" params={{nodeId:r.unit_node_id}} search={{view:'practice',...(r.section?{section:r.section}:{}),from:recommendations.node_id}} className="flex items-center justify-between gap-2 rounded-xl border border-border bg-card p-3 text-sm font-bold hover:border-teal">{label}<ArrowUpLeft className="h-4 w-4 shrink-0" /></Link>
           :<div key={r.source_label} aria-disabled="true" className="space-y-2 rounded-xl border border-dashed border-border p-3 text-sm text-muted-foreground">{label}<span className="block text-xs">بازی‌های این بخش در حال آماده‌سازی است</span></div>;
       })}</div>

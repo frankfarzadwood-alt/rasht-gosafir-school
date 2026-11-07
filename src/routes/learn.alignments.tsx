@@ -2,6 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { catalogueIndex, childrenOf, nodeById, nodeTitle, scopeQuestions, nodeScope } from "@/lib/learning";
 import { ALIGNMENTS, recommendedAlignments } from "@/lib/scope";
 import { pageMeta } from "@/lib/pageMeta";
+import { PRESENTATION_MODE } from "@/lib/presentation-mode";
+import { ComingSoonPage } from "@/components/ComingSoon";
 
 type Search = { book?: string | undefined; unit?: string | undefined };
 export const Route = createFileRoute("/learn/alignments")({
@@ -10,7 +12,9 @@ export const Route = createFileRoute("/learn/alignments")({
     unit: typeof s["unit"] === "string" ? s["unit"] : undefined,
   }),
   head: () => pageMeta("ارتباط Oxford Word Skills و Evolve", "نقشهٔ دوطرفهٔ ارتباط درس‌های Oxford Word Skills و Evolve، فقط با ارتباط‌های بازبینی‌شده."),
-  component: Alignments,
+  component: () => PRESENTATION_MODE
+    ? <ComingSoonPage title="Oxford Word Skills" />
+    : <Alignments />,
 });
 function Alignments() {
   const { book, unit } = Route.useSearch();

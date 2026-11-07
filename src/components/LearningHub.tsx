@@ -7,7 +7,7 @@ import { useProgress, todayCount, update } from "@/lib/progress";
 import { useBankVersion, MODES, modeAvailability, poolAvailability, poolMissions, pairInventoryCount, readingGroups, trackQuestions, type ModeAvailability, type Question } from "@/lib/bank";
 import { modesFor, PRACTICE_FA, ScopeError, type PracticeModeId } from "@/lib/scope";
 import { fa, SKILL_FA } from "@/lib/fa";
-import { ancestorsOf, bookmark, catalogueIndex, childrenOf, nodeById, nodeScope, nodeTitle, practiceScope, scopeKey, scopeQuestions, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
+import { ancestorsOf, bookmark, catalogueIndex, childrenOf, comingSoonBook, nodeById, nodeScope, nodeTitle, practiceScope, scopeKey, scopeQuestions, scopeStats, setLearning, toggleSaved, useLearning, type Bookmark } from "@/lib/learning";
 import type { AssessmentPlan, CatalogueNode } from "@/lib/content/contracts";
 import { BOOK_CONTENT, LIVE_SELECTIONS } from '@/lib/content/pilot';
 import { EvolveGuide } from './EvolveGuide';
@@ -17,6 +17,8 @@ import { IELTSGuide } from './IELTSGuide';
 import { MaximizerGuide } from './MaximizerGuide';
 import { evolveGuideFor } from '@/lib/content/evolve-series';
 import { COURSE_ART, courseFamily } from '@/lib/course-presentation';
+import { ComingSoonBadge } from './ComingSoon';
+import { publicAssetUrl } from '@/lib/public-asset';
 const PLAN = planRaw as unknown as AssessmentPlan;
 const topicQuery=(value:string)=>value.toLowerCase().replace(/[۰-۹]/g,c=>String(c.charCodeAt(0)-1776)).replace(/[٠-٩]/g,c=>String(c.charCodeAt(0)-1632));
 
@@ -41,15 +43,24 @@ export function SaveCourse({ node }: { node: CatalogueNode }) {
 export function NodeCard({ node }: { node: CatalogueNode }) {
   const p = useProgress();
   const bankVersion = useBankVersion();
-  const stats = useMemo(() => scopeStats(nodeScope(node.id), p), [node.id, p, bankVersion]);
+  const locked = node.kind === 'book' && Boolean(comingSoonBook(node.id));
+  const stats = useMemo(() => locked ? null : scopeStats(nodeScope(node.id), p), [node.id, p, bankVersion, locked]);
   const art = COURSE_ART[node.id], english = node.kind === 'book' || node.kind === 'series';
-  return <Link to="/learn/$nodeId" params={{ nodeId: node.id }} search={{ view: "units" }} data-family={courseFamily(node.id)} className={`card-soft course-card flex items-center gap-4 p-4 ${art ? 'min-h-36' : 'min-h-24'}`}>
-    {art ? <span className={`course-art ${art.collection ? 'collection-art' : ''}`}><img src={art.src} alt={node.kind === 'book' ? `${node.title_en} cover` : art.alt} width="96" height="120" loading="lazy" /></span> : <span className="course-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"><BookOpen aria-hidden /></span>}
+  const cardClass = `card-soft course-card flex items-center gap-4 p-4 ${art ? 'min-h-36' : 'min-h-24'}`;
+  const body = <>
+    {art ? <span className={`course-art relative ${art.collection ? 'collection-art' : ''}`}>
+      <img src={publicAssetUrl(art.src)} alt={node.kind === 'book' ? `${node.title_en} cover` : art.alt} width="96" height="120" loading="lazy" className={locked ? 'opacity-40' : undefined} />
+      {locked && <span className="absolute inset-0 flex items-center justify-center"><ComingSoonBadge /></span>}
+    </span> : <span className="course-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"><BookOpen aria-hidden /></span>}
     <span className="min-w-0 flex-1 space-y-2"><span lang={english ? 'en' : undefined} dir={english ? 'ltr' : undefined} className="block text-start text-lg font-extrabold leading-snug">{nodeTitle(node)}</span>
       {(!english && (/^(?:evolve-[1-6]|project-[1-5]|ielts-grammar-65|ielts-vocabulary-65|ielts-vocabulary-60|ielts-speaking-maximizer)\./.test(node.id) || /^ows-(elementary|intermediate|upper-intermediate)\./.test(node.id))) && <span lang="en" dir="ltr" className="block text-sm text-muted-foreground">{node.title_en}</span>}
-      <span className="block text-xs leading-relaxed text-muted-foreground">{stats.total ? `${fa(stats.total)} سؤال آماده · ${fa(stats.attempted)} تمرین‌شده` : "محتوا در حال آماده‌سازی است"}</span>
-    </span><span className="course-arrow flex h-8 w-8 shrink-0 items-center justify-center rounded-full"><ChevronLeft aria-hidden className="h-4 w-4" /></span>
-  </Link>;
+      {stats && <span className="block text-xs leading-relaxed text-muted-foreground">{stats.total ? `${fa(stats.total)} سؤال آماده · ${fa(stats.attempted)} تمرین‌شده` : "محتوا در حال آماده‌سازی است"}</span>}
+      {locked && !art && <ComingSoonBadge />}
+    </span>{!locked && <span className="course-arrow flex h-8 w-8 shrink-0 items-center justify-center rounded-full"><ChevronLeft aria-hidden className="h-4 w-4" /></span>}
+  </>;
+  return locked
+    ? <div aria-disabled="true" data-family={courseFamily(node.id)} className={cardClass}>{body}</div>
+    : <Link to="/learn/$nodeId" params={{ nodeId: node.id }} search={{ view: "units" }} data-family={courseFamily(node.id)} className={cardClass}>{body}</Link>;
 }
 export function DailyGoal() {
   const p = useProgress(), today = todayCount(p), goal = p.settings.dailyGoal;
@@ -141,7 +152,7 @@ export function CataloguePage({ node, view }: { node: CatalogueNode; view: strin
   const mapping = trail.some(n => ["oxford", "evolve"].includes(n.id)) && course && !evolveGuideFor(node.id) && !/^ows-(elementary|intermediate)(?=\.|$)/.test(node.id);
   return <div className="space-y-5">
     <nav aria-label="مسیر یادگیری" className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground"><Link to="/learn" className="btn px-2">یادگیری</Link>{trail.map(n => <span key={n.id} className="flex items-center"><ChevronLeft className="h-4 w-4" aria-hidden />{n.id === node.id ? <span aria-current="page">{nodeTitle(n)}</span> : <Link className="btn px-2" to="/learn/$nodeId" params={{ nodeId: n.id }} search={{ view: "units" }}>{nodeTitle(n)}</Link>}</span>)}</nav>
-    <header className={`flex flex-wrap items-center justify-between gap-4 ${node.kind === 'book' ? 'book-heading card-soft p-5' : ''}`}><div className="flex min-w-0 flex-1 basis-56 items-center gap-4">{node.kind === 'book' && COURSE_ART[node.id] && <img src={COURSE_ART[node.id]!.src} alt={`${node.title_en} cover`} width="72" height="100" className="h-25 w-18 shrink-0 rounded-md object-contain" />}<div className="min-w-0"><h1 dir={node.kind === 'book' || node.kind === 'series' ? 'ltr' : undefined} lang={node.kind === 'book' || node.kind === 'series' ? 'en' : undefined} className="text-2xl font-extrabold text-primary">{nodeTitle(node)}</h1>{course && node.kind !== 'book' && <p dir="ltr" lang="en" className="mt-1 text-muted-foreground">{node.title_en}</p>}</div></div><SaveCourse node={node} /></header>
+    <header className={`flex flex-wrap items-center justify-between gap-4 ${node.kind === 'book' ? 'book-heading card-soft p-5' : ''}`}><div className="flex min-w-0 flex-1 basis-56 items-center gap-4">{node.kind === 'book' && COURSE_ART[node.id] && <img src={publicAssetUrl(COURSE_ART[node.id]!.src)} alt={`${node.title_en} cover`} width="72" height="100" className="h-25 w-18 shrink-0 rounded-md object-contain" />}<div className="min-w-0"><h1 dir={node.kind === 'book' || node.kind === 'series' ? 'ltr' : undefined} lang={node.kind === 'book' || node.kind === 'series' ? 'en' : undefined} className="text-2xl font-extrabold text-primary">{nodeTitle(node)}</h1>{course && node.kind !== 'book' && <p dir="ltr" lang="en" className="mt-1 text-muted-foreground">{node.title_en}</p>}</div></div><SaveCourse node={node} /></header>
     <EvolveGuide node={node} />
     <OxfordGuide node={node} />
     <ProjectGuide node={node} />

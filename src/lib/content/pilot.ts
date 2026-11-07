@@ -25,6 +25,7 @@ import { OXFORD_INTERMEDIATE, OXFORD_INTERMEDIATE_NODES, OXFORD_INTERMEDIATE_REL
 import { OXFORD_UPPER_NODES, OXFORD_UPPER_RELEASES } from './oxford-upper';
 import { selectQuestions } from './core';
 import { refineNativeArtAsset } from './native-art';
+import { publicAssetUrl } from '@/lib/public-asset';
 import type { Catalogue, QuestionPack, Scope, AlignmentPack, Asset } from './contracts';
 
 export const PILOT = raw as unknown as QuestionPack;
@@ -99,7 +100,7 @@ export function mediaAsset(ref: unknown): (Asset & {url:string;alt:string}) | nu
   const id = typeof ref === 'string' ? ref : ref && typeof ref === 'object' && 'asset_id' in ref ? String(ref.asset_id) : '';
   const a = assetsById.get(id);
   const pointer = staticAssets.get(id) ?? pointers[id];
-  return a?.review_status === 'ready' && pointer ? { ...a, url: pointer.url, alt: String(a['alt_en'] ?? '') } : null;
+  return a?.review_status === 'ready' && pointer ? { ...a, url: publicAssetUrl(pointer.url), alt: String(a['alt_en'] ?? '') } : null;
 }
 /** Adapt only the alignment field names; preserve status, evidence and reviewer provenance. */
 export const PILOT_ALIGNMENTS = { ...alignmentRaw, alignments: alignmentRaw.alignments.map(e => ({

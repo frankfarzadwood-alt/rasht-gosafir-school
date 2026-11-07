@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button";
 import { ActivityLink, DailyGoal, NodeCard } from "@/components/LearningHub";
 import { useProgress, update, useHydrated } from "@/lib/progress";
 import { missions, useBankVersion, MODES } from "@/lib/bank";
-import { bookmark, courseTitle, legacyBookmark, nodeById, nodeScope, nodeTitle, restoreBookmark, safeScopeQuestions as scopeQuestions, savedStats, setLearning, useLearning, childrenOf } from "@/lib/learning";
+import { bookmark, comingSoonBook, courseTitle, legacyBookmark, nodeById, nodeScope, nodeTitle, restoreBookmark, safeScopeQuestions as scopeQuestions, savedStats, setLearning, useLearning, childrenOf } from "@/lib/learning";
+import type { CatalogueNode } from "@/lib/content/contracts";
+import { COMING_SOON } from "@/lib/presentation-mode";
 import { pageMeta } from "@/lib/pageMeta";
 import { fa } from "@/lib/fa";
 
@@ -13,6 +15,13 @@ export const Route = createFileRoute("/")({
   head: () => pageMeta("خانه", "ادامهٔ یادگیری، هدف روزانه، دوره‌های من و مرور اشتباهات با سؤال‌های واقعی انگلیسی."),
   component: Home,
 });
+
+function CourseOption({ book }: { book: CatalogueNode }) {
+  const locked = Boolean(comingSoonBook(book.id));
+  const status = locked ? COMING_SOON : scopeQuestions(nodeScope(book.id)).length ? "تمرین آماده" : "در حال آماده‌سازی";
+  return <option value={book.id} disabled={locked}>{nodeTitle(book)} — {status}</option>;
+}
+
 function Home() {
   const p = useProgress(), learning = useLearning(), hydrated = useHydrated();
   useBankVersion();
@@ -23,12 +32,12 @@ function Home() {
     <span className="text-4xl" aria-hidden>🚀</span><h1 className="text-3xl font-extrabold text-primary">سلام! آماده‌ای؟</h1>
     <p className="text-sm text-muted-foreground">با نامی که دوست داری شروع کن. حساب کاربری ساخته نمی‌شود؛ یادگیری فقط روی همین دستگاه ذخیره می‌شود.</p>
     <form className="space-y-4" onSubmit={e => {
-      e.preventDefault(); if (!name.trim()) return;
+      e.preventDefault(); if (!name.trim() || comingSoonBook(initial)) return;
       update(s => ({ ...s, nickname: name.trim().slice(0, 24) }));
       setLearning(s => ({ ...s, current: bookmark(initial), saved: nodeById(initial)?.kind === "book" ? [...new Set([...s.saved, initial])] : s.saved }));
     }}>
       <div className="space-y-2"><label htmlFor="nick" className="font-bold">نام شما</label><input id="nick" autoComplete="off" value={name} onChange={e => setName(e.target.value)} maxLength={24} placeholder="مثلاً ستاره" className="h-12 w-full rounded-xl border-2 border-input bg-card px-4" /><p className="text-xs text-muted-foreground">نامی که دوست داری در برنامه نمایش داده شود.</p></div>
-      <div className="space-y-2"><label htmlFor="initial-course" className="font-bold">از کجا شروع می‌کنی؟</label><select id="initial-course" className="h-12 w-full rounded-xl border border-input bg-card px-3" value={initial} onChange={e => setInitial(e.target.value)}><option value="school">انگلیسی مدرسه — انتخاب پایه و نوبت</option>{childrenOf("general").map(series => <optgroup label={nodeTitle(series)} key={series.id}>{childrenOf(series.id).map(book => <option key={book.id} value={book.id}>{nodeTitle(book)}{scopeQuestions(nodeScope(book.id)).length ? ' — تمرین آماده' : ' — در حال آماده‌سازی'}</option>)}</optgroup>)}<optgroup label="آیلتس">{childrenOf("ielts").map(n => <option key={n.id} value={n.id}>{nodeTitle(n)}{scopeQuestions(nodeScope(n.id)).length ? ' — تمرین آماده' : ' — در حال آماده‌سازی'}</option>)}</optgroup></select></div>
+      <div className="space-y-2"><label htmlFor="initial-course" className="font-bold">از کجا شروع می‌کنی؟</label><select id="initial-course" className="h-12 w-full rounded-xl border border-input bg-card px-3" value={initial} onChange={e => setInitial(e.target.value)}><option value="school">انگلیسی مدرسه — انتخاب پایه و نوبت</option>{childrenOf("general").map(series => <optgroup label={nodeTitle(series)} key={series.id}>{childrenOf(series.id).map(book => <CourseOption key={book.id} book={book} />)}</optgroup>)}<optgroup label="آیلتس">{childrenOf("ielts").map(book => <CourseOption key={book.id} book={book} />)}</optgroup></select></div>
       <Button type="submit" className="btn w-full" disabled={!name.trim()}>شروع یادگیری<ArrowLeft /></Button>
     </form>
   </section>;
