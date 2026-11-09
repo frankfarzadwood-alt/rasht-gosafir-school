@@ -3,7 +3,7 @@ import { NativePhoto } from './NativeScene';
 import { mediaAsset } from '@/lib/content/pilot';
 import { learnerInstruction } from "@/lib/display";
 import { learnerAnswerCase, sentenceTileLabels } from "@/lib/answer-case";
-import { evolvePromptFa } from "@/lib/evolve-prompts";
+import { questionPromptFa } from "@/lib/question-prompts";
 import { useId } from "react";
 import { type Question, gradeChoice, isAccepted, isChoice, shuffle, letterPool, correctText, isBookQuestion } from "@/lib/bank";
 import { Button } from './ui/button';
@@ -16,7 +16,7 @@ export function En({ children, className = "" }: { children: React.ReactNode; cl
 }
 
 export function PersianPrompt({ q }: { q: Question }) {
-  const text = evolvePromptFa(q.id, q.prompt_en);
+  const text = questionPromptFa(q.id, q.prompt_en);
   return text ? <p dir="rtl" lang="fa" className="mt-2 text-right text-sm leading-relaxed text-muted-foreground">{text}</p> : null;
 }
 

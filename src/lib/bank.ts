@@ -5,7 +5,7 @@ import { evolveUnitNumbers, type NativeScene } from './content/evolve';
 import { projectWritingUnits } from './content/project-series';
 import { ieltsWritingUnits,ieltsSpeakingTasks } from './content/ielts-series';
 import { learnerAnswerCase } from './answer-case';
-import { evolvePromptFa } from './evolve-prompts';
+import { questionPromptFa } from './question-prompts';
 
 export type Option = { id: string; text: string };
 export type Pair = { left: string; right: string };
@@ -236,10 +236,10 @@ export function pairCandidates(track: Question[]): PairCard[] {
     // retain these questions and provide their context/audio/image controls.
     if (q.context_id || q.native_scene || q.native_options || q.assets.source_audio_required || q.assets.source_image_required || q.assets.required_asset_ids?.length) continue;
     if (q.format === "matching" && q.pairs && (q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs"))) {
-      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, clueFa: evolvePromptFa(q.id, p.left), answer: learnerAnswerCase(q, p.right), skill: q.skill }));
+      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, clueFa: questionPromptFa(q.id, p.left), answer: learnerAnswerCase(q, p.right), skill: q.skill }));
     } else if ((q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs")) && q.answer.value && q.prompt_en) {
       if (!isBookQuestion(q) && q.prompt_en.length > 90) continue;
-      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, clueFa: evolvePromptFa(q.id, q.prompt_en), answer: correctText(q), skill: q.skill });
+      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, clueFa: questionPromptFa(q.id, q.prompt_en), answer: correctText(q), skill: q.skill });
     }
   }
   return out;
