@@ -7,10 +7,24 @@ import { GameRunner } from './GameRunner';
 import { QuestionView } from './QuestionView';
 import { EVOLVE_NATIVE } from '@/lib/content/evolve';
 import { BUNDLED_QUESTIONS, letterPool, type Question } from '@/lib/bank';
+import { evolvePromptFa } from '@/lib/evolve-prompts';
 import { getProgress } from '@/lib/progress';
 
 afterEach(cleanup);
 describe('native exercise interactions', () => {
+  it('provides a Persian counterpart for the ready Evolve 1–3 prompts and preserves their blanks', () => {
+    for (const book of [1, 2, 3]) {
+      const questions = BUNDLED_QUESTIONS.filter(q => q.id.startsWith(`evolve${book}.`) && q.review_status === 'ready' && q.prompt_en);
+      expect(questions.length).toBeGreaterThan(1000);
+      const incomplete = questions.filter(q => {
+        const translation = evolvePromptFa(q.id, q.prompt_en);
+        return !translation || !/[آ-ی]/.test(translation) ||
+          JSON.stringify(translation.match(/_{2,}/g)) !== JSON.stringify(q.prompt_en?.match(/_{2,}/g));
+      });
+      expect(incomplete.map(q => q.id)).toEqual([]);
+    }
+    expect(evolvePromptFa('evolve4.example', 'Put the words in order to make a sentence.')).toBeUndefined();
+  });
   it('scrambles saved letter inventories, preserves duplicates and offers varied orders',()=>{
     for(const word of ['letter','whiteboard','notebook','banana','all','dad']) {
       const saved=[...word].reverse(), before=[...saved], orders=new Set<string>();
@@ -25,6 +39,8 @@ describe('native exercise interactions', () => {
       if(new Set(word).size>2)expect(orders.size).toBeGreaterThan(2);
     }
     expect(letterPool('aaa',['a','a','a'],0)).toEqual(['a','a','a']);
+    expect([...letterPool('Peru',['e','r','p','u'],0)].sort()).toEqual([...'Peru'].sort());
+    expect([...letterPool('Spanish',[...'spanish'],0)].sort()).toEqual([...'Spanish'].sort());
   });
   it('keeps shuffled letters stable during a question and grades duplicate tiles correctly',()=>{
     const original=BUNDLED_QUESTIONS.find(q=>q.id==='ows.elem2.u001.v.whiteboard')!;

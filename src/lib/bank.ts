@@ -4,6 +4,8 @@ import { PILOT, BOOK_CONTENT, BOOK_RELEASES, mediaAsset } from './content/pilot'
 import { evolveUnitNumbers, type NativeScene } from './content/evolve';
 import { projectWritingUnits } from './content/project-series';
 import { ieltsWritingUnits,ieltsSpeakingTasks } from './content/ielts-series';
+import { learnerAnswerCase } from './answer-case';
+import { evolvePromptFa } from './evolve-prompts';
 
 export type Option = { id: string; text: string };
 export type Pair = { left: string; right: string };
@@ -147,7 +149,8 @@ export function gradeTokens(q: Question, order: string[]) {
 export const correctText = (q: Question) => {
   const correctImage = q.answer.correct_option_id && q.native_options?.[q.answer.correct_option_id];
   if (correctImage) return mediaAsset(correctImage)?.alt || q.answer.value || "Correct picture";
-  return isChoice(q) ? q.options.find((o) => o.id === q.answer.correct_option_id)?.text ?? q.answer.value ?? "" : q.answer.value ?? "";
+  const text = isChoice(q) ? q.options.find((o) => o.id === q.answer.correct_option_id)?.text ?? q.answer.value ?? "" : q.answer.value ?? "";
+  return learnerAnswerCase(q, text);
 };
 
 // ---------- Track queries ----------
@@ -195,12 +198,16 @@ export function gapItems(track: Question[]): GapItem[] {
   return out;
 }
 
+function matchingLetters(word: string, pool?: readonly string[]) {
+  return pool?.map(letter => letter.toLowerCase()).sort().join('') === word.toLowerCase().split('').sort().join('');
+}
+
 export function forgeItems(track: Question[]) {
-  return track.filter((q) => q.eligible_games.includes("word_forge") && /^[A-Za-z]{3,14}$/.test(q.answer.value ?? "") && (!isBookQuestion(q) || (q.letter_pool?.map(s => s.toLowerCase()).sort().join('') === q.answer.value?.toLowerCase().split('').sort().join(''))));
+  return track.filter((q) => q.eligible_games.includes("word_forge") && /^[A-Za-z]{3,14}$/.test(q.answer.value ?? "") && (!isBookQuestion(q) || matchingLetters(q.answer.value!, q.letter_pool)));
 }
 /** Approved pools specify the letters, not their display order. Scramble afresh for each question. */
 export function letterPool(word: string, approvedPool?: readonly string[], seed = Math.random()): string[] {
-  const letters = approvedPool?.length ? [...approvedPool] : word.split('');
+  const letters = !approvedPool?.length || matchingLetters(word, approvedPool) ? [...word] : [...approvedPool];
   const blocked = new Set([word.toLowerCase(), word.split('').reverse().join('').toLowerCase()]);
   const predictable = (pool: string[]) => blocked.has(pool.join('').toLowerCase());
   let mixed = shuffle(letters, seed);
@@ -221,7 +228,7 @@ export function sentenceItems(track: Question[]) {
   return track.filter((q) => q.eligible_games.includes("sentence_builder") && q.format === "reorder_words" && tokensMatch(q));
 }
 
-export type PairCard = { key: string; qid: string; clue: string; answer: string; skill: string };
+export type PairCard = { key: string; qid: string; clue: string; clueFa?: string | undefined; answer: string; skill: string };
 export function pairCandidates(track: Question[]): PairCard[] {
   const out: PairCard[] = [];
   for (const q of track) {
@@ -229,10 +236,10 @@ export function pairCandidates(track: Question[]): PairCard[] {
     // retain these questions and provide their context/audio/image controls.
     if (q.context_id || q.native_scene || q.native_options || q.assets.source_audio_required || q.assets.source_image_required || q.assets.required_asset_ids?.length) continue;
     if (q.format === "matching" && q.pairs && (q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs"))) {
-      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, answer: p.right, skill: q.skill }));
+      q.pairs.forEach((p, i) => out.push({ key: `${q.id}#${i}`, qid: q.canonical_id, clue: p.left, clueFa: evolvePromptFa(q.id, p.left), answer: learnerAnswerCase(q, p.right), skill: q.skill }));
     } else if ((q.eligible_games.includes("match_arena") || q.eligible_games.includes("memory_pairs")) && q.answer.value && q.prompt_en) {
       if (!isBookQuestion(q) && q.prompt_en.length > 90) continue;
-      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, answer: correctText(q), skill: q.skill });
+      out.push({ key: q.id, qid: q.canonical_id, clue: q.prompt_en, clueFa: evolvePromptFa(q.id, q.prompt_en), answer: correctText(q), skill: q.skill });
     }
   }
   return out;

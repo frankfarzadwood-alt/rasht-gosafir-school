@@ -42,7 +42,7 @@ export function MatchArena({ set, grade, term, scope, footer }: { set: PairCard[
       <div className="grid gap-3 sm:grid-cols-2" dir="ltr">
         <div className="space-y-2">{set.map((c) => (
           <button key={c.key} disabled={matched.includes(c.key)} aria-pressed={sel === c.key} onClick={() => setSel(c.key)}
-            className={`chip en w-full text-left text-sm ${sel === c.key ? "border-primary bg-secondary" : ""} ${matched.includes(c.key) ? "border-success opacity-60" : ""}`}>{c.clue}</button>
+            className={`chip en w-full text-left text-sm ${sel === c.key ? "border-primary bg-secondary" : ""} ${matched.includes(c.key) ? "border-success opacity-60" : ""}`}>{c.clue}{c.clueFa && <span dir="rtl" lang="fa" className="mt-1 block text-right font-sans text-muted-foreground">{c.clueFa}</span>}</button>
         ))}</div>
         <div className="space-y-2">{rights.map((c) => (
           <button key={c.key} disabled={matched.includes(c.key) || !sel} onClick={() => pick(c)}
@@ -54,7 +54,7 @@ export function MatchArena({ set, grade, term, scope, footer }: { set: PairCard[
 }
 
 export function MemoryPairs({ set, grade, term, scope, footer }: { set: PairCard[]; grade: number | null; term: number | null; scope?: string; footer: React.ReactNode }) {
-  const cards = useMemo(() => shuffle(set.flatMap((c) => [{ id: c.key + "|c", key: c.key, text: c.clue, side: "سرنخ" }, { id: c.key + "|a", key: c.key, text: c.answer, side: "جواب" }])), [set]);
+  const cards = useMemo(() => shuffle(set.flatMap((c) => [{ id: c.key + "|c", key: c.key, text: c.clue, textFa: c.clueFa, side: "سرنخ" }, { id: c.key + "|a", key: c.key, text: c.answer, textFa: undefined, side: "جواب" }])), [set]);
   const [open, setOpen] = useState<string[]>([]);
   const [found, setFound] = useState<string[]>([]);
   const [seen, setSeen] = useState<string[]>([]);
@@ -101,7 +101,7 @@ export function MemoryPairs({ set, grade, term, scope, footer }: { set: PairCard
         return (
           <button key={c.id} onClick={() => flip(c.id)} disabled={found.includes(c.key)} aria-label={up ? `${c.side}: ${c.text}` : "کارت بسته"}
             className={`min-h-28 rounded-2xl border-2 p-3 text-sm font-semibold transition ${up ? "en border-teal bg-card text-left" : "border-primary bg-primary text-primary-foreground"} ${found.includes(c.key) ? "opacity-60" : ""}`}>
-            {up ? <><span className="block text-xs text-muted-foreground" dir="rtl">{c.side}</span>{c.text}</> : "?"}
+            {up ? <><span className="block text-xs text-muted-foreground" dir="rtl">{c.side}</span>{c.text}{c.textFa && <span dir="rtl" lang="fa" className="mt-1 block text-right font-sans text-muted-foreground">{c.textFa}</span>}</> : "?"}
           </button>
         );
       })}

@@ -7,8 +7,11 @@ import { defineConfig } from "vite";
 
 const app = fileURLToPath(new URL("./", import.meta.url));
 const outDir = resolve(app, "dist/pages");
-// Project 1 uses a few shared Oxford pictures. Copy the referenced media families.
-const media = ["evolve-1-native", "project-1-native", "oxford-elementary-native"];
+// Project 1 and IELTS Vocabulary 6.0 also use shared Oxford pictures.
+const media = [
+  "evolve-1-native", "project-1-native", "ielts-vocabulary60-native",
+  "oxford-elementary-native", "oxford-intermediate-native",
+];
 
 export default defineConfig({
   root: resolve(app, "pages"),

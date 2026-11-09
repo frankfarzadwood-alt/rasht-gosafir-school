@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NativeScene } from './NativeScene';
 import { Link } from "@tanstack/react-router";
-import { QuestionView, hintFor, En, type Item } from "./QuestionView";
+import { QuestionView, PersianPrompt, hintFor, En, type Item } from "./QuestionView";
 import { correctText, contextById, type Context } from "@/lib/bank";
 import { recordAttempt, update } from "@/lib/progress";
 import { fa, SKILL_FA } from "@/lib/fa";
@@ -103,6 +103,7 @@ export function GameRunner({
             <ul className="space-y-2">{wrong.map((r) => (
               <li key={r.item.q.id} className="rounded-xl bg-muted p-3 text-sm">
                 <En className="font-semibold">{r.item.q.prompt_en}</En>
+                <PersianPrompt q={r.item.q} />
                 <div className="mt-1">پاسخ درست: <En className="font-bold text-success">{correctText(r.item.q)}</En></div>
                 {r.firstResponse && <div className="mt-1">پاسخ اول تو: <En className="text-destructive">{r.firstResponse}</En></div>}
                 {r.correctedOnRetry && <div className="mt-1 font-bold text-teal">✔ در تلاش دوباره درست شد (در دقت اولین تلاش حساب نمی‌شود)</div>}

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { NativePhoto } from './NativeScene';
 import { mediaAsset } from '@/lib/content/pilot';
 import { learnerInstruction } from "@/lib/display";
+import { learnerAnswerCase, sentenceTileLabels } from "@/lib/answer-case";
+import { evolvePromptFa } from "@/lib/evolve-prompts";
 import { useId } from "react";
 import { type Question, gradeChoice, isAccepted, isChoice, shuffle, letterPool, correctText, isBookQuestion } from "@/lib/bank";
 import { Button } from './ui/button';
@@ -13,11 +15,18 @@ export function En({ children, className = "" }: { children: React.ReactNode; cl
   return <span dir="ltr" lang="en" className={`en inline-block text-left ${className}`}>{children}</span>;
 }
 
-function Prompt({ text, fill }: { text: string; fill?: string | null }) {
-  if (fill === undefined) return <p dir="ltr" lang="en" className="en text-left text-xl font-semibold leading-relaxed">{text}</p>;
+export function PersianPrompt({ q }: { q: Question }) {
+  const text = evolvePromptFa(q.id, q.prompt_en);
+  return text ? <p dir="rtl" lang="fa" className="mt-2 text-right text-sm leading-relaxed text-muted-foreground">{text}</p> : null;
+}
+
+function Prompt({ q, fill, compact }: { q: Question; fill?: string | null; compact?: boolean }) {
+  const text = q.prompt_en ?? "";
+  const className = `en text-left leading-relaxed ${compact ? "text-sm text-muted-foreground" : "text-xl font-semibold"}`;
+  if (fill === undefined) return <><p dir="ltr" lang="en" className={className}>{text}</p><PersianPrompt q={q} /></>;
   const parts = text.split(/_{2,}/);
   return (
-    <p dir="ltr" lang="en" className="en text-left text-xl font-semibold leading-relaxed">
+    <><p dir="ltr" lang="en" className={className}>
       {parts.map((p, i) => (
         <span key={i}>
           {p}
@@ -28,7 +37,7 @@ function Prompt({ text, fill }: { text: string; fill?: string | null }) {
           )}
         </span>
       ))}
-    </p>
+    </p><PersianPrompt q={q} /></>
   );
 }
 
@@ -53,7 +62,7 @@ export function QuestionView({ item, mode, locked, onSubmit, onMediaReady }: Pro
       {q.native_options ? <PictureChoices key={q.id} q={q} locked={locked} onSubmit={onSubmit} onMediaReady={onMediaReady} />
         : kind === "chips" ? <ChipGap key={q.id} item={item} locked={locked} onSubmit={onSubmit} />
         : kind === "letters" ? <Builder key={q.id} q={q} tiles={letterPool(q.answer.value ?? "", q.letter_pool)} joiner="" locked={locked} onSubmit={onSubmit} clue />
-        : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(q.reorder_tokens ?? [])} joiner=" " locked={locked} onSubmit={onSubmit} />
+        : kind === "tokens" || q.format === "reorder_words" ? <Builder key={q.id} q={q} tiles={shuffle(sentenceTileLabels(q))} joiner=" " locked={locked} onSubmit={onSubmit} />
         : q.format === "matching" && q.pairs?.length ? <PairsInline key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : q.format === "matching" && isBookQuestion(q) ? <BoundedAnswer key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
         : isChoice(q) ? <Choices key={q.id} q={q} locked={locked} onSubmit={onSubmit} />
@@ -67,12 +76,15 @@ function PictureChoices({ q, locked, onSubmit, onMediaReady }: { q: Question; lo
   const [loaded, setLoaded] = useState<string[]>([]), [failed, setFailed] = useState(false), [retry, setRetry] = useState(0);
   const ready = !failed && loaded.length === q.options.length;
   useEffect(() => { onMediaReady?.(ready); }, [ready, onMediaReady]);
-  return <><Prompt text={q.prompt_en ?? ''} /><div className="grid grid-cols-3 gap-3" dir="ltr">{opts.map((o,i) => {const label=String.fromCharCode(65+i),assetId=q.native_options![o.id]!;return <button key={o.id} disabled={locked || !ready} aria-label={`Picture ${label}`} className="rounded-2xl border-2 border-border bg-card p-1 transition hover:border-primary focus-visible:outline-2 focus-visible:outline-primary disabled:cursor-default" onClick={() => onSubmit(mediaAsset(assetId)?.alt || `Picture ${label}`, gradeChoice(q,o.id))}><NativePhoto key={`${o.id}:${retry}`} assetId={assetId} onLoad={() => setLoaded(ids => ids.includes(o.id) ? ids : [...ids,o.id])} onError={() => setFailed(true)} /><span className="block py-1 text-sm font-bold">{label}</span></button>;})}</div>{failed && <div role="alert" className="space-y-2"><p>تصویرها بارگیری نشدند؛ پاسخی ثبت نشده است.</p><Button variant="outline" onClick={() => { setLoaded([]); setFailed(false); setRetry(r => r+1); }}>تلاش دوباره</Button></div>}</>;
+  return <><Prompt q={q} /><div className="grid grid-cols-3 gap-3" dir="ltr">{opts.map((o,i) => {const label=String.fromCharCode(65+i),assetId=q.native_options![o.id]!;return <button key={o.id} disabled={locked || !ready} aria-label={`Picture ${label}`} className="rounded-2xl border-2 border-border bg-card p-1 transition hover:border-primary focus-visible:outline-2 focus-visible:outline-primary disabled:cursor-default" onClick={() => onSubmit(mediaAsset(assetId)?.alt || `Picture ${label}`, gradeChoice(q,o.id))}><NativePhoto key={`${o.id}:${retry}`} assetId={assetId} onLoad={() => setLoaded(ids => ids.includes(o.id) ? ids : [...ids,o.id])} onError={() => setFailed(true)} /><span className="block py-1 text-sm font-bold">{label}</span></button>;})}</div>{failed && <div role="alert" className="space-y-2"><p>تصویرها بارگیری نشدند؛ پاسخی ثبت نشده است.</p><Button variant="outline" onClick={() => { setLoaded([]); setFailed(false); setRetry(r => r+1); }}>تلاش دوباره</Button></div>}</>;
 }
 
 function BoundedAnswer({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit: Props['onSubmit'] }) {
   const [bank] = useState(() => shuffle(q.word_bank ?? []));
-  return <><Prompt text={q.prompt_en ?? ''} /><div dir="ltr" className="grid gap-2 sm:grid-cols-2">{bank.map(w => <Button key={w} disabled={locked} variant="outline" className="en h-auto min-h-12 whitespace-normal text-left" onClick={() => onSubmit(w, isAccepted(q, w))}>{w}</Button>)}</div></>;
+  return <><Prompt q={q} /><div dir="ltr" className="grid gap-2 sm:grid-cols-2">{bank.map(w => {
+    const label = learnerAnswerCase(q, w);
+    return <Button key={w} disabled={locked} variant="outline" className="en h-auto min-h-12 whitespace-normal text-left" onClick={() => onSubmit(label, isAccepted(q, w))}>{label}</Button>;
+  })}</div></>;
 }
 
 function Choices({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit: Props["onSubmit"] }) {
@@ -80,15 +92,16 @@ function Choices({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubm
   const [picked, setPicked] = useState<string | null>(null);
   return (
     <>
-      {q.prompt_en && <Prompt text={q.prompt_en} />}
+      {q.prompt_en && <Prompt q={q} />}
       <div role="radiogroup" aria-label="گزینه‌ها" className="grid gap-3 sm:grid-cols-2" dir="ltr">
         {opts.map((o) => {
+          const label = learnerAnswerCase(q, o.text);
           const state = locked && picked ? (o.id === q.answer.correct_option_id ? "border-success bg-success/10" : o.id === picked ? "border-destructive bg-destructive/10" : "") : picked === o.id ? "border-primary bg-secondary" : "";
           return (
             <button key={o.id} role="radio" aria-checked={picked === o.id} disabled={locked}
-              onClick={() => { setPicked(o.id); onSubmit(o.text, gradeChoice(q, o.id)); }}
+              onClick={() => { setPicked(o.id); onSubmit(label, gradeChoice(q, o.id)); }}
               className={`chip en text-left text-lg ${state}`} lang="en">
-              {o.text}
+              {label}
             </button>
           );
         })}
@@ -102,7 +115,7 @@ function Typed({ q, locked, onSubmit }: { q: Question; locked: boolean; onSubmit
   const id = useId();
   return (
     <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); if (v.trim()) onSubmit(v, isAccepted(q, v)); }}>
-      {q.prompt_en && <Prompt text={q.prompt_en} />}
+      {q.prompt_en && <Prompt q={q} />}
       <label htmlFor={id} className="block text-sm font-bold">پاسخ انگلیسی</label>
       <input id={id} autoFocus dir="ltr" lang="en" value={v} maxLength={120} disabled={locked} autoComplete="off" spellCheck={false}
         onChange={(e) => setV(e.target.value)}
@@ -117,14 +130,14 @@ function ChipGap({ item, locked, onSubmit }: Props) {
   const [fill, setFill] = useState<string | null>(null);
   return (
     <>
-      <Prompt text={q.prompt_en ?? ""} fill={fill} />
+      <Prompt q={q} fill={fill === null ? null : learnerAnswerCase(q, fill)} />
       <div className="flex flex-wrap gap-2" dir="ltr" aria-label="بانک کلمات">
         {(item.pool ?? []).map((w) => (
           <button key={w} disabled={locked} aria-pressed={fill === w} onClick={() => setFill(w)}
-            className={`chip en ${fill === w ? "border-primary bg-secondary" : ""}`} lang="en">{w}</button>
+            className={`chip en ${fill === w ? "border-primary bg-secondary" : ""}`} lang="en">{learnerAnswerCase(q, w)}</button>
         ))}
       </div>
-      {!locked && <button className="btn w-full bg-primary text-primary-foreground" disabled={!fill} onClick={() => fill && onSubmit(fill, isAccepted(q, fill))}>قرار بده و بررسی کن</button>}
+      {!locked && <button className="btn w-full bg-primary text-primary-foreground" disabled={!fill} onClick={() => fill && onSubmit(learnerAnswerCase(q, fill), isAccepted(q, fill))}>قرار بده و بررسی کن</button>}
     </>
   );
 }
@@ -136,7 +149,7 @@ function Builder({ q, tiles, joiner, locked, onSubmit, clue }: { q: Question; ti
   const text = placed.map((i) => init[i]!.t).join(joiner);
   return (
     <>
-      {q.prompt_en && (clue ? <Prompt text={q.prompt_en} /> : <p dir="ltr" lang="en" className="en text-left text-sm text-muted-foreground">{q.prompt_en}</p>)}
+      {q.prompt_en && <Prompt q={q} compact={!clue} />}
       <div dir="ltr" aria-live="polite" aria-label="پاسخ ساخته‌شده" className="flex min-h-16 flex-wrap items-center gap-2 rounded-2xl border-2 border-dashed border-teal bg-accent/40 p-3">
         {placed.length === 0 && <span className="text-sm text-muted-foreground" dir="rtl">روی کارت‌ها بزن تا اینجا قرار بگیرند</span>}
         {placed.map((i, k) => (
@@ -153,7 +166,7 @@ function Builder({ q, tiles, joiner, locked, onSubmit, clue }: { q: Question; ti
         <div className="flex gap-2">
           <button className="btn border border-border" onClick={() => setPlaced(placed.slice(0, -1))} disabled={!placed.length}>↩ برگرداندن</button>
           <button className="btn flex-1 bg-primary text-primary-foreground" disabled={left.length > 0}
-            onClick={() => onSubmit(text, joiner === "" ? isAccepted(q, text) : isAccepted(q, text))}>بررسی</button>
+            onClick={() => onSubmit(text, isAccepted(q, text))}>بررسی</button>
         </div>
       )}
     </>
@@ -168,15 +181,15 @@ function PairsInline({ q, locked, onSubmit }: { q: Question; locked: boolean; on
   const done = Object.keys(map).length === pairs.length;
   return (
     <>
-      <Prompt text={q.prompt_en ?? ""} />
+      <Prompt q={q} />
       <div className="grid grid-cols-2 gap-3" dir="ltr">
         <div className="space-y-2">{pairs.map((p) => (
           <button key={p.left} disabled={locked} aria-pressed={sel === p.left} onClick={() => setSel(p.left)}
-            className={`chip en w-full text-left ${sel === p.left ? "border-primary bg-secondary" : ""}`}>{p.left}{map[p.left] && <span className="text-teal"> → {map[p.left]}</span>}</button>
+            className={`chip en w-full text-left ${sel === p.left ? "border-primary bg-secondary" : ""}`}>{p.left}{map[p.left] && <span className="text-teal"> → {learnerAnswerCase(q, map[p.left]!)}</span>}</button>
         ))}</div>
         <div className="space-y-2">{rights.map((r) => (
           <button key={r} disabled={locked || !sel || Object.values(map).includes(r)} onClick={() => { if (sel) { setMap({ ...map, [sel]: r }); setSel(null); } }}
-            className="chip en w-full text-left">{r}</button>
+            className="chip en w-full text-left">{learnerAnswerCase(q, r)}</button>
         ))}</div>
       </div>
       {!locked && <button className="btn w-full bg-primary text-primary-foreground" disabled={!done}
