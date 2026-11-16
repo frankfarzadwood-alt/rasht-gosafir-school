@@ -12,28 +12,39 @@ import { getProgress } from '@/lib/progress';
 
 afterEach(cleanup);
 describe('native exercise interactions', () => {
-  it('provides bilingual prompts for Evolve 1–2 and Project 1–2, preserving their blanks', () => {
-    for (const book of ['evolve1', 'evolve2', 'project1', 'project2']) {
-      const questions = BUNDLED_QUESTIONS.filter(q => q.id.startsWith(`${book}.`) && q.review_status === 'ready' && q.prompt_en);
-      expect(questions.length).toBeGreaterThan(700);
-      const incomplete = questions.filter(q => {
-        const translation = questionPromptFa(q.id, q.prompt_en);
-        return !translation || !/[آ-ی]/.test(translation) ||
-          JSON.stringify(translation.match(/_{2,}/g)) !== JSON.stringify(q.prompt_en?.match(/_{2,}/g));
-      });
-      expect(incomplete.map(q => q.id)).toEqual([]);
-    }
-    expect(BUNDLED_QUESTIONS.filter(q => q.id.startsWith('evolve3.') && questionPromptFa(q.id, q.prompt_en))).toEqual([]);
-    expect(questionPromptFa('evolve3.example', 'Put the words in order to make a sentence.')).toBeUndefined();
+  it('keeps Persian only for Evolve 1 units 1–6 and all of Project 1, preserving their blanks', () => {
+    const questions = BUNDLED_QUESTIONS.filter(q => /^(evolve[123]|project[12])\./.test(q.id) && q.review_status === 'ready' && q.prompt_en);
+    const bilingual = questions.filter(q => q.id.startsWith('project1.') ||
+      q.placements?.some(p => /^evolve-1\.u00[1-6](?:\.|$)/.test(p.node_id)));
+    const englishOnly = questions.filter(q => !bilingual.includes(q));
+    expect(bilingual.length).toBeGreaterThan(1500);
+    expect(englishOnly.length).toBeGreaterThan(3000);
+    const incomplete = bilingual.filter(q => {
+      const translation = questionPromptFa(q.id, q.prompt_en);
+      return !translation || !/[آ-ی]/.test(translation) ||
+        JSON.stringify(translation.match(/_{2,}/g)) !== JSON.stringify(q.prompt_en?.match(/_{2,}/g));
+    });
+    expect(incomplete.map(q => q.id)).toEqual([]);
+    expect(englishOnly.filter(q => questionPromptFa(q.id, q.prompt_en)).map(q => q.id)).toEqual([]);
+    const sharedPrompt = 'Put the word tiles in order to make a question.';
+    expect(questionPromptFa('evolve1.wb.u04.s2.e2a.02', sharedPrompt)).toBeTruthy();
+    expect(questionPromptFa('evolve1.wb.u12.s3.e1a.06', sharedPrompt)).toBeUndefined();
   });
-  it('renders the English prompt for Project 1–2 and Evolve 3 with Persian only for Project', () => {
-    const ids = ['project1.native.u1.v1', 'project2.native.u1.v1', 'evolve3.native.wb.u01.v1'];
-    for (const id of ids) {
+  it('renders Persian in Project 1 and at the Evolve 1 unit 6 boundary only where enabled', () => {
+    const examples = [
+      ['project1.native.u1.v1', true],
+      ['project2.native.u1.v1', false],
+      ['evolve1.quiz.u06.a.a.01', true],
+      ['evolve1.quiz.u07.a.f.01', false],
+      ['evolve2.native.wb.u01.v1', false],
+      ['evolve3.native.wb.u01.v1', false],
+    ] as const;
+    for (const [id, bilingual] of examples) {
       const q = BUNDLED_QUESTIONS.find(q => q.id === id)!;
       const view = render(<QuestionView item={{ q, kind: 'auto' }} locked={false} onSubmit={vi.fn()} />);
       expect(view.container.querySelector('p[lang="en"][dir="ltr"]')).toHaveTextContent(q.prompt_en!);
       const persian = view.container.querySelector('p[lang="fa"][dir="rtl"]');
-      if (id.startsWith('project')) expect(persian).toHaveTextContent(/[آ-ی]/);
+      if (bilingual) expect(persian).toHaveTextContent(/[آ-ی]/);
       else expect(persian).toBeNull();
       view.unmount();
     }
